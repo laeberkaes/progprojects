@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/fuchur/Documents/Hochschule/HS-AlbSig/Programmieren/C|C++/helloworld/build/default",
+  "command": "/usr/bin/c++ -O3 -DNDEBUG -o CMakeFiles/helloworld.dir/helloworld.cpp.o -c \"/home/fuchur/Documents/Hochschule/HS-AlbSig/Programmieren/C|C++/helloworld/helloworld.cpp\"",
+  "file": "/home/fuchur/Documents/Hochschule/HS-AlbSig/Programmieren/C|C++/helloworld/helloworld.cpp"
+}
+]

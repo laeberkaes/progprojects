@@ -1,0 +1,4 @@
+cmake --build . -- -v
+[1/2] /usr/bin/c++   -O3 -DNDEBUG -MD -MT CMakeFiles/helloworld.dir/helloworld.cpp.o -MF CMakeFiles/helloworld.dir/helloworld.cpp.o.d -o CMakeFiles/helloworld.dir/helloworld.cpp.o -c ../../helloworld.cpp
+[2/2] : && /usr/bin/c++ -O3 -DNDEBUG -rdynamic CMakeFiles/helloworld.dir/helloworld.cpp.o -o helloworld   && :
+Build complete (0 errors, 0 warnings): /home/fuchur/Documents/Hochschule/HS-AlbSig/Programmieren/C|C++/helloworld/build/default

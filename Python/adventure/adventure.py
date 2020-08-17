@@ -1,3 +1,7 @@
 import player
+import level
 
-spieler = player.Player("Thomas")
+play = True
+
+
+while play:

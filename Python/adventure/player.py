@@ -16,6 +16,7 @@ class Player:
     def levelUp(self):
         self.level += 1
         self.health_max += 20
+        self.ep = 0
 
     def getEP(self,amount):
         self.ep += amount

@@ -1,8 +1,11 @@
+import weapon
+
 class Player:
     def __init__(self):
         self.name = ""
         self.play_class = ""
-        self.hp = 0
+        self.health_max = 0
+        self.health_cur = self.health_max
         self.mp = 0
         self.ep = 0
         self.level = 1
@@ -35,7 +38,7 @@ class Player:
         self.potion += amount
 
     def usePotion(self):
-        if self.potions > 0
+        if self.potions > 0:
             self.health_cur += 25
             if self.health_cur > self.health_max:
                 self.health_cur = self.health_max

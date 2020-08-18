@@ -49,8 +49,9 @@ DOWN = "down"
 LEFT = "left"
 RIGHT = "right"
 SOLVED_ENCOUNTER_COUNT = 0
+ENCOUNTERS = 0
 ENC_POS = True
-POSSIBILITIES = [0.95,0.05,0]
+POSSIBILITIES = (0.95,0.05,0)
 
 solved_places = {'a1': True, 'a2': True, 'a3': False, 'a4': False, 'b1': True, 'b2': True, 'b3': False, 'b4': False, 'c1': False, 'c2': False, 'c3': False, 'c4': False, 'd1': False, 'd2': False, 'd3': False, 'd4': False}
 
@@ -292,9 +293,9 @@ def promt():
     if action.lower() == "quit":
         sys.exit()
     elif action.lower() in ["move","go","travel","walk"]:
-        player_move(action.lower())
+        player_move()
     elif action.lower() in ["examine","inspect","interact","look"]:
-        player_examine(action.lower())
+        player_examine()
 
 
 def player_move():
@@ -359,7 +360,6 @@ def player_examine():
     else:
         print(zonemap[myPlayer.location][EXAMINATION])
         zonemap[myPlayer.location][SOLVED] = True
-        solved_places[myPlayer.location] = True
         if all(solved_places.values()):
             myPlayer.game_over = True
         time.sleep(3)
@@ -372,7 +372,7 @@ def intro():
     speach_manipulation(question3,0.05)
     speach_manipulation("Welcome to this fantasy world I created for you. ;)\n",0.05)
     speach_manipulation("I hope you will have some fun\n ... \n ... \n ...\n",0.15)
-    speach_manipulation("Well, you are not the first adventurer here. There have been many before you. And to be honest, there will be many after you have ... ",0.05)
+    speach_manipulation("Well, you are not the first adventurer here. There have been many before you. And to be honest, there will be many after you ... when you have ... ",0.05)
     speach_manipulation("passed away ... \n", 0.25)
     speach_manipulation("Now have some fun exploring the world. We will see each other when it's time to.\n",0.05)
     time.sleep(2)

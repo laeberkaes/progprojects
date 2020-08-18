@@ -352,6 +352,9 @@ def player_move(myAction):
             stay(dest)
 
 def movement(destination):
+
+    # Hier würde dann die Ecounter Funktion rein passen denke ich.
+
     myPlayer.location = destination
     print("You have moved to the " + zonemap[myPlayer.location][ZONENAME] + ".")
     time.sleep(3)

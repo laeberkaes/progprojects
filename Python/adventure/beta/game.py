@@ -352,13 +352,19 @@ def player_move(myAction):
             stay(dest)
 
 def movement(destination):
-
-    # Hier würde dann die Ecounter Funktion rein passen denke ich.
-
     myPlayer.location = destination
     print("You have moved to the " + zonemap[myPlayer.location][ZONENAME] + ".")
     time.sleep(3)
     os.system("clear")
+    if not zonemap[myPlayer.location][SOLVED] and zonemap[myPlayer.location][ENC_POS]:
+        pass
+    # Hier würde dann die Ecounter Funktion rein passen denke ich.
+    # Und nach dem Encounter dann:
+    
+    # zonemap[myPlayer.location][SOLVED_ENCOUNTER_COUNT] += 1
+    # if zonemap[myPlayer.location][SOLVED_ENCOUNTER_COUNT] == 2:
+    #     zonemap[myPlayer.location][SOLVED] = True
+    #     solved_places[myPlayer.location] = True
 
 def stay(dir):
     directions = {"up":"north","down":"south","left":"west","right":"east"}

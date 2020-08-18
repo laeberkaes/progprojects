@@ -59,7 +59,7 @@ DOWN = "down"
 LEFT = "left"
 RIGHT = "right"
 
-solved_places = {'a1': True, 'a2': True, 'a3': True, 'a4': True, 'b1': True, 'b2': False, 'b3': True, 'b4': True, 'c1': True, 'c2': True, 'c3': True, 'c4': True, 'd1': True, 'd2': True, 'd3': True, 'd4': True}
+solved_places = {'a1': False, 'a2': False, 'a3': False, 'a4': False, 'b1': False, 'b2': False, 'b3': False, 'b4': False, 'c1': False, 'c2': False, 'c3': False, 'c4': False, 'd1': False, 'd2': False, 'd3': False, 'd4': False}
 
 zonemap = {
     "a1": {

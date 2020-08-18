@@ -1,7 +1,5 @@
 import cmd, textwrap, sys, os, time, random
 
-screen_width = 100
-
 class Player:
     def __init__(self, name: str):
         self.name = name

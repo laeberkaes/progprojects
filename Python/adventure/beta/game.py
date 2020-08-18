@@ -1,57 +1,9 @@
 import cmd, textwrap, sys, os, time, random
-import weapon
+import weapon, player
 
 screen_width = 60
 
-class Player:
-    def __init__(self):
-        self.name = ""
-        self.play_class = ""
-        self.hp = 0
-        self.mp = 0
-        self.ep = 0
-        self.level = 1
-        self.status_effects = []
-        self.location = "b2"
-        self.game_over = False
-        self.weapon = weapon.getWeapon(self.level)
-        self.potions = 1
-        self.inventory = []
-
-    def levelUp(self):
-        self.level += 1
-        self.health_max += 20
-        self.ep = 0
-        POSSIBILITIES = [POSSIBILITIES[0]-(self.level*0.05),POSSIBILITIES[1]+(self.level*0.1),POSSIBILITIES[2]+(self.level*0.05)]
-
-    def getEP(self,amount):
-        self.ep += amount
-        if self.ep > 100:
-            self.levelUp()
-
-    def getWeapon(self,weapon):
-        self.weapon = weapon
-
-    def getGold(self,amount):
-        self.gold += amount
-
-    def getPotion(self,amount):
-        self.potion += amount
-
-    def usePotion(self):
-        if self.potions > 0
-            self.health_cur += 25
-            if self.health_cur > self.health_max:
-                self.health_cur = self.health_max
-        self.potions -= 1
-
-    def getProtect(self,amount):
-        self.protect += amount
-
-    def getObject(self,object):
-        self.inventory.append(object)
-
-myPlayer = Player()
+myPlayer = player.Player()
 
 ##### Title #####
 def title_screen_selections():

@@ -5,7 +5,7 @@ screen_width = 60
 
 class Player:
     def __init__(self):
-        self.name = name
+        self.name = ""
         self.play_class = ""
         self.hp = 0
         self.mp = 0
@@ -15,11 +15,14 @@ class Player:
         self.location = "b2"
         self.game_over = False
         self.weapon = weapon.getWeapon(self.level)
+        self.potions = 1
+        self.inventory = []
 
     def levelUp(self):
         self.level += 1
         self.health_max += 20
         self.ep = 0
+        POSSIBILITIES = [POSSIBILITIES[0]-(self.level*0.05),POSSIBILITIES[1]+(self.level*0.1),POSSIBILITIES[2]+(self.level*0.05)]
 
     def getEP(self,amount):
         self.ep += amount
@@ -36,12 +39,17 @@ class Player:
         self.potion += amount
 
     def usePotion(self):
-        self.health_cur += 25
-        if self.health_cur > self.health_max:
-            self.health_cur = self.health_max
+        if self.potions > 0
+            self.health_cur += 25
+            if self.health_cur > self.health_max:
+                self.health_cur = self.health_max
+        self.potions -= 1
 
     def getProtect(self,amount):
         self.protect += amount
+
+    def getObject(self,object):
+        self.inventory.append(object)
 
 myPlayer = Player()
 
@@ -80,15 +88,17 @@ def help_menu():
     title_screen_selections()
 
 ### MAP ###
-# ZONENAME = ""
-# DESCRIPTION = "description"
-# EXAMINATION = "examine"
-# SOLVED = False
-# UP = "up"
-# DOWN = "down"
-# LEFT = "left"
-# RIGHT = "right"
-# SOLVED_ENCOUNTER_COUNT = 0
+ZONENAME = ""
+DESCRIPTION = "description"
+EXAMINATION = "examine"
+SOLVED = False
+UP = "up"
+DOWN = "down"
+LEFT = "left"
+RIGHT = "right"
+SOLVED_ENCOUNTER_COUNT = 0
+ENC_POS = True
+POSSIBILITIES = [0.95,0.05,0]
 
 solved_places = {'a1': True, 'a2': True, 'a3': False, 'a4': False, 'b1': True, 'b2': True, 'b3': False, 'b4': False, 'c1': False, 'c2': False, 'c3': False, 'c4': False, 'd1': False, 'd2': False, 'd3': False, 'd4': False}
 
@@ -102,8 +112,9 @@ zonemap = {
         DOWN: "b1",
         LEFT: "",
         RIGHT: "a2",
-        SOLVED_ENCOUNTER_COUNT: 0,
-        ENC_POS: False
+        ENCOUNTERS: 0,
+        ENC_POS: False,
+        POSSIBILITIES: POSSIBILITIES
     },
     "a2": {
         ZONENAME: "Towngate",
@@ -114,8 +125,9 @@ zonemap = {
         DOWN: "b2",
         LEFT: "a1",
         RIGHT: "a3",
-        SOLVED_ENCOUNTER_COUNT: 0,
-        ENC_POS: False
+        ENCOUNTERS: 0,
+        ENC_POS: False,
+        POSSIBILITIES: POSSIBILITIES
     },
     "a3": {
         ZONENAME: "Grassland",
@@ -126,8 +138,9 @@ zonemap = {
         DOWN: "b3",
         LEFT: "a2",
         RIGHT: "a4",
-        SOLVED_ENCOUNTER_COUNT: 0,
-        ENC_POS: True
+        ENCOUNTERS: 2,
+        ENC_POS: True,
+        POSSIBILITIES: POSSIBILITIES
     },
     "a4": {
         ZONENAME: "Little Pond",
@@ -138,8 +151,9 @@ zonemap = {
         DOWN: "b4",
         LEFT: "a3",
         RIGHT: "",
-        SOLVED_ENCOUNTER_COUNT: 0,
-        ENC_POS: True
+        ENCOUNTERS: 2,
+        ENC_POS: True,
+        POSSIBILITIES: POSSIBILITIES
     },
     "b1": {
         ZONENAME: "Blacksmith",
@@ -150,8 +164,9 @@ zonemap = {
         DOWN: "c1",
         LEFT: "",
         RIGHT: "b2",
-        SOLVED_ENCOUNTER_COUNT: 0,
-        ENC_POS: False
+        ENCOUNTERS: 0,
+        ENC_POS: False,
+        POSSIBILITIES: POSSIBILITIES
     },
     "b2": {
         ZONENAME: "Home",
@@ -162,8 +177,9 @@ zonemap = {
         DOWN: "c2",
         LEFT: "b1",
         RIGHT: "b3",
-        SOLVED_ENCOUNTER_COUNT: 0,
-        ENC_POS: False
+        ENCOUNTERS: 0,
+        ENC_POS: False,
+        POSSIBILITIES: POSSIBILITIES
     },
     "b3": {
         ZONENAME: "Small Forest",
@@ -174,8 +190,9 @@ zonemap = {
         DOWN: "c3",
         LEFT: "b2",
         RIGHT: "b4",
-        SOLVED_ENCOUNTER_COUNT: 0,
-        ENC_POS: True
+        ENCOUNTERS: 3,
+        ENC_POS: True,
+        POSSIBILITIES: POSSIBILITIES
     },
     "b4": {
         ZONENAME: "Small Forest",
@@ -186,8 +203,9 @@ zonemap = {
         DOWN: "c4",
         LEFT: "b3",
         RIGHT: "",
-        SOLVED_ENCOUNTER_COUNT: 0,
-        ENC_POS: True
+        ENCOUNTERS: 3,
+        ENC_POS: True,
+        POSSIBILITIES: POSSIBILITIES
     },
     "c1": {
         ZONENAME: "Little River",
@@ -195,11 +213,12 @@ zonemap = {
         EXAMINATION: "Further to the forest you can see a bridge over the river.",
         SOLVED: False,
         UP: "b1",
-        DOWN: "d1",
+        DOWN: "",
         LEFT: "",
         RIGHT: "c2",
-        SOLVED_ENCOUNTER_COUNT: 0,
-        ENC_POS: True
+        ENCOUNTERS: 2,
+        ENC_POS: True,
+        POSSIBILITIES: POSSIBILITIES
     },
     "c2": {
         ZONENAME: "Little River (Bridge)",
@@ -210,8 +229,9 @@ zonemap = {
         DOWN: "d2",
         LEFT: "c1",
         RIGHT: "c3",
-        SOLVED_ENCOUNTER_COUNT: 0,
-        ENC_POS: True
+        ENCOUNTERS: 2,
+        ENC_POS: True,
+        POSSIBILITIES: POSSIBILITIES
     },
     "c3": {
         ZONENAME: "Small Forest",
@@ -222,8 +242,9 @@ zonemap = {
         DOWN: "d3",
         LEFT: "c2",
         RIGHT: "c4",
-        SOLVED_ENCOUNTER_COUNT: 0,
-        ENC_POS: True
+        ENCOUNTERS: 3,
+        ENC_POS: True,
+        POSSIBILITIES: POSSIBILITIES
     },
     "c4": {
         ZONENAME: "Small Forest",
@@ -234,20 +255,22 @@ zonemap = {
         DOWN: "d4",
         LEFT: "c3",
         RIGHT: "",
-        SOLVED_ENCOUNTER_COUNT: 0,
-        ENC_POS: True
+        ENCOUNTERS: 3,
+        ENC_POS: True,
+        POSSIBILITIES: POSSIBILITIES
     },
     "d1": {
         ZONENAME: "Cave",
         DESCRIPTION: "Down in the south is a small Trollcave.",
         EXAMINATION: "You see some skelletons of deer and horses. Is it really a good idea to go into the cave?",
         SOLVED: False,
-        UP: "c1",
+        UP: "",
         DOWN: "",
         LEFT: "",
         RIGHT: "d2",
-        SOLVED_ENCOUNTER_COUNT: 0,
-        ENC_POS: True
+        ENCOUNTERS: 5,
+        ENC_POS: True,
+        POSSIBILITIES: [0.7,0.3,1]
     },
     "d2": {
         ZONENAME: "Cornfield",
@@ -258,8 +281,9 @@ zonemap = {
         DOWN: "",
         LEFT: "d1",
         RIGHT: "d3",
-        SOLVED_ENCOUNTER_COUNT: 0,
-        ENC_POS: True
+        ENCOUNTERS: 2,
+        ENC_POS: True,
+        POSSIBILITIES: POSSIBILITIES
     },
     "d3": {
         ZONENAME: "Farm",
@@ -270,8 +294,9 @@ zonemap = {
         DOWN: "",
         LEFT: "d2",
         RIGHT: "d4",
-        SOLVED_ENCOUNTER_COUNT: 0,
-        ENC_POS: True
+        ENCOUNTERS: 3,
+        ENC_POS: True,
+        POSSIBILITIES: POSSIBILITIES
     },
     "d4": {
         ZONENAME: "Bandit Hideout",
@@ -282,8 +307,9 @@ zonemap = {
         DOWN: "",
         LEFT: "d3",
         RIGHT: "",
-        SOLVED_ENCOUNTER_COUNT: 0,
-        ENC_POS: True
+        ENCOUNTERS: 7,
+        ENC_POS: True,
+        POSSIBILITIES: [0.5,1,0]
     }
 }
 
@@ -319,7 +345,7 @@ def promt():
         player_examine(action.lower())
 
 
-def player_move(myAction):
+def player_move():
     dest = input("Where do you like to move to? (up, down, left, right)\n> ")
 
     while dest not in ["up","down","left","right"]:
@@ -357,10 +383,10 @@ def movement(destination):
     time.sleep(3)
     os.system("clear")
     if not zonemap[myPlayer.location][SOLVED] and zonemap[myPlayer.location][ENC_POS]:
-        pass
+        pass # muss dann weg
     # Hier würde dann die Ecounter Funktion rein passen denke ich.
     # Und nach dem Encounter dann:
-    
+
     # zonemap[myPlayer.location][SOLVED_ENCOUNTER_COUNT] += 1
     # if zonemap[myPlayer.location][SOLVED_ENCOUNTER_COUNT] == 2:
     #     zonemap[myPlayer.location][SOLVED] = True
@@ -372,7 +398,7 @@ def stay(dir):
     time.sleep(3)
     os.system("clear")
 
-def player_examine(action):
+def player_examine():
     if zonemap[myPlayer.location][SOLVED]:
         print("You have already been here.")
         print(zonemap[myPlayer.location][EXAMINATION])

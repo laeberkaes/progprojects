@@ -46,10 +46,6 @@ def help_manu():
     title_screen_selections()
 
 
-##### Game #####
-def start_game():
-
-
 ### MAP ###
 ZONENAME = ""
 DESCRIPTION = "description"
@@ -124,103 +120,109 @@ zonemap = {
         RIGHT = "b3"
     },
     "b3": {
-        ZONENAME = "",
-        DESCRIPTION = "description",
-        EXAMINATION = "examin",
+        ZONENAME = "Small Forest",
+        DESCRIPTION = "A small forest next to your home.",
+        EXAMINATION = "You could hunt in this forest to get some food. But some bandits were seen in there, too.",
         SOLVED = False,
-        UP = "up",
-        DOWN = "down",
-        LEFT = "left",
-        RIGHT = "right"
+        UP = "a3",
+        DOWN = "c3",
+        LEFT = "b2",
+        RIGHT = "b4"
     },
     "b4": {
-        ZONENAME = "",
-        DESCRIPTION = "description",
-        EXAMINATION = "examin",
+        ZONENAME = "Small Forest",
+        DESCRIPTION = "A small forest next to your home.",
+        EXAMINATION = "You could hunt in this forest to get some food. But some bandits were seen in there, too.",
         SOLVED = False,
-        UP = "up",
-        DOWN = "down",
-        LEFT = "left",
-        RIGHT = "right"
+        UP = "a4",
+        DOWN = "c4",
+        LEFT = "b3",
+        RIGHT = ""
     },
     "c1": {
-        ZONENAME = "",
-        DESCRIPTION = "description",
-        EXAMINATION = "examin",
+        ZONENAME = "Little River",
+        DESCRIPTION = "This river comes out of the forest in the east.",
+        EXAMINATION = "Further to the forest you can see a bridge over the river.",
         SOLVED = False,
-        UP = "up",
-        DOWN = "down",
-        LEFT = "left",
-        RIGHT = "right"
+        UP = "b1",
+        DOWN = "d1",
+        LEFT = "",
+        RIGHT = "c2"
     },
     "c2": {
-        ZONENAME = "",
-        DESCRIPTION = "description",
-        EXAMINATION = "examin",
+        ZONENAME = "Little River (Bridge)",
+        DESCRIPTION = "This river comes out of the forest in the east.",
+        EXAMINATION = "You see a bridge leading over the river to get to the other side.",
         SOLVED = False,
-        UP = "up",
-        DOWN = "down",
-        LEFT = "left",
-        RIGHT = "right"
+        UP = "b2",
+        DOWN = "d2",
+        LEFT = "c1",
+        RIGHT = "c3"
     },
     "c3": {
-        ZONENAME = "",
-        DESCRIPTION = "description",
-        EXAMINATION = "examin",
+        ZONENAME = "Small Forest",
+        DESCRIPTION = "A small forest next to your home.",
+        EXAMINATION = "You could hunt in this forest to get some food. But some bandits were seen in there, too.",
         SOLVED = False,
-        UP = "up",
-        DOWN = "down",
-        LEFT = "left",
-        RIGHT = "right"
+        UP = "b3",
+        DOWN = "d3",
+        LEFT = "c2",
+        RIGHT = "c4"
     },
     "c4": {
-        ZONENAME = "",
-        DESCRIPTION = "description",
-        EXAMINATION = "examin",
+        ZONENAME = "Small Forest",
+        DESCRIPTION = "A small forest next to your home.",
+        EXAMINATION = "You could hunt in this forest to get some food. But some bandits were seen in there, too.",
         SOLVED = False,
-        UP = "up",
-        DOWN = "down",
-        LEFT = "left",
-        RIGHT = "right"
+        UP = "b4",
+        DOWN = "d4",
+        LEFT = "c3",
+        RIGHT = ""
     },
     "d1": {
-        ZONENAME = "",
-        DESCRIPTION = "description",
-        EXAMINATION = "examin",
+        ZONENAME = "Cave",
+        DESCRIPTION = "Down in the south is a small Trollcave.",
+        EXAMINATION = "You see some skelletons of deer and horses. Is it realy a good idea to go into the cave?",
         SOLVED = False,
-        UP = "up",
-        DOWN = "down",
-        LEFT = "left",
-        RIGHT = "right"
+        UP = "c1",
+        DOWN = "",
+        LEFT = "",
+        RIGHT = "d2"
     },
     "d2": {
-        ZONENAME = "",
-        DESCRIPTION = "description",
-        EXAMINATION = "examin",
+        ZONENAME = "Cornfield",
+        DESCRIPTION = "This cornfield belongs to the farm in the east. Maybe you can get some corn from it?",
+        EXAMINATION = "Looks like this corn is better then what you have ever seen.",
         SOLVED = False,
-        UP = "up",
-        DOWN = "down",
-        LEFT = "left",
-        RIGHT = "right"
+        UP = "c2",
+        DOWN = "",
+        LEFT = "d1",
+        RIGHT = "d3"
     },
     "d3": {
-        ZONENAME = "",
-        DESCRIPTION = "description",
-        EXAMINATION = "examin",
+        ZONENAME = "Farm",
+        DESCRIPTION = "This farm is owned by an old farmer.",
+        EXAMINATION = "You have heard some scary stories about this farmer. Maybe he is not very nice?",
         SOLVED = False,
-        UP = "up",
-        DOWN = "down",
-        LEFT = "left",
-        RIGHT = "right"
+        UP = "c3",
+        DOWN = "",
+        LEFT = "d2",
+        RIGHT = "d4"
     },
     "d4": {
-        ZONENAME = "",
-        DESCRIPTION = "description",
-        EXAMINATION = "examin",
+        ZONENAME = "Bandit Hideout",
+        DESCRIPTION = "This looks like some bandit hideout, which was not here the last time you were. here",
+        EXAMINATION = "You cannot see any other human beeing. But you feel that you better move away.",
         SOLVED = False,
-        UP = "up",
-        DOWN = "down",
-        LEFT = "left",
-        RIGHT = "right"
+        UP = "c4",
+        DOWN = "",
+        LEFT = "d3",
+        RIGHT = ""
     }
 }
+
+def print_location():
+    print("\n"+ ("#"*(4+len(myPlayer.location))))
+
+##### Game #####
+def start_game():

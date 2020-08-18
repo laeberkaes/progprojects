@@ -1,5 +1,7 @@
 import cmd, textwrap, sys, os, time, random
 
+screen_width = 60
+
 class Player:
     def __init__(self, name: str):
         self.name = name
@@ -27,12 +29,13 @@ def title_screen_selections():
         title_screen_selections()
 
 def title_screen():
-    print("#"*27)
+    print("#"*(4+len("Welcome to the Text RPG")))
     print("# Welcome to the Text RPG #")
-    print("#"*27)
-    print("          -play-           ")
-    print("          -help-           ")
-    print("          -quit-           ")
+    print("#"*(4+len("Welcome to the Text RPG")))
+    print("# " + (" "*int((len("Welcome to the Text RPG")-6)/2)) + "-play-" + (" "*int((len("Welcome to the Text RPG")-6)/2)) + " #")
+    print("# " + (" "*int((len("Welcome to the Text RPG")-6)/2)) + "-help-" + (" "*int((len("Welcome to the Text RPG")-6)/2)) + " #")
+    print("# " + (" "*int((len("Welcome to the Text RPG")-6)/2)) + "-quit-" + (" "*int((len("Welcome to the Text RPG")-6)/2)) + " #")
+    print("#"*(4+len("Welcome to the Text RPG"))+"\n")
     title_screen_selections()
 
 def help_menu():
@@ -49,7 +52,7 @@ def help_menu():
 ### MAP ###
 ZONENAME = ""
 DESCRIPTION = "description"
-EXAMINATION = "examin"
+EXAMINATION = "examine"
 SOLVED = False
 UP = "up"
 DOWN = "down"
@@ -222,20 +225,27 @@ zonemap = {
 }
 
 def print_location():
-    print("\n" + ("#"*(4+len(myPlayer.location))))
-    print("# " + myPlayer.location.upper() + " #")
-    print("# " + zonemap[myPlayer.location][DESCRIPTION] + " #")
-    print("\n" + ("#"*(4+len(myPlayer.location))))
+    print("#"*screen_width)
+    print((" " * int((screen_width-len(myPlayer.location))/2)) + myPlayer.location.upper() + (" " * int((screen_width-len(myPlayer.location))/2)))
+    print((" " * int((screen_width-len(zonemap[myPlayer.location][DESCRIPTION]))/2)) + zonemap[myPlayer.location][DESCRIPTION] + (" " * int((screen_width-len(zonemap[myPlayer.location][DESCRIPTION]))/2)))
+    if zonemap[myPlayer.location][SOLVED]:
+        print((" " * int((screen_width-len(zonemap[myPlayer.location][EXAMINATION]+"Examination"))/2)) + "Examination: " + zonemap[myPlayer.location][EXAMINATION] + (" " * int((screen_width-len(zonemap[myPlayer.location][EXAMINATION]+"Examination"))/2)))
+    print("#"*screen_width)
 
 def promt():
-    print("\n"+"="*20)
-    print("What would you like to do?")
+    print("You are here:")
+    print_location()
+    print("\n"+"="*len("What would you like to do?"))
+    print("What would you like to do?\n")
+    print("-"*len("What would you like to do?"))
+    print(" "*(int((len("What would you like to do?")-len("examine or move?"))/2))+"examine or move?")
+    print("-"*len("What would you like to do?")+"\n")
 
     action = input("> ")
     acceptable_locations = ["move","go","travel","walk","quit","examine","inspect","interact","look"]
 
     while action.lower() not in acceptable_locations:
-        print("Unknown action. Try again. (move, quit, examine, interact)")
+        print("Unknown action. Try again. (move, quit, examine)")
         action = input("> ")
 
     if action.lower() == "quit":
@@ -243,48 +253,64 @@ def promt():
     elif action.lower() in ["move","go","travel","walk"]:
         player_move(action.lower())
     elif action.lower() in ["examine","inspect","interact","look"]:
-        player_examin(action.lower())
+        player_examine(action.lower())
+
 
 def player_move(myAction):
-    dest = input("Where do you like to move to?\n> ")
+    dest = input("Where do you like to move to? (up, down, left, right)\n> ")
+
+    while dest not in ["up","down","left","right"]:
+        print("Invalid entry!")
+        dest = input("Where do you like to move to? (up, down, left, right)\n> ")
 
     if dest == "up":
         if zonemap[myPlayer.location][UP] != "":
             destination = zonemap[myPlayer.location][UP]
             movement(destination)
         else:
-            print("You cannot move further north.")
+            stay(dest)
     elif dest == "down":
         if zonemap[myPlayer.location][DOWN] != "":
             destination = zonemap[myPlayer.location][DOWN]
             movement(destination)
         else:
-            print("You cannot move further south.")
+            stay(dest)
     elif dest == "right":
         if zonemap[myPlayer.location][RIGHT] != "":
             destination = zonemap[myPlayer.location][RIGHT]
             movement(destination)
         else:
-            print("You cannot move further west.")
+            stay(dest)
     elif dest == "left":
         if zonemap[myPlayer.location][LEFT] != "":
             destination = zonemap[myPlayer.location][LEFT]
             movement(destination)
         else:
-            print("You cannot move further east.")
+            stay(dest)
 
 def movement(destination):
     myPlayer.location = destination
-    print("You have moved to the " + destination + ".")
-    print_location()
+    print("You have moved to the " + zonemap[myPlayer.location][ZONENAME] + ".")
+    time.sleep(3)
+    os.system("clear")
 
-def player_examin(action):
+def stay(dir):
+    directions = {"up":"north","down":"south","left":"west","right":"east"}
+    print("You cannot move further " + directions[dir] + ".")
+    time.sleep(3)
+    os.system("clear")
+
+def player_examine(action):
     if zonemap[myPlayer.location][SOLVED]:
         print("You have already been here.")
         print(zonemap[myPlayer.location][EXAMINATION])
+        time.sleep(3)
+        os.system("clear")
     else:
         print(zonemap[myPlayer.location][EXAMINATION])
         zonemap[myPlayer.location][SOLVED]=True
+        time.sleep(3)
+        os.system("clear")
 
 def game_loop():
     while not myPlayer.game_over:
@@ -300,12 +326,17 @@ def setup_game():
     os.system("clear")
     question1 = "Hello what's your name?\n"
     speach_manipulation(question1,0.05)
+    print("")
     myPlayer.name = input("> ").lower()
+
+    os.system("clear")
 
     classes = ["warrior","mage","rogue"]
     question2 = "What Class do you want to play? (Warrior, Mage, Rogue)\n"
     speach_manipulation(question2,0.01)
+    print("")
     player_class = input("> ").lower()
+    print("")
     if player_class.lower() in classes:
         myPlayer.play_class = player_class
         print("You are now "+player_class)
@@ -328,6 +359,7 @@ def setup_game():
         myPlayer.mp = 40
 
     ##### Intro #####
+    os.system("clear")
     question3 = "Welcome, " + myPlayer.name + " the " + myPlayer.play_class + ".\n"
     speach_manipulation(question3,0.05)
     speach_manipulation("Welcome to this fantasy world I created for you. ;)\n",0.05)
@@ -338,9 +370,9 @@ def setup_game():
     time.sleep(2)
     os.system("clear")
 
-    print("#"*(4+len("Let's start now"))+"\n")
-    print("# Let's start now #\n")
-    print("#"*(4+len("Let's start now"))+"\n")
+    print("#"*screen_width+"\n")
+    print("#" + (" "*int((screen_width-2-len("Let's start now"))/2))  + "Let's start now" + (" "*int((screen_width-2-len("Let's start now"))/2)) + "#\n")
+    print("#"*screen_width+"\n")
 
     game_loop()
 

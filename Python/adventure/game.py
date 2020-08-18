@@ -59,7 +59,7 @@ DOWN = "down"
 LEFT = "left"
 RIGHT = "right"
 
-solved_places = {'a1': False, 'a2': False, 'a3': False, 'a4': False, 'b1': False, 'b2': False, 'b3': False, 'b4': False, 'c1': False, 'c2': False, 'c3': False, 'c4': False, 'd1': False, 'd2': False, 'd3': False, 'd4': False}
+solved_places = {'a1': True, 'a2': True, 'a3': True, 'a4': True, 'b1': True, 'b2': False, 'b3': True, 'b4': True, 'c1': True, 'c2': True, 'c3': True, 'c4': True, 'd1': True, 'd2': True, 'd3': True, 'd4': True}
 
 zonemap = {
     "a1": {
@@ -308,9 +308,25 @@ def player_examine(action):
         os.system("clear")
     else:
         print(zonemap[myPlayer.location][EXAMINATION])
-        zonemap[myPlayer.location][SOLVED]=True
+        zonemap[myPlayer.location][SOLVED] = True
+        solved_places[myPlayer.location] = True
+        if all(solved_places.values()):
+            myPlayer.game_over = True
         time.sleep(3)
         os.system("clear")
+
+def end_screen():
+    speach_manipulation("Congratulations, you have solved the complete game. I never thought you were able to do this.",0.05)
+    print("")
+    speach_manipulation("I will get in touch with you soon. Wait for a sign from me. I think I have a good job for some strong adventurer like you.",0.04)
+
+    time.sleep(5)
+    os.system("clear")
+    print("Made by laeberkaes")
+    print("Hit me up at: https://github.com/laeberkaes/ or @laeberkaes:uraltemorla.xyz")
+
+    time.sleep(5)
+    sys.exit()
 
 def game_loop():
     while not myPlayer.game_over:
@@ -375,5 +391,7 @@ def setup_game():
     print("#"*screen_width+"\n")
 
     game_loop()
+
+    end_screen()
 
 title_screen()

@@ -1,4 +1,5 @@
 import cmd, textwrap, sys, os, time, random
+import story, player, menus
 
 screen_width = 60
 
@@ -48,7 +49,6 @@ def help_menu():
     title_screen()
     title_screen_selections()
 
-
 ### MAP ###
 ZONENAME = ""
 DESCRIPTION = "description"
@@ -59,7 +59,7 @@ DOWN = "down"
 LEFT = "left"
 RIGHT = "right"
 
-solved_places = {'a1': False, 'a2': False, 'a3': False, 'a4': False, 'b1': False, 'b2': False, 'b3': False, 'b4': False, 'c1': False, 'c2': False, 'c3': False, 'c4': False, 'd1': False, 'd2': False, 'd3': False, 'd4': False}
+solved_places = {'a1': True, 'a2': True, 'a3': True, 'a4': True, 'b1': True, 'b2': False, 'b3': True, 'b4': True, 'c1': True, 'c2': True, 'c3': True, 'c4': True, 'd1': True, 'd2': True, 'd3': True, 'd4': True}
 
 zonemap = {
     "a1": {
@@ -195,7 +195,7 @@ zonemap = {
     "d2": {
         ZONENAME: "Cornfield",
         DESCRIPTION: "This cornfield belongs to the farm in the east. Maybe you can get some corn from it?",
-        EXAMINATION: "Looks like this corn is better then what you have ever seen.",
+        EXAMINATION: "Looks like this corn is better than what you have ever seen.",
         SOLVED: False,
         UP: "c2",
         DOWN: "",
@@ -214,8 +214,8 @@ zonemap = {
     },
     "d4": {
         ZONENAME: "Bandit Hideout",
-        DESCRIPTION: "This looks like some bandit hideout, which was not here the last time you were. here",
-        EXAMINATION: "You cannot see any other human beeing. But you feel that you better move away.",
+        DESCRIPTION: "This looks like some bandit hideout, which was not here the last time you were here.",
+        EXAMINATION: "You cannot see any other human being. But you feel that you better move away.",
         SOLVED: False,
         UP: "c4",
         DOWN: "",
@@ -315,8 +315,21 @@ def player_examine(action):
         time.sleep(3)
         os.system("clear")
 
+
+def intro():
+    os.system("clear")
+    question3 = "Welcome, " + myPlayer.name + " the " + myPlayer.play_class + ".\n"
+    speach_manipulation(question3,0.05)
+    speach_manipulation("Welcome to this fantasy world I created for you. ;)\n",0.05)
+    speach_manipulation("I hope you will have some fun\n ... \n ... \n ...\n",0.15)
+    speach_manipulation("Well, you are not the first adventurer here. There have been many before you. And to be honest, there will be many after you have ... ",0.05)
+    speach_manipulation("passed away ... \n", 0.25)
+    speach_manipulation("Now have some fun exploring the world. We will see each other when it's time to.\n",0.05)
+    time.sleep(2)
+    os.system("clear")
+
 def end_screen():
-    speach_manipulation("Congratulations, you have solved the complete game. I never thought you were able to do this.",0.05)
+    speach_manipulation("Congratulations, you have solved the complete game. I never thought you would be able to do this.",0.05)
     print("")
     speach_manipulation("I will get in touch with you soon. Wait for a sign from me. I think I have a good job for some strong adventurer like you.",0.04)
 
@@ -374,17 +387,7 @@ def setup_game():
         myPlayer.hp = 100
         myPlayer.mp = 40
 
-    ##### Intro #####
-    os.system("clear")
-    question3 = "Welcome, " + myPlayer.name + " the " + myPlayer.play_class + ".\n"
-    speach_manipulation(question3,0.05)
-    speach_manipulation("Welcome to this fantasy world I created for you. ;)\n",0.05)
-    speach_manipulation("I hope you will have some fun\n ... \n ... \n ...\n",0.15)
-    speach_manipulation("Well, you are not the first adventurer here. There have been many before you. And to be honest, there will be many after you have ... ",0.05)
-    speach_manipulation("passed away ... \n", 0.25)
-    speach_manipulation("Now have some fun exploring the world. We will see each other when it's time to.\n",0.05)
-    time.sleep(2)
-    os.system("clear")
+    intro()
 
     print("#"*screen_width+"\n")
     print("#" + (" "*int((screen_width-2-len("Let's start now"))/2))  + "Let's start now" + (" "*int((screen_width-2-len("Let's start now"))/2)) + "#\n")

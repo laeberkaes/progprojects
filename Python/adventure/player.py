@@ -37,5 +37,5 @@ class Player:
         if self.health_cur > self.health_max:
             self.health_cur = self.health_max
 
-    def getProtext(self,amount):
+    def getProtect(self,amount):
         self.protect += amount

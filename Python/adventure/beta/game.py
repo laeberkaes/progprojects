@@ -1,5 +1,5 @@
 import cmd, textwrap, sys, os, time, random
-import story, player, menus
+import weapon
 
 screen_width = 60
 
@@ -9,9 +9,39 @@ class Player:
         self.play_class = ""
         self.hp = 0
         self.mp = 0
+        self.ep = 0
+        self.level = 1
         self.status_effects = []
         self.location = "b2"
         self.game_over = False
+        self.weapon = weapon.getWeapon(self.level)
+
+    def levelUp(self):
+        self.level += 1
+        self.health_max += 20
+        self.ep = 0
+
+    def getEP(self,amount):
+        self.ep += amount
+        if self.ep > 100:
+            self.levelUp()
+
+    def getWeapon(self,weapon):
+        self.weapon = weapon
+
+    def getGold(self,amount):
+        self.gold += amount
+
+    def getPotion(self,amount):
+        self.potion += amount
+
+    def usePotion(self):
+        self.health_cur += 25
+        if self.health_cur > self.health_max:
+            self.health_cur = self.health_max
+
+    def getProtect(self,amount):
+        self.protect += amount
 
 myPlayer = Player("Testname")
 

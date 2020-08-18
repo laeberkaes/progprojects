@@ -4,7 +4,7 @@ import weapon
 screen_width = 60
 
 class Player:
-    def __init__(self, name: str):
+    def __init__(self):
         self.name = name
         self.play_class = ""
         self.hp = 0
@@ -43,7 +43,7 @@ class Player:
     def getProtect(self,amount):
         self.protect += amount
 
-myPlayer = Player("Testname")
+myPlayer = Player()
 
 ##### Title #####
 def title_screen_selections():
@@ -80,16 +80,17 @@ def help_menu():
     title_screen_selections()
 
 ### MAP ###
-ZONENAME = ""
-DESCRIPTION = "description"
-EXAMINATION = "examine"
-SOLVED = False
-UP = "up"
-DOWN = "down"
-LEFT = "left"
-RIGHT = "right"
+# ZONENAME = ""
+# DESCRIPTION = "description"
+# EXAMINATION = "examine"
+# SOLVED = False
+# UP = "up"
+# DOWN = "down"
+# LEFT = "left"
+# RIGHT = "right"
+# SOLVED_ENCOUNTER_COUNT = 0
 
-solved_places = {'a1': True, 'a2': True, 'a3': True, 'a4': True, 'b1': True, 'b2': False, 'b3': True, 'b4': True, 'c1': True, 'c2': True, 'c3': True, 'c4': True, 'd1': True, 'd2': True, 'd3': True, 'd4': True}
+solved_places = {'a1': True, 'a2': True, 'a3': False, 'a4': False, 'b1': True, 'b2': True, 'b3': False, 'b4': False, 'c1': False, 'c2': False, 'c3': False, 'c4': False, 'd1': False, 'd2': False, 'd3': False, 'd4': False}
 
 zonemap = {
     "a1": {
@@ -100,7 +101,9 @@ zonemap = {
         UP: "",
         DOWN: "b1",
         LEFT: "",
-        RIGHT: "a2"
+        RIGHT: "a2",
+        SOLVED_ENCOUNTER_COUNT: 0,
+        ENC_POS: False
     },
     "a2": {
         ZONENAME: "Towngate",
@@ -110,7 +113,9 @@ zonemap = {
         UP: "",
         DOWN: "b2",
         LEFT: "a1",
-        RIGHT: "a3"
+        RIGHT: "a3",
+        SOLVED_ENCOUNTER_COUNT: 0,
+        ENC_POS: False
     },
     "a3": {
         ZONENAME: "Grassland",
@@ -120,7 +125,9 @@ zonemap = {
         UP: "",
         DOWN: "b3",
         LEFT: "a2",
-        RIGHT: "a4"
+        RIGHT: "a4",
+        SOLVED_ENCOUNTER_COUNT: 0,
+        ENC_POS: True
     },
     "a4": {
         ZONENAME: "Little Pond",
@@ -130,7 +137,9 @@ zonemap = {
         UP: "",
         DOWN: "b4",
         LEFT: "a3",
-        RIGHT: ""
+        RIGHT: "",
+        SOLVED_ENCOUNTER_COUNT: 0,
+        ENC_POS: True
     },
     "b1": {
         ZONENAME: "Blacksmith",
@@ -140,7 +149,9 @@ zonemap = {
         UP: "a1",
         DOWN: "c1",
         LEFT: "",
-        RIGHT: "b2"
+        RIGHT: "b2",
+        SOLVED_ENCOUNTER_COUNT: 0,
+        ENC_POS: False
     },
     "b2": {
         ZONENAME: "Home",
@@ -150,7 +161,9 @@ zonemap = {
         UP: "a2",
         DOWN: "c2",
         LEFT: "b1",
-        RIGHT: "b3"
+        RIGHT: "b3",
+        SOLVED_ENCOUNTER_COUNT: 0,
+        ENC_POS: False
     },
     "b3": {
         ZONENAME: "Small Forest",
@@ -160,7 +173,9 @@ zonemap = {
         UP: "a3",
         DOWN: "c3",
         LEFT: "b2",
-        RIGHT: "b4"
+        RIGHT: "b4",
+        SOLVED_ENCOUNTER_COUNT: 0,
+        ENC_POS: True
     },
     "b4": {
         ZONENAME: "Small Forest",
@@ -170,7 +185,9 @@ zonemap = {
         UP: "a4",
         DOWN: "c4",
         LEFT: "b3",
-        RIGHT: ""
+        RIGHT: "",
+        SOLVED_ENCOUNTER_COUNT: 0,
+        ENC_POS: True
     },
     "c1": {
         ZONENAME: "Little River",
@@ -180,7 +197,9 @@ zonemap = {
         UP: "b1",
         DOWN: "d1",
         LEFT: "",
-        RIGHT: "c2"
+        RIGHT: "c2",
+        SOLVED_ENCOUNTER_COUNT: 0,
+        ENC_POS: True
     },
     "c2": {
         ZONENAME: "Little River (Bridge)",
@@ -190,7 +209,9 @@ zonemap = {
         UP: "b2",
         DOWN: "d2",
         LEFT: "c1",
-        RIGHT: "c3"
+        RIGHT: "c3",
+        SOLVED_ENCOUNTER_COUNT: 0,
+        ENC_POS: True
     },
     "c3": {
         ZONENAME: "Small Forest",
@@ -200,7 +221,9 @@ zonemap = {
         UP: "b3",
         DOWN: "d3",
         LEFT: "c2",
-        RIGHT: "c4"
+        RIGHT: "c4",
+        SOLVED_ENCOUNTER_COUNT: 0,
+        ENC_POS: True
     },
     "c4": {
         ZONENAME: "Small Forest",
@@ -210,7 +233,9 @@ zonemap = {
         UP: "b4",
         DOWN: "d4",
         LEFT: "c3",
-        RIGHT: ""
+        RIGHT: "",
+        SOLVED_ENCOUNTER_COUNT: 0,
+        ENC_POS: True
     },
     "d1": {
         ZONENAME: "Cave",
@@ -220,7 +245,9 @@ zonemap = {
         UP: "c1",
         DOWN: "",
         LEFT: "",
-        RIGHT: "d2"
+        RIGHT: "d2",
+        SOLVED_ENCOUNTER_COUNT: 0,
+        ENC_POS: True
     },
     "d2": {
         ZONENAME: "Cornfield",
@@ -230,7 +257,9 @@ zonemap = {
         UP: "c2",
         DOWN: "",
         LEFT: "d1",
-        RIGHT: "d3"
+        RIGHT: "d3",
+        SOLVED_ENCOUNTER_COUNT: 0,
+        ENC_POS: True
     },
     "d3": {
         ZONENAME: "Farm",
@@ -240,7 +269,9 @@ zonemap = {
         UP: "c3",
         DOWN: "",
         LEFT: "d2",
-        RIGHT: "d4"
+        RIGHT: "d4",
+        SOLVED_ENCOUNTER_COUNT: 0,
+        ENC_POS: True
     },
     "d4": {
         ZONENAME: "Bandit Hideout",
@@ -250,7 +281,9 @@ zonemap = {
         UP: "c4",
         DOWN: "",
         LEFT: "d3",
-        RIGHT: ""
+        RIGHT: "",
+        SOLVED_ENCOUNTER_COUNT: 0,
+        ENC_POS: True
     }
 }
 

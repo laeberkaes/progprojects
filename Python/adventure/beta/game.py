@@ -185,7 +185,7 @@ zonemap = {
     "d1": {
         ZONENAME: "Cave",
         DESCRIPTION: "Down in the south is a small Trollcave.",
-        EXAMINATION: "You see some skelletons of deer and horses. Is it realy a good idea to go into the cave?",
+        EXAMINATION: "You see some skelletons of deer and horses. Is it really a good idea to go into the cave?",
         SOLVED: False,
         UP: "c1",
         DOWN: "",

@@ -640,7 +640,7 @@ def fight_options():
 
 def print_location():
     print("#"*screen_width)
-    print((" " * int((screen_width-len(myPlayer.location))/2)) + myPlayer.location.upper() + (" " * int((screen_width-len(myPlayer.location))/2)))
+    print((" " * int((screen_width-len(zonemap[myPlayer.location]["ZONENAME"]))/2)) + zonemap[myPlayer.location]["ZONENAME"] + (" " * int((screen_width-len(zonemap[myPlayer.location]["ZONENAME"]))/2)))
     print((" " * int((screen_width-len(zonemap[myPlayer.location]["DESCRIPTION"]))/2)) + zonemap[myPlayer.location]["DESCRIPTION"] + (" " * int((screen_width-len(zonemap[myPlayer.location]["DESCRIPTION"]))/2)))
     if zonemap[myPlayer.location]["SOLVED"] == True:
         print((" " * int((screen_width-len(zonemap[myPlayer.location]["EXAMINATION"]+"EXAMINATION"))/2)) + "EXAMINATION: " + zonemap[myPlayer.location]["EXAMINATION"] + (" " * int((screen_width-len(zonemap[myPlayer.location]["EXAMINATION"]+"EXAMINATION"))/2)))
@@ -739,7 +739,7 @@ def player_examine():
         # poss = zonemap[myPlayer.location][POSSIBILITIES]
         # else:
         #     poss = POSSIBILITIES # global
-        fight(myPlayer,zonemap[myPlayer.location][POSSIBILITIES])
+        fight(myPlayer,zonemap[myPlayer.location]["POSSIBILITIES"])
 
     if zonemap[myPlayer.location]["SOLVED"] == True:
         print("You have already been here.")
@@ -776,6 +776,14 @@ def end_screen():
     # print("Hit me "UP" at: https://github.com/laeberkaes/ or @laeberkaes:uraltemorla.xyz")
     #
     # time.sleep(5)
+    sys.exit()
+
+def game_over():
+    os.system("clear")
+    speach_manipulation("Ouh there you are again.\n",0.5)
+    speach_manipulation("Don't understand me wrong. This is no surprise for me. Maybe you have more luck in your next reincarnation.",0.5)
+    speach_manipulation("Have a good day. :)",0.7)
+    time.sleep(2)
     sys.exit()
 
 def game_loop():

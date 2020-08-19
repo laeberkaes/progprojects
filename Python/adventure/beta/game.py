@@ -46,10 +46,12 @@ class Player:
 
     def getWeapon(self,weapon):
         self.weapon = weapon
+        self.weapon.equiped = True
         self.inventory["weapons"].append(weapon)
 
     def getArmor(self,armor):
         self.protect(armor.slot,armor.protection)
+        armor.equiped = True
         self.inventory["armor"].append(armor)
 
     def getGold(self,amount):
@@ -62,7 +64,7 @@ class Player:
         os.system("clear")
         print("#" * screen_width)
         print("=" * int((screen_width - len("WEAPONS")) / 2) + "WEAPONS" + "=" * int((screen_width - len("WEAPONS")) / 2))
-        print("EQUIPED: " + self.weapon)
+        print("EQUIPED: " + str(self.weapon)[13:])
         for weapon in self.inventory["weapons"]:
             print(weapon)
         print("")
@@ -186,11 +188,11 @@ myPlayer = Player()
 ##### Title #####
 def title_screen_selections():
     option = input("> ")
-    if option.lower() == ("Play"):
+    if option.lower() == ("play"):
         setup_game()
-    elif option.lower() == ("Help"):
+    elif option.lower() == ("help"):
         help_menu()
-    elif option.lower() == ("Quit"):
+    elif option.lower() == ("quit"):
         sys.exit()
 
     while option.lower() not in ["play","help","quit"]:
@@ -605,7 +607,7 @@ def loot(enemy,player):
             ant=input("> ")
             print(" ")
             if ant.lower()[0] == "y":
-                # player.getObject(player.weapon) #aktuelle Waffe ins Inventar
+                player.getObject(player.weapon) #aktuelle Waffe ins Inventar
                 player.getWeapon(g) #neue Waffe = aktuelle Waffe
             elif ant.lower()[0] == "n":
                 player.getObject(g) #Waffe ins Inventar

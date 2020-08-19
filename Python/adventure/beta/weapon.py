@@ -8,6 +8,7 @@ class Weapon():
         self.level = level
         self.name = random.choice(adjective) + random.choice(subst)
         self.damage = random.randrange(3,6)*level #=> 3-5
+        self.equiped = False
 
     def __repr__(self):
         return "Your weapon: "+self.name+", with "+str(self.damage)+" damage"
@@ -21,6 +22,7 @@ class Armor():
         self.level = level
         self.name = random.choice(adjective) + random.choice(subst)
         self.protection = random.randrange(10,21)*level #=> 3-5
+        self.equiped = False
 
     def __repr__(self):
         return "Your armor for the " + self.slot + ": " + self.name + ", with " + str(self.protection) + " of protection."

@@ -23,7 +23,7 @@ class Armor():
         self.protection = random.randrange(10,21)*level #=> 3-5
 
     def __repr__(self):
-        return "Your weapon: "+self.name+", with "+str(self.damage)+" damage"
+        return "Your armor for the " + self.slot + ": " + self.name + ", with " + str(self.protection) + " of protection."
 
     def equip_armor(self,person):
             if self.slot == "head":

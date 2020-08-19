@@ -13,7 +13,7 @@ class Player:
         self.ep = 90
         self.level = 1
         self.status_effects = []
-        self.location = "d2"
+        self.location = "b2"
         self.game_over = False
         self.weapon = weapon.Weapon(self.level)
         self.potions = 1
@@ -28,7 +28,7 @@ class Player:
     def health(self):
         print("Deine Gesundheit: "+str(self.health_cur)+"/"+str(self.health_max))
 
-    def levelUp(self):
+    def levelUP(self):
         self.level += 1
         self.health_max += 20
         self.ep -= 100
@@ -40,7 +40,7 @@ class Player:
     def getEP(self,amount):
         self.ep += amount
         if self.ep > 100:
-            self.levelUp()
+            self.levelUP()
 
     def getWeapon(self,weapon):
         self.weapon = weapon
@@ -55,6 +55,31 @@ class Player:
 
     def getPotion(self,amount):
         self.potions += amount
+
+    def print_inventory(self):
+        os.system("clear")
+        print("#" * screen_width)
+        print("=" * int((screen_width - len("WEAPONS")) / 2) + "WEAPONS" + "=" * int((screen_width - len("WEAPONS")) / 2))
+        for weapon in self.inventory["weapons"]:
+            print(weapon)
+        print("")
+        print("=" * int((screen_width - len("ARMOR")) / 2) + "ARMOR" + "=" * int((screen_width - len("ARMOR")) / 2))
+        for armor in self.inventory["armor"]:
+            print(armor)
+        print("")
+        print("=" * int((screen_width - len("POTIONS")) / 2) + "POTIONS" + "=" * int((screen_width - len("POTIONS")) / 2))
+        if self.potions == 1:
+            print("You have " + str(self.potions) + " potion.")
+        if self.potions > 1:
+            print("You have " + str(self.potions) + " potions.")
+        print("")
+        print("=" * int((screen_width - len("MISC")) / 2) + "MISC" + "=" * int((screen_width - len("MISC")) / 2))
+        for msc in self.inventory["misc"]:
+            print(msc + ": " + str(self.inventory["misc"][misc]))
+        print("")
+        print("Press ENTER to continue.")
+        input()
+        os.system("clear")
 
     def usePotion(self):
         if self.potions > 0:
@@ -153,7 +178,6 @@ class Player:
         time.sleep(2)
         os.system("clear")
 
-
 myPlayer = Player()
 
 ##### Title #####
@@ -171,6 +195,7 @@ def title_screen_selections():
         title_screen_selections()
 
 def title_screen():
+    os.system("clear")
     print("#"*screen_width)
     print("#" + (" " * int((screen_width-len("Welcome to the Text RPG"))/2)) + "Welcome to the Text RPG" + (" " * int((screen_width-2-len("Welcome to the Text RPG"))/2)) + "#")
     print("#" + "="*(screen_width-2) + "#")
@@ -181,12 +206,18 @@ def title_screen():
     title_screen_selections()
 
 def help_menu():
+    os.system("clear")
     print("#"*screen_width)
-    print(("="*((screen_width-len("HELP MENU"))/2)) + "HELP MENU" + ("="*((screen_width-len("HELP MENU"))/2)))
+    print(("=" * int((screen_width-len("HELP MENU"))/2)) + "HELP MENU" + ("=" * int((screen_width-len("HELP MENU"))/2)))
     print("#"*screen_width)
+    print("")
     print(" -- You can always decide to 'examine' a location or 'move' to another.")
+    print(" -- You can always see your inventory with 'show inventory'")
     print(" -- If you examine a location you may trigger a random encounter and you can 'fish', 'hunt' or 'get corn'")
     print(" -- If you move, you can device to move 'up', 'down', 'left' or 'right'")
+    print("")
+    print("Press ENTER to continue.")
+    input()
     title_screen()
     title_screen_selections()
 
@@ -194,231 +225,212 @@ def help_menu():
 solved_places = {'a1': False, 'a2': False, 'a3': False, 'a4': False, 'b1': False, 'b2': False, 'b3': False, 'b4': False, 'c1': False, 'c2': False, 'c3': False, 'c4': False, 'd1': False, 'd2': False, 'd3': False, 'd4': False}
 
 ##### MAP PRE #####
-ZONENAME = ""
-DESCRIPTION = "description"
-EXAMINATION = "examine"
-SOLVED = False
-UP = "up"
-DOWN = "down"
-LEFT = "left"
-RIGHT = "right"
-SOLVED_ENCOUNTER_COUNT = 0
-ENCOUNTERS = 0
-ENC_POS = True
+# ""ZONENAME"" = ""
+# ""DESCRIPTION"" = ""DESCRIPTION""
+# ""EXAMINATION"" = "examine"
+# ""SOLVED"" = False
+# ""UP"" = ""UP""
+# ""DOWN"" = ""DOWN""
+# ""LEFT"" = ""LEFT""
+# ""RIGHT"" = ""RIGHT""
+# ""SOLVED"_ENCOUNTER_COUNT" = 0
+# ""ENCOUNTERS"" = 0
 POSSIBILITIES = myPlayer.pos
 
 zonemap = {
     "a1": {
-        ZONENAME: "Town Marketplace",
-        DESCRIPTION: "This is the marketplace of your hometown.",
-        EXAMINATION: "You can see some stalls selling different things.",
-        SOLVED: False,
-        UP: "",
-        DOWN: "b1",
-        LEFT: "",
-        RIGHT: "a2",
-        ENCOUNTERS: 0,
-        ENC_POS: False,
-        POSSIBILITIES: POSSIBILITIES
+        "ZONENAME": "Town Marketplace",
+        "DESCRIPTION": "This is the marketplace of your hometown.",
+        "EXAMINATION": "You can see some stalls selling different things.",
+        "SOLVED": False,
+        "UP": "",
+        "DOWN": "b1",
+        "LEFT": "",
+        "RIGHT": "a2",
+        "ENCOUNTERS": 0,
+        "POSSIBILITIES": POSSIBILITIES
     },
     "a2": {
-        ZONENAME: "Towngate",
-        DESCRIPTION: "This is the gate of your hometown.",
-        EXAMINATION: "The gate is locked at night. You have to be nice to the guardsmen, if you try to enter at night.",
-        SOLVED: False,
-        UP: "",
-        DOWN: "b2",
-        LEFT: "a1",
-        RIGHT: "a3",
-        ENCOUNTERS: 0,
-        ENC_POS: False,
-        POSSIBILITIES: POSSIBILITIES
+        "ZONENAME": "Towngate",
+        "DESCRIPTION": "This is the gate of your hometown.",
+        "EXAMINATION": "The gate is locked at night. You have to be nice to the guardsmen, if you try to enter at night.",
+        "SOLVED": False,
+        "UP": "",
+        "DOWN": "b2",
+        "LEFT": "a1",
+        "RIGHT": "a3",
+        "ENCOUNTERS": 0,
+        "POSSIBILITIES": POSSIBILITIES
     },
     "a3": {
-        ZONENAME: "Grassland",
-        DESCRIPTION: "Nothing but green grass.",
-        EXAMINATION: "I'm serious. It's nothing but grass.",
-        SOLVED: False,
-        UP: "",
-        DOWN: "b3",
-        LEFT: "a2",
-        RIGHT: "a4",
-        ENCOUNTERS: 2,
-        ENC_POS: True,
-        POSSIBILITIES: POSSIBILITIES
+        "ZONENAME": "Grassland",
+        "DESCRIPTION": "Nothing but green grass.",
+        "EXAMINATION": "I'm serious. It's nothing but grass.",
+        "SOLVED": False,
+        "UP": "",
+        "DOWN": "b3",
+        "LEFT": "a2",
+        "RIGHT": "a4",
+        "ENCOUNTERS": 2,
+        "POSSIBILITIES": POSSIBILITIES
     },
     "a4": {
-        ZONENAME: "Little Pond",
-        DESCRIPTION: "This is a cute little pond.",
-        EXAMINATION: "With a fishingrot you could get some fish out of it.",
-        SOLVED: False,
-        UP: "",
-        DOWN: "b4",
-        LEFT: "a3",
-        RIGHT: "",
-        ENCOUNTERS: 2,
-        ENC_POS: True,
-        POSSIBILITIES: POSSIBILITIES
+        "ZONENAME": "Little Pond",
+        "DESCRIPTION": "This is a cute little pond.",
+        "EXAMINATION": "With a fishingrot you could get some fish out of it.",
+        "SOLVED": False,
+        "UP": "",
+        "DOWN": "b4",
+        "LEFT": "a3",
+        "RIGHT": "",
+        "ENCOUNTERS": 2,
+        "POSSIBILITIES": POSSIBILITIES
     },
     "b1": {
-        ZONENAME: "Blacksmith",
-        DESCRIPTION: "This is your local blacksmith.",
-        EXAMINATION: "Here you can buy/sell some weapons or protections",
-        SOLVED: False,
-        UP: "a1",
-        DOWN: "c1",
-        LEFT: "",
-        RIGHT: "b2",
-        ENCOUNTERS: 0,
-        ENC_POS: False,
-        POSSIBILITIES: POSSIBILITIES
+        "ZONENAME": "Blacksmith",
+        "DESCRIPTION": "This is your local blacksmith.",
+        "EXAMINATION": "Here you can buy/sell some weapons or protections",
+        "SOLVED": False,
+        "UP": "a1",
+        "DOWN": "c1",
+        "LEFT": "",
+        "RIGHT": "b2",
+        "ENCOUNTERS": 0,
+        "POSSIBILITIES": POSSIBILITIES
     },
     "b2": {
-        ZONENAME: "Home",
-        DESCRIPTION: "This is your home!",
-        EXAMINATION: "Your home looks cosy.",
-        SOLVED: False,
-        UP: "a2",
-        DOWN: "c2",
-        LEFT: "b1",
-        RIGHT: "b3",
-        ENCOUNTERS: 0,
-        ENC_POS: False,
-        POSSIBILITIES: POSSIBILITIES
+        "ZONENAME": "Home",
+        "DESCRIPTION": "This is your home!",
+        "EXAMINATION": "Your home looks cosy.",
+        "SOLVED": False,
+        "UP": "a2",
+        "DOWN": "c2",
+        "LEFT": "b1",
+        "RIGHT": "b3",
+        "ENCOUNTERS": 0,
+        "POSSIBILITIES": POSSIBILITIES
     },
     "b3": {
-        ZONENAME: "Small Forest",
-        DESCRIPTION: "A small forest next to your home.",
-        EXAMINATION: "You could hunt in this forest to get some food. But some bandits were seen in there, too.",
-        SOLVED: False,
-        UP: "a3",
-        DOWN: "c3",
-        LEFT: "b2",
-        RIGHT: "b4",
-        ENCOUNTERS: 3,
-        ENC_POS: True,
-        POSSIBILITIES: POSSIBILITIES
+        "ZONENAME": "Small Forest",
+        "DESCRIPTION": "A small forest next to your home.",
+        "EXAMINATION": "You could hunt in this forest to get some food. But some bandits were seen in there, too.",
+        "SOLVED": False,
+        "UP": "a3",
+        "DOWN": "c3",
+        "LEFT": "b2",
+        "RIGHT": "b4",
+        "ENCOUNTERS": 3,
+        "POSSIBILITIES": POSSIBILITIES
     },
     "b4": {
-        ZONENAME: "Small Forest",
-        DESCRIPTION: "A small forest next to your home.",
-        EXAMINATION: "You could hunt in this forest to get some food. But some bandits were seen in there, too.",
-        SOLVED: False,
-        UP: "a4",
-        DOWN: "c4",
-        LEFT: "b3",
-        RIGHT: "",
-        ENCOUNTERS: 3,
-        ENC_POS: True,
-        POSSIBILITIES: POSSIBILITIES
+        "ZONENAME": "Small Forest",
+        "DESCRIPTION": "A small forest next to your home.",
+        "EXAMINATION": "You could hunt in this forest to get some food. But some bandits were seen in there, too.",
+        "SOLVED": False,
+        "UP": "a4",
+        "DOWN": "c4",
+        "LEFT": "b3",
+        "RIGHT": "",
+        "ENCOUNTERS": 3,
+        "POSSIBILITIES": POSSIBILITIES
     },
     "c1": {
-        ZONENAME: "Little River",
-        DESCRIPTION: "This river comes out of the forest in the east.",
-        EXAMINATION: "Further to the forest you can see a bridge over the river.",
-        SOLVED: False,
-        UP: "b1",
-        DOWN: "",
-        LEFT: "",
-        RIGHT: "c2",
-        ENCOUNTERS: 2,
-        ENC_POS: True,
-        POSSIBILITIES: POSSIBILITIES
+        "ZONENAME": "Little River",
+        "DESCRIPTION": "This river comes out of the forest in the east.",
+        "EXAMINATION": "Further to the forest you can see a bridge over the river.",
+        "SOLVED": False,
+        "UP": "b1",
+        "DOWN": "",
+        "LEFT": "",
+        "RIGHT": "c2",
+        "ENCOUNTERS": 2,
+        "POSSIBILITIES": POSSIBILITIES
     },
     "c2": {
-        ZONENAME: "Little River (Bridge)",
-        DESCRIPTION: "This river comes out of the forest in the east.",
-        EXAMINATION: "You see a bridge leading over the river to get to the other side.",
-        SOLVED: False,
-        UP: "b2",
-        DOWN: "d2",
-        LEFT: "c1",
-        RIGHT: "c3",
-        ENCOUNTERS: 2,
-        ENC_POS: True,
-        POSSIBILITIES: POSSIBILITIES
+        "ZONENAME": "Little River (Bridge)",
+        "DESCRIPTION": "This river comes out of the forest in the east.",
+        "EXAMINATION": "You see a bridge leading over the river to get to the other side.",
+        "SOLVED": False,
+        "UP": "b2",
+        "DOWN": "d2",
+        "LEFT": "c1",
+        "RIGHT": "c3",
+        "ENCOUNTERS": 2,
+        "POSSIBILITIES": POSSIBILITIES
     },
     "c3": {
-        ZONENAME: "Small Forest",
-        DESCRIPTION: "A small forest next to your home.",
-        EXAMINATION: "You could hunt in this forest to get some food. But some bandits were seen in there, too.",
-        SOLVED: False,
-        UP: "b3",
-        DOWN: "d3",
-        LEFT: "c2",
-        RIGHT: "c4",
-        ENCOUNTERS: 3,
-        ENC_POS: True,
-        POSSIBILITIES: POSSIBILITIES
+        "ZONENAME": "Small Forest",
+        "DESCRIPTION": "A small forest next to your home.",
+        "EXAMINATION": "You could hunt in this forest to get some food. But some bandits were seen in there, too.",
+        "SOLVED": False,
+        "UP": "b3",
+        "DOWN": "d3",
+        "LEFT": "c2",
+        "RIGHT": "c4",
+        "ENCOUNTERS": 3,
+        "POSSIBILITIES": POSSIBILITIES
     },
     "c4": {
-        ZONENAME: "Small Forest",
-        DESCRIPTION: "A small forest next to your home.",
-        EXAMINATION: "You could hunt in this forest to get some food. But some bandits were seen in there, too.",
-        SOLVED: False,
-        UP: "b4",
-        DOWN: "d4",
-        LEFT: "c3",
-        RIGHT: "",
-        ENCOUNTERS: 3,
-        ENC_POS: True,
-        POSSIBILITIES: POSSIBILITIES
+        "ZONENAME": "Small Forest",
+        "DESCRIPTION": "A small forest next to your home.",
+        "EXAMINATION": "You could hunt in this forest to get some food. But some bandits were seen in there, too.",
+        "SOLVED": False,
+        "UP": "b4",
+        "DOWN": "d4",
+        "LEFT": "c3",
+        "RIGHT": "",
+        "ENCOUNTERS": 3,
+        "POSSIBILITIES": POSSIBILITIES
     },
     "d1": {
-        ZONENAME: "Cave",
-        DESCRIPTION: "Down in the south is a small Trollcave.",
-        EXAMINATION: "You see some skelletons of deer and horses. Is it really a good idea to go into the cave?",
-        SOLVED: False,
-        UP: "",
-        DOWN: "",
-        LEFT: "",
-        RIGHT: "d2",
-        ENCOUNTERS: 5,
-        ENC_POS: True,
-        POSSIBILITIES: [0.7,0.3,1]
+        "ZONENAME": "Cave",
+        "DESCRIPTION": "Down in the south is a small Trollcave.",
+        "EXAMINATION": "You see some skelletons of deer and horses. Is it really a good idea to go into the cave?",
+        "SOLVED": False,
+        "UP": "",
+        "DOWN": "",
+        "LEFT": "",
+        "RIGHT": "d2",
+        "ENCOUNTERS": 5,
+        "POSSIBILITIES": [0.7,0.3,1]
     },
     "d2": {
-        ZONENAME: "Cornfield",
-        DESCRIPTION: "This cornfield belongs to the farm in the east. Maybe you can get some corn from it?",
-        EXAMINATION: "Looks like this corn is better than what you have ever seen.",
-        SOLVED: False,
-        UP: "c2",
-        DOWN: "",
-        LEFT: "d1",
-        RIGHT: "d3",
-        ENCOUNTERS: 2,
-        ENC_POS: True,
-        POSSIBILITIES: POSSIBILITIES
+        "ZONENAME": "Cornfield",
+        "DESCRIPTION": "This cornfield belongs to the farm in the east. Maybe you can get some corn from it?",
+        "EXAMINATION": "Looks like this corn is better than what you have ever seen.",
+        "SOLVED": False,
+        "UP": "c2",
+        "DOWN": "",
+        "LEFT": "d1",
+        "RIGHT": "d3",
+        "ENCOUNTERS": 2,
+        "POSSIBILITIES": POSSIBILITIES
     },
     "d3": {
-        ZONENAME: "Farm",
-        DESCRIPTION: "This farm is owned by an old farmer.",
-        EXAMINATION: "You have heard some scary stories about this farmer. Maybe he is not very nice?",
-        SOLVED: False,
-        UP: "c3",
-        DOWN: "",
-        LEFT: "d2",
-        RIGHT: "d4",
-        ENCOUNTERS: 3,
-        ENC_POS: True,
-        POSSIBILITIES: POSSIBILITIES
+        "ZONENAME": "Farm",
+        "DESCRIPTION": "This farm is owned by an old farmer.",
+        "EXAMINATION": "You have heard some scary stories about this farmer. Maybe he is not very nice?",
+        "SOLVED": False,
+        "UP": "c3",
+        "DOWN": "",
+        "LEFT": "d2",
+        "RIGHT": "d4",
+        "ENCOUNTERS": 3,
+        "POSSIBILITIES": POSSIBILITIES
     },
     "d4": {
-        ZONENAME: "Bandit Hideout",
-        DESCRIPTION: "This looks like some bandit hideout, which was not here the last time you were here.",
-        EXAMINATION: "You cannot see any other human being. But you feel that you better move away.",
-        SOLVED: False,
-        UP: "c4",
-        DOWN: "",
-        LEFT: "d3",
-        RIGHT: "",
-        ENCOUNTERS: 7,
-        ENC_POS: True,
-        POSSIBILITIES: [0.5,1,0]
+        "ZONENAME": "Bandit Hideout",
+        "DESCRIPTION": "This looks like some bandit hideout, which was not here the last time you were here.",
+        "EXAMINATION": "You cannot see any other human being. But you feel that you better move away.",
+        "SOLVED": False,
+        "UP": "c4",
+        "DOWN": "",
+        "LEFT": "d3",
+        "RIGHT": "",
+        "ENCOUNTERS": 7,
+        "POSSIBILITIES": [0.5,1,0]
     }
 }
-
-
 
 # class Weapon():
 #     def __init__(self, level):
@@ -455,7 +467,6 @@ zonemap = {
 #             elif self.slot == "arm":
 #                 person.arm_protect += self.protection
 
-
 class NPC():
     def __init__(self,health,strength):
         self.health = health*random.randrange(10,21)
@@ -491,11 +502,11 @@ class Giant(NPC):
         self.accuracy = 0.9
         self.loot_chance = 50
         self.loot_level = 5
-        self.ep_drop = random.randrange(100,151) #bei 100EP cap quasi ein garantiertes levelUP
+        self.ep_drop = random.randrange(100,151) #bei 100EP cap quasi ein garantiertes level"UP"
 
 #in die player_examine()
 
-    # if zonemap[myPlayer.location][ENCOUNTERS] > 0:
+    # if zonemap[myPlayer.location]["ENCOUNTERS"] > 0:
     #     poss = []
     #     if zonemap[myPlayer.location][POSSIBILITIES]:
     #         poss = zonemap[myPlayer.location][POSSIBILITIES]
@@ -534,6 +545,7 @@ def fight(player,poss):
                     print("       ")
                     print("**** You won!!! ****")
                     print("       ")
+                    zonemap[myPlayer.location]["ENCOUNTERS"] -= 1
                     break
             elif a == "heal":
                 player.usePotion() #Einbindung neuer Methode
@@ -582,8 +594,9 @@ def fight(player,poss):
             else:
                 print("Looks like you got nothing...")
 
+            print("You get "+str(enemy.ep_drop)+" experience.") # Ich dachte vielleicht sollte man bei einem Sieg immer EP bekommen?
+            time.sleep(2)
             player.getEP(enemy.ep_drop) #Versuch deine Player.methoden einzubinden
-            print("You get "+str(enemy.ep_drop)+" experience.")
         time.sleep(2)
         os.system("clear")
         break
@@ -628,9 +641,9 @@ def fight_options():
 def print_location():
     print("#"*screen_width)
     print((" " * int((screen_width-len(myPlayer.location))/2)) + myPlayer.location.upper() + (" " * int((screen_width-len(myPlayer.location))/2)))
-    print((" " * int((screen_width-len(zonemap[myPlayer.location][DESCRIPTION]))/2)) + zonemap[myPlayer.location][DESCRIPTION] + (" " * int((screen_width-len(zonemap[myPlayer.location][DESCRIPTION]))/2)))
-    if zonemap[myPlayer.location][SOLVED]:
-        print((" " * int((screen_width-len(zonemap[myPlayer.location][EXAMINATION]+"Examination"))/2)) + "Examination: " + zonemap[myPlayer.location][EXAMINATION] + (" " * int((screen_width-len(zonemap[myPlayer.location][EXAMINATION]+"Examination"))/2)))
+    print((" " * int((screen_width-len(zonemap[myPlayer.location]["DESCRIPTION"]))/2)) + zonemap[myPlayer.location]["DESCRIPTION"] + (" " * int((screen_width-len(zonemap[myPlayer.location]["DESCRIPTION"]))/2)))
+    if zonemap[myPlayer.location]["SOLVED"] == True:
+        print((" " * int((screen_width-len(zonemap[myPlayer.location]["EXAMINATION"]+"EXAMINATION"))/2)) + "EXAMINATION: " + zonemap[myPlayer.location]["EXAMINATION"] + (" " * int((screen_width-len(zonemap[myPlayer.location]["EXAMINATION"]+"EXAMINATION"))/2)))
     print("#"*screen_width)
 
 def promt():
@@ -643,7 +656,7 @@ def promt():
     print("-"*len("What would you like to do?")+"\n")
 
     action = input("> ")
-    acceptable_locations = ["move","go","travel","walk","quit","examine","inspect","interact","look","hunting","hunt","fishing","fish","corn","get corn","harvest","heal","healing","potion","use potion"]
+    acceptable_locations = ["move","go","travel","walk","quit","examine","inspect","interact","look","hunting","hunt","fishing","fish","corn","get corn","harvest","heal","healing","potion","use potion","show inventory","inventory"]
 
     while action.lower() not in acceptable_locations:
         print("Unknown action. Try again. (move, quit, examine)")
@@ -663,54 +676,55 @@ def promt():
         myPlayer.getCorn()
     elif action.lower() in ["heal","healing","potion","use potion"]:
         myPlayer.usePotion()
-
+    elif action.lower() in ["show inventory","inventory"]:
+        myPlayer.print_inventory()
 
 def player_move():
-    dest = input("Where do you like to move to? (up, down, left, right)\n> ")
+    dest = input("Where do you like to move to? ('up', 'down', 'left', 'right')\n> ")
 
-    while dest not in ["up","down","left","right"]:
+    while dest not in ['up', 'down', 'left', 'right']:
         print("Invalid entry!")
-        dest = input("Where do you like to move to? (up, down, left, right)\n> ")
+        dest = input("Where do you like to move to? ('up', 'down', 'left', 'right')\n> ")
 
-    if dest == "up":
-        if zonemap[myPlayer.location][UP] != "":
-            destination = zonemap[myPlayer.location][UP]
+    if dest.lower() == "up":
+        if zonemap[myPlayer.location]["UP"] != "":
+            destination = zonemap[myPlayer.location]["UP"]
             movement(destination)
         else:
             stay(dest)
-    elif dest == "down":
-        if zonemap[myPlayer.location][DOWN] != "":
-            destination = zonemap[myPlayer.location][DOWN]
+    elif dest.lower() == "down":
+        if zonemap[myPlayer.location]["DOWN"] != "":
+            destination = zonemap[myPlayer.location]["DOWN"]
             movement(destination)
         else:
             stay(dest)
-    elif dest == "right":
-        if zonemap[myPlayer.location][RIGHT] != "":
-            destination = zonemap[myPlayer.location][RIGHT]
+    elif dest.lower() == "right":
+        if zonemap[myPlayer.location]["RIGHT"] != "":
+            destination = zonemap[myPlayer.location]["RIGHT"]
             movement(destination)
         else:
             stay(dest)
-    elif dest == "left":
-        if zonemap[myPlayer.location][LEFT] != "":
-            destination = zonemap[myPlayer.location][LEFT]
+    elif dest.lower() == "left":
+        if zonemap[myPlayer.location]["LEFT"] != "":
+            destination = zonemap[myPlayer.location]["LEFT"]
             movement(destination)
         else:
             stay(dest)
 
 def movement(destination):
     myPlayer.location = destination
-    print("You have moved to the " + zonemap[myPlayer.location][ZONENAME] + ".")
+    print("You have moved to the " + zonemap[myPlayer.location]["ZONENAME"] + ".")
     time.sleep(3)
     os.system("clear")
-    if not zonemap[myPlayer.location][SOLVED] and zonemap[myPlayer.location][ENC_POS]:
-        pass # muss dann weg
+    # if not zonemap[myPlayer.location]["SOLVED"] and zonemap[myPlayer.location][ENC_POS]:
+    #     pass # muss dann weg
     # Hier würde dann die Ecounter Funktion rein passen denke ich.
     # Und nach dem Encounter dann:
 
-    # zonemap[myPlayer.location][SOLVED_ENCOUNTER_COUNT] += 1
-    # if zonemap[myPlayer.location][SOLVED_ENCOUNTER_COUNT] == 2:
-    #     zonemap[myPlayer.location][SOLVED] = True
-    #     solved_places[myPlayer.location] = True
+    # zonemap[myPlayer.location]["SOLVED"_ENCOUNTER_COUNT] += 1
+    # if zonemap[myPlayer.location]["SOLVED"_ENCOUNTER_COUNT] == 2:
+    #     zonemap[myPlayer.location]["SOLVED"] = True
+    #     "SOLVED"_places[myPlayer.location] = True
 
 def stay(dir):
     directions = {"up":"north","down":"south","left":"west","right":"east"}
@@ -719,27 +733,26 @@ def stay(dir):
     os.system("clear")
 
 def player_examine():
-    if zonemap[myPlayer.location][ENCOUNTERS] > 0:
-        poss = []
-        if zonemap[myPlayer.location][POSSIBILITIES]:
-            poss = zonemap[myPlayer.location][POSSIBILITIES]
-        else:
-            poss = POSSIBILITIES # global
-        fight(myPlayer,poss)
+    if zonemap[myPlayer.location]["ENCOUNTERS"] > 0:
+        # poss = []
+        # if zonemap[myPlayer.location][POSSIBILITIES]:
+        # poss = zonemap[myPlayer.location][POSSIBILITIES]
+        # else:
+        #     poss = POSSIBILITIES # global
+        fight(myPlayer,zonemap[myPlayer.location][POSSIBILITIES])
 
-    if zonemap[myPlayer.location][SOLVED]:
+    if zonemap[myPlayer.location]["SOLVED"] == True:
         print("You have already been here.")
-        print(zonemap[myPlayer.location][EXAMINATION])
+        print(zonemap[myPlayer.location]["EXAMINATION"])
         time.sleep(3)
         os.system("clear")
     else:
-        print(zonemap[myPlayer.location][EXAMINATION])
-        zonemap[myPlayer.location][SOLVED] = True
+        print(zonemap[myPlayer.location]["EXAMINATION"])
+        zonemap[myPlayer.location]["SOLVED"] = True
         if all(solved_places.values()):
             myPlayer.game_over = True
         time.sleep(3)
         os.system("clear")
-
 
 def intro():
     os.system("clear")
@@ -751,7 +764,6 @@ def intro():
     speach_manipulation("passed away ... \n", 0.25)
     speach_manipulation("Now have some fun exploring the world. We will see each other when it's time to.\n",0.05)
     time.sleep(2)
-    os.system("clear")
 
 def end_screen():
     speach_manipulation("Congratulations, you have solved the complete game. I never thought you would be able to do this.",0.05)
@@ -761,7 +773,7 @@ def end_screen():
     time.sleep(5)
     os.system("clear")
     # print("Made by laeberkaes")
-    # print("Hit me up at: https://github.com/laeberkaes/ or @laeberkaes:uraltemorla.xyz")
+    # print("Hit me "UP" at: https://github.com/laeberkaes/ or @laeberkaes:uraltemorla.xyz")
     #
     # time.sleep(5)
     sys.exit()
@@ -817,6 +829,7 @@ def setup_game():
 
     # intro()
 
+    os.system("clear")
     print("#"*screen_width+"\n")
     print("#" + (" "*int((screen_width-2-len("Let's start now"))/2))  + "Let's start now" + (" "*int((screen_width-2-len("Let's start now"))/2)) + "#\n")
     print("#"*screen_width+"\n")

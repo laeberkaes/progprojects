@@ -56,7 +56,7 @@ class Player:
             if self.health_cur > self.health_max:
                 self.health_cur = self.health_max
             self.potions -= 1
-            print("Ahhhh this feels good. You feel new power filling your body. (HP +25)")
+            print("Ahhhh this feels good. You feel new power filling your up body. (HP +25)")
         else:
             print("You don't have any potions left.")
         time.sleep(2)

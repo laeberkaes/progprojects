@@ -2,7 +2,7 @@ import random
 
 class Weapon():
     def __init__(self, level):
-        adjective = ["Dirty", "Crooked", "Big", "Old", "Shiny", "Bloody"]
+        adjective = ["Dirty", "Crooked", "Big", "Old", "Shiny", "Bloody", "Sharp"]
         subst = [" Dagger", " Hammer", " Sword", " Bow", " Spear", " Morning Star", " Club", " Axe"]
         self.obj_type = "weapon"
         self.level = level

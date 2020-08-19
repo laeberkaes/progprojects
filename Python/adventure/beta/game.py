@@ -781,9 +781,9 @@ def end_screen():
 
 def game_over():
     os.system("clear")
-    speach_manipulation("Ouh there you are again.\n",0.5)
-    speach_manipulation("Don't understand me wrong. This is no surprise for me. Maybe you have more luck in your next reincarnation.",0.5)
-    speach_manipulation("Have a good day. :)",0.7)
+    speach_manipulation("Ouh there you are again.\n",0.05)
+    speach_manipulation("Don't understand me wrong. This is no surprise for me. Maybe you have more luck in your next reincarnation.",0.05)
+    speach_manipulation("Have a good day. :)",0.07)
     time.sleep(2)
     sys.exit()
 

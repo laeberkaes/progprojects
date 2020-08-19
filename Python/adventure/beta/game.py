@@ -10,7 +10,7 @@ class Player:
         self.health_max = 0
         self.health_cur = self.health_max
         self.mp = 0
-        self.ep = 90
+        self.ep = 0
         self.level = 1
         self.status_effects = []
         self.location = "b2"
@@ -26,15 +26,15 @@ class Player:
         self.pos = (0.95,0.05,0)
 
     def health(self):
-        print("Deine Gesundheit: "+str(self.health_cur)+"/"+str(self.health_max))
+        print("Your health: "+str(self.health_cur)+"/"+str(self.health_max)+" HP")
 
     def levelUP(self):
         self.level += 1
         self.health_max += 20
         self.ep -= 100
         self.pos = (self.pos[0]-(self.level*0.05),self.pos[1]+(self.level*0.1),self.pos[2]+(self.level*0.05))
-        speach_manipulation("Congratulations, you leveled up. You are now a level " + str(self.level) + " " + self.play_class + ".\n",0.03)
-        speach_manipulation("You have " + str(self.health_max) + " HP.",0.03)
+        speech_manipulation("Congratulations, you leveled up. You are now a level " + str(self.level) + " " + self.play_class + ".\n",0.03)
+        speech_manipulation("You have " + str(self.health_max) + " HP.",0.03)
         time.sleep(2)
 
     def getEP(self,amount):
@@ -87,7 +87,7 @@ class Player:
             if self.health_cur > self.health_max:
                 self.health_cur = self.health_max
             self.potions -= 1
-            print("Ahhhh this feels good. You feel new power filling your up body. (HP +25)")
+            print("Ahhhh this feels good. You feel new power filling up your body. (HP +25)")
         else:
             print("You don't have any potions left.")
         time.sleep(2)
@@ -143,14 +143,14 @@ class Player:
             p = random.random()
             if p > 0.25:
                 print("You get some nice corn.")
-                if "corn" not in self.inventory:
-                    self.inventory["corn"] = 1
+                if "bag of corn" not in self.inventory:
+                    self.inventory["bag of corn"] = 1
                 else:
-                    self.inventory["corn"] += 1
+                    self.inventory["bag of corn"] += 1
             else:
                 print("Baaah. You better not take this corn with you.")
         else:
-            print("Well you cannot get Corn out of this place.")
+            print("Well you cannot get corn out of this place.")
 
         time.sleep(2)
         os.system("clear")
@@ -160,16 +160,16 @@ class Player:
             p = random.random()
             if p > 0.95:
                 print("You get some nice deer. This will give you good food for some days.")
-                if "food" not in self.inventory:
-                    self.inventory["food"] = 10
+                if "meat" not in self.inventory:
+                    self.inventory["meat"] = 10
                 else:
-                    self.inventory["food"] += 10
+                    self.inventory["meat"] += 10
             elif p > 0.6:
                 print("You get some rabbits and a small boar.")
-                if "food" not in self.inventory:
-                    self.inventory["food"] = 7
+                if "meat" not in self.inventory:
+                    self.inventory["meat"] = 7
                 else:
-                    self.inventory["food"] += 7
+                    self.inventory["meat"] += 7
             else:
                 print("Well you are out of luck for now.")
         else:
@@ -183,11 +183,11 @@ myPlayer = Player()
 ##### Title #####
 def title_screen_selections():
     option = input("> ")
-    if option.lower() == ("play"):
+    if option.lower() == ("Play"):
         setup_game()
-    elif option.lower() == ("help"):
+    elif option.lower() == ("Help"):
         help_menu()
-    elif option.lower() == ("quit"):
+    elif option.lower() == ("Quit"):
         sys.exit()
 
     while option.lower() not in ["play","help","quit"]:
@@ -214,7 +214,7 @@ def help_menu():
     print(" -- You can always decide to 'examine' a location or 'move' to another.")
     print(" -- You can always see your inventory with 'show inventory'")
     print(" -- If you examine a location you may trigger a random encounter and you can 'fish', 'hunt' or 'get corn'")
-    print(" -- If you move, you can device to move 'up', 'down', 'left' or 'right'")
+    print(" -- If you move, you can decide to move 'up', 'down', 'left' or 'right'")
     print("")
     print("Press ENTER to continue.")
     input()
@@ -340,7 +340,7 @@ zonemap = {
         "EXAMINATION": "Further to the forest you can see a bridge over the river.",
         "SOLVED": False,
         "UP": "b1",
-        "DOWN": "",
+        "DOWN": "d1",
         "LEFT": "",
         "RIGHT": "c2",
         "ENCOUNTERS": 2,
@@ -387,7 +387,7 @@ zonemap = {
         "DESCRIPTION": "Down in the south is a small Trollcave.",
         "EXAMINATION": "You see some skelletons of deer and horses. Is it really a good idea to go into the cave?",
         "SOLVED": False,
-        "UP": "",
+        "UP": "c1",
         "DOWN": "",
         "LEFT": "",
         "RIGHT": "d2",
@@ -504,15 +504,6 @@ class Giant(NPC):
         self.loot_level = 5
         self.ep_drop = random.randrange(100,151) #bei 100EP cap quasi ein garantiertes level"UP"
 
-#in die player_examine()
-
-    # if zonemap[myPlayer.location]["ENCOUNTERS"] > 0:
-    #     poss = []
-    #     if zonemap[myPlayer.location][POSSIBILITIES]:
-    #         poss = zonemap[myPlayer.location][POSSIBILITIES]
-    #     else:
-    #         poss = POSSIBILITIES # global
-    #     fight(myPlayer,poss)
 
 def fight(player,poss):
     os.system("clear")
@@ -520,7 +511,6 @@ def fight(player,poss):
     print(" "*int((screen_width-len("FIGHT"))/2) + "FIGHT")
     print("#"*screen_width)
     enemy = ""
-    # player = myPlayer #Bin mir nicht sicher wie das Objekt eingebunden ist
     x = random.random()
     if x<poss[0]:
         enemy = Bandit()
@@ -549,7 +539,6 @@ def fight(player,poss):
                     break
             elif a == "heal":
                 player.usePotion() #Einbindung neuer Methode
-                #ein print in usePotion() wäre cool als Feedback was passiert ist, also ob geheilt wurde oder man keine hat
             elif a == "flee":
                 if random.random() < 0.6: # 60% Fluchchance (fix? Future-Feature)
                     flee = 1
@@ -758,18 +747,18 @@ def player_examine():
 def intro():
     os.system("clear")
     question3 = "Welcome, " + myPlayer.name + " the " + myPlayer.play_class + ".\n"
-    speach_manipulation(question3,0.05)
-    speach_manipulation("Welcome to this fantasy world I created for you. ;)\n",0.05)
-    speach_manipulation("I hope you will have some fun\n ... \n ... \n ...\n",0.15)
-    speach_manipulation("Well, you are not the first adventurer here. There have been many before you. And to be honest, there will be many after you ... when you have ... ",0.05)
-    speach_manipulation("passed away ... \n", 0.25)
-    speach_manipulation("Now have some fun exploring the world. We will see each other when it's time to.\n",0.05)
+    speech_manipulation(question3,0.05)
+    speech_manipulation("Welcome to this fantasy world I created for you. ;)\n",0.05)
+    speech_manipulation("I hope you will have some fun\n ... \n ... \n ...\n",0.15)
+    speech_manipulation("Well, you are not the first adventurer here. There have been many before you. And to be honest, there will be many after you ... when you have ... ",0.05)
+    speech_manipulation("passed away ... \n", 0.25)
+    speech_manipulation("Now have some fun exploring the world. We will see each other when it's time to.\n",0.05)
     time.sleep(2)
 
 def end_screen():
-    speach_manipulation("Congratulations, you have solved the complete game. I never thought you would be able to do this.",0.05)
+    speech_manipulation("Congratulations, you have solved the complete game. I never thought you would be able to do this.",0.05)
     print("")
-    speach_manipulation("I will get in touch with you soon. Wait for a sign from me. I think I have a good job for some strong adventurer like you.",0.04)
+    speech_manipulation("I will get in touch with you soon. Wait for a sign from me. I think I have a good job for some strong adventurer like you.",0.04)
 
     time.sleep(5)
     os.system("clear")
@@ -781,9 +770,9 @@ def end_screen():
 
 def game_over():
     os.system("clear")
-    speach_manipulation("Ouh there you are again.\n",0.05)
-    speach_manipulation("Don't understand me wrong. This is no surprise for me. Maybe you have more luck in your next reincarnation.",0.05)
-    speach_manipulation("Have a good day. :)",0.07)
+    speech_manipulation("Ouh there you are again.\n",0.05)
+    speech_manipulation("Don't understand me wrong. This is no surprise for me. Maybe you have more luck in your next reincarnation.",0.05)
+    speech_manipulation("Have a good day. :)",0.07)
     time.sleep(2)
     sys.exit()
 
@@ -791,7 +780,7 @@ def game_loop():
     while not myPlayer.game_over:
         promt()
 
-def speach_manipulation(text,speed):
+def speech_manipulation(text,speed):
     for char in text:
         sys.stdout.write(char)
         sys.stdout.flush()
@@ -800,7 +789,7 @@ def speach_manipulation(text,speed):
 def setup_game():
     os.system("clear")
     question1 = "Hello what's your name?\n"
-    speach_manipulation(question1,0.05)
+    speech_manipulation(question1,0.05)
     print("")
     myPlayer.name = input("> ").lower()
 
@@ -808,7 +797,7 @@ def setup_game():
 
     classes = ["warrior","mage","rogue"]
     question2 = "What Class do you want to play? (Warrior, Mage, Rogue)\n"
-    speach_manipulation(question2,0.01)
+    speech_manipulation(question2,0.01)
     print("")
     player_class = input("> ").lower()
     print("")

@@ -16,8 +16,9 @@ class Player:
         self.location = "b2"
         self.game_over = False
         self.weapon = weapon.Weapon(self.level)
+        self.weapon.equiped = True
         self.potions = 1
-        self.inventory = {"weapons":[],"armor":[],"misc":dict()}
+        self.inventory = {"weapons":[self.weapon],"armor":[],"misc":dict()}
         self.gold = 10
         self.head_protect = 0
         self.chest_protect = 0
@@ -45,11 +46,15 @@ class Player:
             self.levelUP()
 
     def getWeapon(self,weapon):
+        self.weapon.equiped = False
         self.weapon = weapon
         self.weapon.equiped = True
         self.inventory["weapons"].append(weapon)
 
     def getArmor(self,armor):
+        for arm in self.inventory["armor"]:
+            if arm.slot == armor.slot and arm.equiped == True:
+                arm.equiped = False
         self.protect(armor.slot,armor.protection)
         armor.equiped = True
         self.inventory["armor"].append(armor)
@@ -64,13 +69,18 @@ class Player:
         os.system("clear")
         print("#" * screen_width)
         print("=" * int((screen_width - len("WEAPONS")) / 2) + "WEAPONS" + "=" * int((screen_width - len("WEAPONS")) / 2))
-        print("EQUIPED: " + str(self.weapon)[13:])
         for weapon in self.inventory["weapons"]:
-            print(weapon)
+            if weapon.equiped == True:
+                print("EQUIPED: " + str(weapon)[13:])
+            else:
+                print(str(weapon)[13:])
         print("")
         print("=" * int((screen_width - len("ARMOR")) / 2) + "ARMOR" + "=" * int((screen_width - len("ARMOR")) / 2))
         for armor in self.inventory["armor"]:
-            print(armor)
+            if armor.equiped == True:
+                print("EQUIPED: A" + str(armor)[6:])
+            else:
+                print("A" + str(armor)[6:])
         print("")
         print("=" * int((screen_width - len("POTIONS")) / 2) + "POTIONS" + "=" * int((screen_width - len("POTIONS")) / 2))
         if self.potions == 1:
@@ -607,7 +617,7 @@ def loot(enemy,player):
             ant=input("> ")
             print(" ")
             if ant.lower()[0] == "y":
-                player.getObject(player.weapon) #aktuelle Waffe ins Inventar
+                # player.getObject(player.weapon) #aktuelle Waffe ins Inventar
                 player.getWeapon(g) #neue Waffe = aktuelle Waffe
             elif ant.lower()[0] == "n":
                 player.getObject(g) #Waffe ins Inventar
@@ -776,7 +786,7 @@ def end_screen():
 def game_over():
     os.system("clear")
     speech_manipulation("Ouh there you are again.\n",0.05)
-    speech_manipulation("Don't understand me wrong. This is no surprise for me. Maybe you have more luck in your next reincarnation.",0.05)
+    speech_manipulation("Don't understand me wrong. This is no surprise for me. Maybe you have more luck in your next reincarnation.\n",0.05)
     speech_manipulation("Have a good day. :)",0.07)
     time.sleep(2)
     sys.exit()

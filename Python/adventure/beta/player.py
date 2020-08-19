@@ -63,9 +63,9 @@ class Player:
         os.system("clear")
 
     def getObject(self,object):
-        if object not in self.inventory[misc] and type(object) == str:
+        if object not in self.inventory["misc"] and type(object) == str:
             self.inventory.misc[object] = 1
-        elif object in self.inventory.misc:
+        elif object in self.inventory["misc"]:
             self.inventory.misc[object] += 1
         elif object.obj_type() == "weapon":
             self.inventory["weapons"].append(object)

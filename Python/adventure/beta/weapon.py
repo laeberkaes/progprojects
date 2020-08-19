@@ -1,20 +1,36 @@
 import random
 
-class Weapon:
-    def __init__(self,name,damage,value,health=100):
-        self.name = name
-        self.damage = damage
-        self.value = value
-        self.health = health
+class Weapon():
+    def __init__(self, level):
+        adjective = ["Dirty", "Crooked", "Big", "Old", "Shiny", "Bloody"]
+        subst = [" Dagger", " Hammer", " Sword", " Bow", " Spear", " Morning Star", " Club", " Axe"]
+        self.obj_type = "weapon"
+        self.level = level
+        self.name = random.choice(adjective) + random.choice(subst)
+        self.damage = random.randrange(3,6)*level #=> 3-5
 
-heavy = [Weapon(name,damage,value) for name in ["Streitaxt","Kriegshammer","Kriegsarmbrust"] for damage in [15,10,20] for value in [11,12,9]]
-medium = [Weapon(name,damage,value) for name in ["Schwer","Speer","Bogen"] for damage in [12,8,10] for value in [5,7,6]]
-light = [Weapon(name,damage,value) for name in ["Dolch","Knüppel","Harke"] for damage in [4,6,2] for value in [1,2,3]]
+    def __repr__(self):
+        return "Your weapon: "+self.name+", with "+str(self.damage)+" damage"
 
-def getWeapon(level):
-    if level<3:
-        return random.choice(light)
-    if level>7:
-        return random.choice(heavy)
-    else:
-        return random.choice(medium)
+class Armor():
+    def __init__(self,level):
+        adjective = ["Dirty", "Crooked", "Big", "Old", "Shiny", "Bloody"]
+        subst = [" Plate Armor", " Chain Armor", " Leather Armor"]
+        self.obj_type = "armor"
+        self.slot = random.choice(["head","chest","leg","arm"])
+        self.level = level
+        self.name = random.choice(adjective) + random.choice(subst)
+        self.protection = random.randrange(10,21)*level #=> 3-5
+
+    def __repr__(self):
+        return "Your weapon: "+self.name+", with "+str(self.damage)+" damage"
+
+    def equip_armor(self,person):
+            if self.slot == "head":
+                person.head_protect += self.protection
+            elif self.slot == "chest":
+                person.chest_protect += self.protection
+            elif self.slot == "leg":
+                person.leg_protect += self.protection
+            elif self.slot == "arm":
+                person.arm_protect += self.protection

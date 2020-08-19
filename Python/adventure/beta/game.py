@@ -20,22 +20,22 @@ def title_screen_selections():
         title_screen_selections()
 
 def title_screen():
-    print("#"*(4+len("Welcome to the Text RPG")))
-    print("# Welcome to the Text RPG #")
-    print("#"*(4+len("Welcome to the Text RPG")))
-    print("# " + (" "*int((len("Welcome to the Text RPG")-6)/2)) + "-play-" + (" "*int((len("Welcome to the Text RPG")-6)/2)) + " #")
-    print("# " + (" "*int((len("Welcome to the Text RPG")-6)/2)) + "-help-" + (" "*int((len("Welcome to the Text RPG")-6)/2)) + " #")
-    print("# " + (" "*int((len("Welcome to the Text RPG")-6)/2)) + "-quit-" + (" "*int((len("Welcome to the Text RPG")-6)/2)) + " #")
-    print("#"*(4+len("Welcome to the Text RPG"))+"\n")
+    print("#"*screen_width)
+    print("#" + (" " * int((screen_width-len("Welcome to the Text RPG"))/2)) + "Welcome to the Text RPG" + (" " * int((screen_width-2-len("Welcome to the Text RPG"))/2)) + "#")
+    print("#" + "="*(screen_width-2) + "#")
+    print("#" + (" "*int((screen_width-6)/2)) + "-play-" + (" "*int((screen_width-9)/2)) + "#")
+    print("#" + (" "*int((screen_width-6)/2)) + "-help-" + (" "*int((screen_width-9)/2)) + "#")
+    print("#" + (" "*int((screen_width-6)/2)) + "-quit-" + (" "*int((screen_width-9)/2)) + "#")
+    print("#"*screen_width+"\n")
     title_screen_selections()
 
 def help_menu():
-    print("#"*27)
-    print("# Welcome to the Text RPG #")
-    print("#"*27)
-    print(" -- Use up, down, left, right to move")
-    print(" -- Type your commands to do them")
-    print(" -- Good luck and have fun!")
+    print("#"*screen_width)
+    print(("="*((screen_width-len("HELP MENU"))/2)) + "HELP MENU" + ("="*((screen_width-len("HELP MENU"))/2)))
+    print("#"*screen_width)
+    print(" -- You can always decide to 'examine' a location or 'move' to another.")
+    print(" -- If you examine a location you may trigger a random encounter and you can 'fish', 'hunt' or 'get corn'")
+    print(" -- If you move, you can device to move 'up', 'down', 'left' or 'right'")
     title_screen()
     title_screen_selections()
 
@@ -53,7 +53,7 @@ ENCOUNTERS = 0
 ENC_POS = True
 POSSIBILITIES = (0.95,0.05,0)
 
-solved_places = {'a1': True, 'a2': True, 'a3': False, 'a4': False, 'b1': True, 'b2': True, 'b3': False, 'b4': False, 'c1': False, 'c2': False, 'c3': False, 'c4': False, 'd1': False, 'd2': False, 'd3': False, 'd4': False}
+solved_places = {'a1': False, 'a2': False, 'a3': False, 'a4': False, 'b1': False, 'b2': False, 'b3': False, 'b4': False, 'c1': False, 'c2': False, 'c3': False, 'c4': False, 'd1': False, 'd2': False, 'd3': False, 'd4': False}
 
 zonemap = {
     "a1": {
@@ -266,6 +266,210 @@ zonemap = {
     }
 }
 
+
+
+# class Weapon():
+#     def __init__(self, level):
+#         adjective = ["Dirty", "Crooked", "Big", "Old", "Shiny", "Bloody"]
+#         subst = [" Dagger", " Hammer", " Sword", " Bow", " Spear", " Morning Star", " Club", " Axe"]
+#         self.obj_type = "weapon"
+#         self.level = level
+#         self.name = random.choice(adjective) + random.choice(subst)
+#         self.damage = random.randrange(3,6)*level #=> 3-5
+#
+#     def __repr__(self):
+#         return "Your weapon: "+self.name+", with "+str(self.damage)+" damage"
+#
+# class Armor():
+#     def __init__(self,level):
+#         adjective = ["Dirty", "Crooked", "Big", "Old", "Shiny", "Bloody"]
+#         subst = [" Plate Armor", " Chain Armor", " Leather Armor"]
+#         self.obj_type = "armor"
+#         self.slot = random.choice(["head","chest","leg","arm"])
+#         self.level = level
+#         self.name = random.choice(adjective) + random.choice(subst)
+#         self.protection = random.randrange(10,21)*level #=> 3-5
+#
+#     def __repr__(self):
+#         return "Your weapon: "+self.name+", with "+str(self.damage)+" damage"
+#
+#     def equip_armor(self,person):
+#             if self.slot == "head":
+#                 person.head_protect += self.protection
+#             elif self.slot == "chest":
+#                 person.chest_protect += self.protection
+#             elif self.slot == "leg":
+#                 person.leg_protect += self.protection
+#             elif self.slot == "arm":
+#                 person.arm_protect += self.protection
+
+
+class NPC():
+    def __init__(self,health,strength):
+        self.health = health*random.randrange(10,21)
+        self.strength = strength*random.randrange(5,11)
+    def health_print(self):
+        print("Enemy Health "+str(self.health))
+
+class Bandit(NPC):
+    def __init__(self):
+        super().__init__(1,1) #set health + strength
+        self.name = "Bandit"
+        self.quip = ["Oi!", "Ow!", "Aaargh!", "Hng!"]
+        self.accuracy = 0.65
+        self.loot_chance = 0.80
+        self.loot_level = 2
+        self.ep_drop = random.randrange(30,41)
+
+class Orc(NPC):
+    def __init__(self):
+        super().__init__(3,3)
+        self.name = "Orc"
+        self.quip = ["Uagh!", "Uff!", "Gnar!", "Grrrrr!"]
+        self.accuracy = 0.75
+        self.loot_chance = 40
+        self.loot_level = 3
+        self.ep_drop = random.randrange(50,71)
+
+class Giant(NPC):
+    def __init__(self):
+        super().__init__(10,10)
+        self.name = "Giant"
+        self.quip = ["AAAAAH!", "Fi, Fai, Fo, Fumm!", "Hargh!"]
+        self.accuracy = 0.9
+        self.loot_chance = 50
+        self.loot_level = 5
+        self.ep_drop = random.randrange(100,151) #bei 100EP cap quasi ein garantiertes levelUP
+
+#in die player_examine()
+
+    # if zonemap[myPlayer.location][ENCOUNTERS] > 0:
+    #     poss = []
+    #     if zonemap[myPlayer.location][POSSIBILITIES]:
+    #         poss = zonemap[myPlayer.location][POSSIBILITIES]
+    #     else:
+    #         poss = POSSIBILITIES # global
+    #     fight(myPlayer,poss)
+
+def fight(player,poss):
+    os.system("clear")
+    print("#"*screen_width)
+    print(" "*int((screen_width-len("FIGHT"))/2) + "FIGHT")
+    print("#"*screen_width)
+    enemy = ""
+    # player = myPlayer #Bin mir nicht sicher wie das Objekt eingebunden ist
+    x = random.random()
+    if x<poss[0]:
+        enemy = Bandit()
+    elif x>poss[0] and x<poss[0]+poss[1]:
+        enemy = Orc()
+    else:
+        enemy = Giant() #else, solange nur 3 mögliche Gegner
+    flee = 0
+    dead = 0
+    while dead == 0: #es läuft mal mit meinen beiden Schleifen, weil ich nicht genau weiß, wie wir bei dir game_over einbinden können
+        while enemy.health > 0 and flee == 0:
+            print("                 ")
+            print("You fight against: "+enemy.name)
+            enemy.health_print()
+            player.health() #Die fehlt noch in der init
+            a = fight_options() #das geht sicher eleganter
+            if a == "attack":
+                print("You attack with your weapon and do "+str(player.weapon.damage)+" damage.")
+                enemy.health -= player.weapon.damage
+                print("enemy: "+random.choice(enemy.quip))
+                if enemy.health <= 0:
+                    print("       ")
+                    print("**** You won!!! ****")
+                    print("       ")
+                    break
+            elif a == "potion":
+                player.usePotion() #Einbindung neuer Methode
+                #ein print in usePotion() wäre cool als Feedback was passiert ist, also ob geheilt wurde oder man keine hat
+            elif a == "flee":
+                if random.random() < 0.6: # 60% Fluchchance (fix? Future-Feature)
+                    flee = 1
+                    break
+                else:
+                    print("Your enemy won't let you go!")
+            else:
+                print("Please use a valid answer.")#nochmal eine Chance zur Eingabe oder direkt Angriff Gegner?
+
+            if random.random() < enemy.accuracy:
+                print("Your enemy attacks and does "+str(enemy.strength)+" damage.")
+                player.health_cur -= enemy.strength
+                #Hier kommt noch player.armor dazu
+
+                if player.health_cur <= 0:
+                    print("You are dead.")
+                    print(" ")
+                    player.game_over = True
+                    dead = 1
+                    break #die Breaks sind etwas schwierig zu erklären ...
+            else:
+                print("Your enemy attacks.")
+                #sleep(1) #dramatic pause :D
+                print("Missed!")
+        time.sleep(2)
+        os.system("clear")
+        if flee == 1 and dead == 0:
+            print("You ran away. You don't get a reward.")
+            break
+        elif dead == 1:
+            break
+        else:
+            if random.random() < enemy.loot_chance: #Chance ob Loot-Drop oder nicht (abhängig von Gegner)
+                loot(enemy,player)
+
+                #gold_reward = enemy.loot_level * random.randrange(10,20)
+                #player.gold += gold_reward
+                #print("You get "+str(gold_reward)+" gold.")
+
+                player.getEP(enemy.ep_drop) #Versuch deine Player.methoden einzubinden
+                print("You get "+str(enemy.ep_drop)+" experience.")
+            else:
+                print("Looks like you got nothing...")
+        time.sleep(2)
+        os.system("clear")
+        break
+    return dead #das war für meinen game_loop nötig, kann vermutlich weg
+
+def loot(enemy,player):
+    if random.random() < 0.70:
+        g = random.choice([weapon.Weapon(enemy.loot_level),weapon.Armor(enemy.loot_level)])
+        if g.obj_type == "weapon":
+            print("You find: "+g.name)
+            print("Damage: "+str(g.damage))
+            print("Would you like to swap your weapon? (y/n)\n")
+            ant=input("> ")
+            print(" ")
+            if ant.lower()[0] == "y":
+                # player.getObject(player.weapon) #aktuelle Waffe ins Inventar
+                player.getWeapon(g) #neue Waffe = aktuelle Waffe
+            elif ant.lower()[0] == "n":
+                player.getObject(g) #Waffe ins Inventar
+        elif g.obj_type == "armor":
+            print("You find: "+g.name)
+            print("Protection: "+str(g.protection))
+            print("Slot: " + g.slot)
+            print("Would you like to swap your armor? (y/n)\n")
+            ant=input("> ")
+            print("")
+            if ant.lower()[0] == "y":
+                # player.getObject(player.weapon) #aktuelle Waffe ins Inventar
+                player.getArmor(g) #neue Waffe = aktuelle Waffe
+            elif ant.lower()[0] == "n":
+                player.getObject(g) #Waffe ins Inventar
+    else:
+        print("You find a potion.")
+        player.getPotion(1)
+
+def fight_options():
+    print("Choose: attack, potion, flee\n")
+    ant = input("> ")
+    os.system("clear")
+    return ant
+
 def print_location():
     print("#"*screen_width)
     print((" " * int((screen_width-len(myPlayer.location))/2)) + myPlayer.location.upper() + (" " * int((screen_width-len(myPlayer.location))/2)))
@@ -284,7 +488,7 @@ def promt():
     print("-"*len("What would you like to do?")+"\n")
 
     action = input("> ")
-    acceptable_locations = ["move","go","travel","walk","quit","examine","inspect","interact","look"]
+    acceptable_locations = ["move","go","travel","walk","quit","examine","inspect","interact","look","hunting","hunt","fishing","fish","corn","get corn","harvest","heal","healing","potion","use potion"]
 
     while action.lower() not in acceptable_locations:
         print("Unknown action. Try again. (move, quit, examine)")
@@ -296,6 +500,14 @@ def promt():
         player_move()
     elif action.lower() in ["examine","inspect","interact","look"]:
         player_examine()
+    elif action.lower() in ["fishing","fish"]:
+        myPlayer.fishing()
+    elif action.lower() in ["hunting","hunt"]:
+        myPlayer.hunting()
+    elif action.lower() in ["corn","get corn","harvest"]:
+        myPlayer.getCorn()
+    elif action.lower() in ["heal","healing","potion","use potion"]:
+        myPlayer.usePotion()
 
 
 def player_move():
@@ -352,6 +564,14 @@ def stay(dir):
     os.system("clear")
 
 def player_examine():
+    if zonemap[myPlayer.location][ENCOUNTERS] > 0:
+        poss = []
+        if zonemap[myPlayer.location][POSSIBILITIES]:
+            poss = zonemap[myPlayer.location][POSSIBILITIES]
+        else:
+            poss = POSSIBILITIES # global
+        fight(myPlayer,poss)
+
     if zonemap[myPlayer.location][SOLVED]:
         print("You have already been here.")
         print(zonemap[myPlayer.location][EXAMINATION])
@@ -385,10 +605,10 @@ def end_screen():
 
     time.sleep(5)
     os.system("clear")
-    print("Made by laeberkaes")
-    print("Hit me up at: https://github.com/laeberkaes/ or @laeberkaes:uraltemorla.xyz")
-
-    time.sleep(5)
+    # print("Made by laeberkaes")
+    # print("Hit me up at: https://github.com/laeberkaes/ or @laeberkaes:uraltemorla.xyz")
+    #
+    # time.sleep(5)
     sys.exit()
 
 def game_loop():
@@ -428,16 +648,19 @@ def setup_game():
                 print("You are now "+player_class)
 
     if myPlayer.play_class == "warrior":
-        myPlayer.hp = 120
+        myPlayer.health_max = 120
+        myPlayer.health_cur = 120
         myPlayer.mp = 20
     elif myPlayer.play_class == "mage":
-        myPlayer.hp = 80
+        myPlayer.health_max = 80
+        myPlayer.health_cur = 80
         myPlayer.mp = 80
     elif myPlayer.play_class == "rogue":
-        myPlayer.hp = 100
+        myPlayer.health_max = 100
+        myPlayer.health_cur = 100
         myPlayer.mp = 40
 
-    intro()
+    # intro()
 
     print("#"*screen_width+"\n")
     print("#" + (" "*int((screen_width-2-len("Let's start now"))/2))  + "Let's start now" + (" "*int((screen_width-2-len("Let's start now"))/2)) + "#\n")
@@ -447,4 +670,5 @@ def setup_game():
 
     end_screen()
 
-title_screen()
+if __name__ == "__main__":
+    title_screen()

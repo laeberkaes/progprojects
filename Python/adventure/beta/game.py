@@ -17,7 +17,7 @@ class Player:
         self.game_over = False
         self.weapon = weapon.Weapon(self.level)
         self.potions = 1
-        self.inventory = {"weapons":[self.weapon],"armor":[],"misc":dict()}
+        self.inventory = {"weapons":[],"armor":[],"misc":dict()}
         self.gold = 10
         self.head_protect = 0
         self.chest_protect = 0
@@ -36,6 +36,8 @@ class Player:
         speach_manipulation("Congratulations, you leveled up. You are now a level " + str(self.level) + " " + self.play_class + ".\n",0.03)
         speach_manipulation("You have " + str(self.health_max) + " HP.",0.03)
         time.sleep(2)
+        while self.ep > 100:
+            self.levelUP()
 
     def getEP(self,amount):
         self.ep += amount
@@ -60,6 +62,7 @@ class Player:
         os.system("clear")
         print("#" * screen_width)
         print("=" * int((screen_width - len("WEAPONS")) / 2) + "WEAPONS" + "=" * int((screen_width - len("WEAPONS")) / 2))
+        print("EQUIPED: " + self.weapon)
         for weapon in self.inventory["weapons"]:
             print(weapon)
         print("")

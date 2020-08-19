@@ -569,6 +569,7 @@ def fight(player,poss):
                     print(" ")
                     player.game_over = True
                     dead = 1
+                    game_over()
                     break #die Breaks sind etwas schwierig zu erklären ...
             else:
                 print("Your enemy attacks.")

@@ -1,4 +1,0 @@
-config/helloworld/cdt.launchMode=run
-config/helloworld/cdt.toolChain.id=gcc-x86_64-/usr/bin/gcc
-config/helloworld/cdt.toolChain.type=org.eclipse.cdt.build.gcc
-eclipse.preferences.version=1

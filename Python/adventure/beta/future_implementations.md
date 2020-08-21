@@ -1,6 +1,6 @@
 # Future Implementations
 - ~~Equiped tag für Rüstungsteile, damit diese so in show_inventory angezeigt werden können.~~
-- show_stats Funktion schreiben, die dann alle aktuellen Werte des Spielers enthält.
+- ~~show_stats Funktion schreiben, die dann alle aktuellen Werte des Spielers enthält.~~
 - used Attribut bei Waffen?
 - Gold ins Spiel einbinden? -- Möglichkeit zu kaufen und verkaufen auf dem Markt / Schmied. Wert von Gegenständen hinzufügen.
 - Mining in der Höhle einbinden. Nach Schätzen suchen in der Höhle einbinden.

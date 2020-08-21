@@ -26,6 +26,9 @@ class Player:
         self.arm_protect = 0
         self.pos = (0.95,0.05,0)
 
+    def calc_armor(self):
+        return sum([self.head_protect,self.chest_protect,self.leg_protect,self.arm_protect])
+
     def health(self):
         print("Your health: "+str(self.health_cur)+"/"+str(self.health_max)+" HP")
 
@@ -96,6 +99,23 @@ class Player:
         input()
         os.system("clear")
 
+    def show_stats(self):
+        os.system("clear")
+        print("#" * screen_width)
+        print("")
+        print("Name:" + " " * (20 - len("Name:")) + self.name)
+        print("Class:" + " " * (20 - len("Class:")) + self.play_class)
+        print("Level:" + " " * (20 - len("Level:")) + str(self.level))
+        print("EP:" + " " * (20 - len("EP:")) + str(self.ep))
+        print("Health:" + " " * (20 - len("Health:")) + str(self.health_cur) + "/" + str(self.health_max))
+        print("Armor:" + " " * (20 - len("Armor:")) + str(self.calc_armor()))
+        print("")
+        print("#" * screen_width)
+        print("")
+        print("Press ENTER to continue.")
+        input()
+        os.system("clear")
+
     def usePotion(self):
         if self.potions > 0:
             self.health_cur += 25
@@ -120,13 +140,13 @@ class Player:
 
     def protect(self,place,amount):
         if place == "head":
-            self.head_protect += amount
+            self.head_protect = amount
         elif place == "chest":
-            self.chest_protect += amount
+            self.chest_protect = amount
         elif place == "leg":
-            self.leg_protect += amount
+            self.leg_protect = amount
         elif place == "arm":
-            self.arm_protect += amount
+            self.arm_protect = amount
 
     def fishing(self):
         if self.location in ["a4","c1","c2"] and "fishingrot" in self.inventory:
@@ -227,7 +247,7 @@ def help_menu():
     print("#"*screen_width)
     print("")
     print(" -- You can always decide to 'examine' a location or 'move' to another.")
-    print(" -- You can always see your inventory with 'show inventory'")
+    print(" -- You can always see your inventory with 'show inventory' and show your stats with 'show stats'")
     print(" -- If you examine a location you may trigger a random encounter and you can 'fish', 'hunt' or 'get corn'")
     print(" -- If you move, you can decide to move 'up', 'down', 'left' or 'right'")
     print("")
@@ -541,7 +561,13 @@ def fight(player,poss):
             print("You fight against: "+enemy.name)
             enemy.health_print()
             player.health() #Die fehlt noch in der init
-            a = fight_options() #das geht sicher eleganter
+            a = fight_options().lower() #das geht sicher eleganter
+
+            valid_options = ["attack", "heal", "flee", "show stats" ,"quit"]
+            while a not in valid_options:
+                print("Please use a valid answer.")#nochmal eine Chance zur Eingabe oder direkt Angriff Gegner?
+                a = fight_options().lower()
+
             if a == "attack":
                 print("You attack with your weapon and do "+str(player.weapon.damage)+" damage.")
                 enemy.health -= player.weapon.damage
@@ -560,17 +586,20 @@ def fight(player,poss):
                     break
                 else:
                     print("Your enemy won't let you go!")
-            else:
-                print("Please use a valid answer.")#nochmal eine Chance zur Eingabe oder direkt Angriff Gegner?
+            elif a == "show stats":
+                myPlayer.show_stats()
+            elif a == "quit":
+                sys.exit()
 
             if random.random() < enemy.accuracy:
                 print("Your enemy attacks and does "+str(enemy.strength)+" damage.")
-                player.health_cur -= enemy.strength
+                player.health_cur -= int(enemy.strength - (player.calc_armor() / 100))
                 #Hier kommt noch player.armor dazu
 
                 if player.health_cur <= 0:
-                    print("You are dead.")
+                    speech_manipulation("You are dead . . .",0.03)
                     print(" ")
+                    time.sleep(2)
                     player.game_over = True
                     dead = 1
                     game_over()
@@ -616,7 +645,7 @@ def loot(enemy,player):
             print("Would you like to swap your weapon? (y/n)\n")
             ant=input("> ")
             print(" ")
-            if ant.lower()[0] == "y":
+            if ant.lower()[0] in ["y",""]:
                 # player.getObject(player.weapon) #aktuelle Waffe ins Inventar
                 player.getWeapon(g) #neue Waffe = aktuelle Waffe
             elif ant.lower()[0] == "n":
@@ -628,7 +657,7 @@ def loot(enemy,player):
             print("Would you like to swap your armor? (y/n)\n")
             ant=input("> ")
             print("")
-            if ant.lower()[0] == "y":
+            if ant.lower()[0] in ["y",""]:
                 # player.getObject(player.weapon) #aktuelle Waffe ins Inventar
                 player.getArmor(g) #neue Waffe = aktuelle Waffe
             elif ant.lower()[0] == "n":
@@ -661,10 +690,10 @@ def promt():
     print("-"*len("What would you like to do?")+"\n")
 
     action = input("> ")
-    acceptable_locations = ["move","go","travel","walk","quit","examine","inspect","interact","look","hunting","hunt","fishing","fish","corn","get corn","harvest","heal","healing","potion","use potion","show inventory","inventory"]
+    acceptable_locations = ["move","go","travel","walk","quit","examine","inspect","interact","look","hunting","hunt","fishing","fish","corn","get corn","harvest","heal","healing","potion","use potion","show inventory","inventory","show stats","stats"]
 
     while action.lower() not in acceptable_locations:
-        print("Unknown action. Try again. (move, quit, examine)")
+        print("Unknown action. Try again. (move, examine, quit)")
         action = input("> ")
 
     if action.lower() == "quit":
@@ -683,6 +712,8 @@ def promt():
         myPlayer.usePotion()
     elif action.lower() in ["show inventory","inventory"]:
         myPlayer.print_inventory()
+    elif action.lower() in ["show stats","stats"]:
+        myPlayer.show_stats()
 
 def player_move():
     dest = input("Where do you like to move to? ('up', 'down', 'left', 'right')\n> ")
@@ -819,13 +850,15 @@ def setup_game():
     if player_class.lower() in classes:
         myPlayer.play_class = player_class
         print("You are now "+player_class)
+        time.sleep(1.5)
     else:
         while player_class.lower() not in classes:
-            print("No valid race.\n")
-            player_race = input("> ").lower()
-            if player_class.lower() in classes:
-                myPlayer.race = input("> ").lower()
-                print("You are now "+player_class)
+            print("No valid class.\n")
+            player_class = input("> ").lower()
+        if player_class.lower() in classes:
+            myPlayer.play_class = player_class
+            print("You are now " + player_class)
+            time.sleep(1.5)
 
     if myPlayer.play_class == "warrior":
         myPlayer.health_max = 120

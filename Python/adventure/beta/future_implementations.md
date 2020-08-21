@@ -7,3 +7,4 @@
 - NPC (außer Gegner)? (Schmied, Händler, Farmer, Reisender, Waldläufer im Wald, Fischer, ... )
 - Notizbuch hinzufügen?
 - Questen hinzufügen? In dem Zug dann auch noch eine Questübersicht
+- Error, wenn eine Waffe nicht ausgerüstet werden soll: `TypeError: 'str' object is not callable`

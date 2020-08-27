@@ -8,6 +8,7 @@ class Weapon():
         self.level = level
         self.name = random.choice(adjective) + random.choice(subst)
         self.damage = random.randrange(3,6)*level #=> 3-5
+        self.used = 0 # used in percent --> multiply with damage
         self.equiped = False
 
     def __repr__(self):

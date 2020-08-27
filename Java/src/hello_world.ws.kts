@@ -10,3 +10,9 @@ add(a,b)
 var hello = "Hello World"
 
 println("$hello This is a test")
+
+
+
+for (i in listOf("eins","zwei","...")) run { print("Test $i ") }
+
+for (c in 'f' downTo 'a') run { println(c) }

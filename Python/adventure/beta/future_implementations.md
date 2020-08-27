@@ -1,4 +1,5 @@
 # Future Implementations
+TODO
 - ~~Equiped tag für Rüstungsteile, damit diese so in show_inventory angezeigt werden können.~~
 - ~~show_stats Funktion schreiben, die dann alle aktuellen Werte des Spielers enthält.~~
 - used Attribut bei Waffen?

@@ -1,7 +1,12 @@
-import cmd, textwrap, sys, os, time, random
-import weapon # player
+import os
+import random
+import sys
+import time
+
+import weapon  # player
 
 screen_width = 60
+
 
 class Player:
     def __init__(self):
@@ -16,72 +21,112 @@ class Player:
         self.location = "b2"
         self.game_over = False
         self.weapon = weapon.Weapon(self.level)
+        self.weapon.equiped = True
         self.potions = 1
-        self.inventory = {"weapons":[self.weapon],"armor":[],"misc":dict()}
+        self.inventory = {"weapons": [self.weapon], "armor": [], "misc": dict()}
         self.gold = 10
         self.head_protect = 0
         self.chest_protect = 0
         self.leg_protect = 0
         self.arm_protect = 0
-        self.pos = (0.95,0.05,0)
+        self.pos = (0.95, 0.05, 0)
+
+    def calc_armor(self):
+        return sum([self.head_protect, self.chest_protect, self.leg_protect, self.arm_protect])
 
     def health(self):
-        print("Your health: "+str(self.health_cur)+"/"+str(self.health_max)+" HP")
+        print("Your health: " + str(self.health_cur) + "/" + str(self.health_max) + " HP")
 
-    def levelUP(self):
+    def level_up(self):
         self.level += 1
         self.health_max += 20
         self.ep -= 100
-        self.pos = (self.pos[0]-(self.level*0.05),self.pos[1]+(self.level*0.1),self.pos[2]+(self.level*0.05))
-        speech_manipulation("Congratulations, you leveled up. You are now a level " + str(self.level) + " " + self.play_class + ".\n",0.03)
-        speech_manipulation("You have " + str(self.health_max) + " HP.",0.03)
+        self.pos = (
+            self.pos[0] - (self.level * 0.05), self.pos[1] + (self.level * 0.1), self.pos[2] + (self.level * 0.05))
+        speech_manipulation(
+            "Congratulations, you leveled up. You are now a level " + str(self.level) + " " + self.play_class + ".\n",
+            0.03)
+        speech_manipulation("You have " + str(self.health_max) + " HP.", 0.03)
         time.sleep(2)
+        while self.ep > 100:
+            self.level_up()
 
-    def getEP(self,amount):
+    def get_ep(self, amount):
         self.ep += amount
         if self.ep > 100:
-            self.levelUP()
+            self.level_up()
 
-    def getWeapon(self,weapon):
+    def get_weapon(self, weapon):
+        self.weapon.equiped = False
         self.weapon = weapon
+        self.weapon.equiped = True
         self.inventory["weapons"].append(weapon)
 
-    def getArmor(self,armor):
-        self.protect(armor.slot,armor.protection)
+    def get_armor(self, armor):
+        for arm in self.inventory["armor"]:
+            if arm.slot == armor.slot and arm.equiped == True:
+                arm.equiped = False
+        self.protect(armor.slot, armor.protection)
+        armor.equiped = True
         self.inventory["armor"].append(armor)
 
-    def getGold(self,amount):
+    def get_gold(self, amount):
         self.gold += amount
 
-    def getPotion(self,amount):
+    def get_potion(self, amount):
         self.potions += amount
 
     def print_inventory(self):
         os.system("clear")
         print("#" * screen_width)
-        print("=" * int((screen_width - len("WEAPONS")) / 2) + "WEAPONS" + "=" * int((screen_width - len("WEAPONS")) / 2))
+        print(
+            "=" * int((screen_width - len("WEAPONS")) / 2) + "WEAPONS" + "=" * int((screen_width - len("WEAPONS")) / 2))
         for weapon in self.inventory["weapons"]:
-            print(weapon)
+            if weapon.equiped == True:
+                print("EQUIPED: " + str(weapon)[13:])
+            else:
+                print(str(weapon)[13:])
         print("")
         print("=" * int((screen_width - len("ARMOR")) / 2) + "ARMOR" + "=" * int((screen_width - len("ARMOR")) / 2))
         for armor in self.inventory["armor"]:
-            print(armor)
+            if armor.equiped == True:
+                print("EQUIPED: A" + str(armor)[6:])
+            else:
+                print("A" + str(armor)[6:])
         print("")
-        print("=" * int((screen_width - len("POTIONS")) / 2) + "POTIONS" + "=" * int((screen_width - len("POTIONS")) / 2))
+        print(
+            "=" * int((screen_width - len("POTIONS")) / 2) + "POTIONS" + "=" * int((screen_width - len("POTIONS")) / 2))
         if self.potions == 1:
             print("You have " + str(self.potions) + " potion.")
         if self.potions > 1:
             print("You have " + str(self.potions) + " potions.")
         print("")
         print("=" * int((screen_width - len("MISC")) / 2) + "MISC" + "=" * int((screen_width - len("MISC")) / 2))
-        for msc in self.inventory["misc"]:
-            print(msc + ": " + str(self.inventory["misc"][misc]))
+        for misc in self.inventory["misc"]:
+            print(misc + ": " + str(self.inventory["misc"][misc]))
         print("")
         print("Press ENTER to continue.")
         input()
         os.system("clear")
 
-    def usePotion(self):
+    def show_stats(self):
+        os.system("clear")
+        print("#" * screen_width)
+        print("")
+        print("Name:" + " " * (20 - len("Name:")) + self.name)
+        print("Class:" + " " * (20 - len("Class:")) + self.play_class)
+        print("Level:" + " " * (20 - len("Level:")) + str(self.level))
+        print("EP:" + " " * (20 - len("EP:")) + str(self.ep))
+        print("Health:" + " " * (20 - len("Health:")) + str(self.health_cur) + "/" + str(self.health_max))
+        print("Armor:" + " " * (20 - len("Armor:")) + str(self.calc_armor()))
+        print("")
+        print("#" * screen_width)
+        print("")
+        print("Press ENTER to continue.")
+        input()
+        os.system("clear")
+
+    def use_potion(self):
         if self.potions > 0:
             self.health_cur += 25
             if self.health_cur > self.health_max:
@@ -93,28 +138,28 @@ class Player:
         time.sleep(2)
         os.system("clear")
 
-    def getObject(self,object):
-        if object not in self.inventory["misc"] and type(object) == str:
-            self.inventory.misc[object] = 1
-        elif object in self.inventory["misc"]:
-            self.inventory.misc[object] += 1
-        elif object.obj_type() == "weapon":
-            self.inventory["weapons"].append(object)
-        elif object.obj_type() == "armor":
-            self.inventory["armor"].append(object)
+    def get_object(self, obj):
+        if obj not in self.inventory["misc"] and type(obj) == str:
+            self.inventory["misc"][obj] = 1
+        elif obj in self.inventory["misc"]:
+            self.inventory["misc"][obj] += 1
+        elif obj.obj_type() == "weapon":
+            self.inventory["weapons"].append(obj)
+        elif obj.obj_type() == "armor":
+            self.inventory["armor"].append(obj)
 
-    def protect(self,place,amount):
+    def protect(self, place, amount):
         if place == "head":
-            self.head_protect += amount
+            self.head_protect = amount
         elif place == "chest":
-            self.chest_protect += amount
+            self.chest_protect = amount
         elif place == "leg":
-            self.leg_protect += amount
+            self.leg_protect = amount
         elif place == "arm":
-            self.arm_protect += amount
+            self.arm_protect = amount
 
     def fishing(self):
-        if self.location in ["a4","c1","c2"] and "fishingrot" in self.inventory:
+        if self.location in ["a4", "c1", "c2"] and "fishingrot" in self.inventory:
             p = random.random()
             if p > 0.95:
                 print("You get an old, stinky boot. *urgh*")
@@ -156,7 +201,7 @@ class Player:
         os.system("clear")
 
     def hunting(self):
-        if self.location in ["b3","b4","c3","c4"]:
+        if self.location in ["b3", "b4", "c3", "c4"]:
             p = random.random()
             if p > 0.95:
                 print("You get some nice deer. This will give you good food for some days.")
@@ -178,41 +223,47 @@ class Player:
         time.sleep(2)
         os.system("clear")
 
+
 myPlayer = Player()
+
 
 ##### Title #####
 def title_screen_selections():
     option = input("> ")
-    if option.lower() == ("Play"):
+    if option.lower() == "play":
         setup_game()
-    elif option.lower() == ("Help"):
+    elif option.lower() == "help":
         help_menu()
-    elif option.lower() == ("Quit"):
+    elif option.lower() == "quit":
         sys.exit()
 
-    while option.lower() not in ["play","help","quit"]:
+    while option.lower() not in ["play", "help", "quit"]:
         print("Invalid command. Type 'play', 'help', 'quit'")
         title_screen_selections()
 
+
 def title_screen():
     os.system("clear")
-    print("#"*screen_width)
-    print("#" + (" " * int((screen_width-len("Welcome to the Text RPG"))/2)) + "Welcome to the Text RPG" + (" " * int((screen_width-2-len("Welcome to the Text RPG"))/2)) + "#")
-    print("#" + "="*(screen_width-2) + "#")
-    print("#" + (" "*int((screen_width-6)/2)) + "-play-" + (" "*int((screen_width-9)/2)) + "#")
-    print("#" + (" "*int((screen_width-6)/2)) + "-help-" + (" "*int((screen_width-9)/2)) + "#")
-    print("#" + (" "*int((screen_width-6)/2)) + "-quit-" + (" "*int((screen_width-9)/2)) + "#")
-    print("#"*screen_width+"\n")
+    print("#" * screen_width)
+    print("#" + (" " * int((screen_width - len("Welcome to the Text RPG")) / 2)) + "Welcome to the Text RPG" + (
+            " " * int((screen_width - 2 - len("Welcome to the Text RPG")) / 2)) + "#")
+    print("#" + "=" * (screen_width - 2) + "#")
+    print("#" + (" " * int((screen_width - 6) / 2)) + "-play-" + (" " * int((screen_width - 9) / 2)) + "#")
+    print("#" + (" " * int((screen_width - 6) / 2)) + "-help-" + (" " * int((screen_width - 9) / 2)) + "#")
+    print("#" + (" " * int((screen_width - 6) / 2)) + "-quit-" + (" " * int((screen_width - 9) / 2)) + "#")
+    print("#" * screen_width + "\n")
     title_screen_selections()
+
 
 def help_menu():
     os.system("clear")
-    print("#"*screen_width)
-    print(("=" * int((screen_width-len("HELP MENU"))/2)) + "HELP MENU" + ("=" * int((screen_width-len("HELP MENU"))/2)))
-    print("#"*screen_width)
+    print("#" * screen_width)
+    print(("=" * int((screen_width - len("HELP MENU")) / 2)) + "HELP MENU" + (
+            "=" * int((screen_width - len("HELP MENU")) / 2)))
+    print("#" * screen_width)
     print("")
     print(" -- You can always decide to 'examine' a location or 'move' to another.")
-    print(" -- You can always see your inventory with 'show inventory'")
+    print(" -- You can always see your inventory with 'show inventory' and show your stats with 'show stats'")
     print(" -- If you examine a location you may trigger a random encounter and you can 'fish', 'hunt' or 'get corn'")
     print(" -- If you move, you can decide to move 'up', 'down', 'left' or 'right'")
     print("")
@@ -221,8 +272,10 @@ def help_menu():
     title_screen()
     title_screen_selections()
 
+
 ### MAP ###
-solved_places = {'a1': False, 'a2': False, 'a3': False, 'a4': False, 'b1': False, 'b2': False, 'b3': False, 'b4': False, 'c1': False, 'c2': False, 'c3': False, 'c4': False, 'd1': False, 'd2': False, 'd3': False, 'd4': False}
+solved_places = {'a1': False, 'a2': False, 'a3': False, 'a4': False, 'b1': False, 'b2': False, 'b3': False, 'b4': False,
+                 'c1': False, 'c2': False, 'c3': False, 'c4': False, 'd1': False, 'd2': False, 'd3': False, 'd4': False}
 
 ##### MAP PRE #####
 # ""ZONENAME"" = ""
@@ -253,7 +306,8 @@ zonemap = {
     "a2": {
         "ZONENAME": "Towngate",
         "DESCRIPTION": "This is the gate of your hometown.",
-        "EXAMINATION": "The gate is locked at night. You have to be nice to the guardsmen, if you try to enter at night.",
+        "EXAMINATION": "The gate is locked at night. You have to be nice to the guardsmen, if you try to enter at "
+                       "night.",
         "SOLVED": False,
         "UP": "",
         "DOWN": "b2",
@@ -392,7 +446,7 @@ zonemap = {
         "LEFT": "",
         "RIGHT": "d2",
         "ENCOUNTERS": 5,
-        "POSSIBILITIES": [0.7,0.3,1]
+        "POSSIBILITIES": [0.7, 0.3, 1]
     },
     "d2": {
         "ZONENAME": "Cornfield",
@@ -428,9 +482,10 @@ zonemap = {
         "LEFT": "d3",
         "RIGHT": "",
         "ENCOUNTERS": 7,
-        "POSSIBILITIES": [0.5,1,0]
+        "POSSIBILITIES": [0.5, 1, 0]
     }
 }
+
 
 # class Weapon():
 #     def __init__(self, level):
@@ -467,70 +522,81 @@ zonemap = {
 #             elif self.slot == "arm":
 #                 person.arm_protect += self.protection
 
-class NPC():
-    def __init__(self,health,strength):
-        self.health = health*random.randrange(10,21)
-        self.strength = strength*random.randrange(5,11)
+class NPC:
+    def __init__(self, health, strength):
+        self.health = health * random.randrange(10, 21)
+        self.strength = strength * random.randrange(5, 11)
+
     def health_print(self):
-        print("Enemy Health "+str(self.health))
+        print("Enemy Health " + str(self.health))
+
 
 class Bandit(NPC):
     def __init__(self):
-        super().__init__(1,1) #set health + strength
+        super().__init__(1, 1)  # set health + strength
         self.name = "Bandit"
         self.quip = ["Oi!", "Ow!", "Aaargh!", "Hng!"]
         self.accuracy = 0.65
         self.loot_chance = 0.80
         self.loot_level = 2
-        self.ep_drop = random.randrange(30,41)
+        self.ep_drop = random.randrange(30, 41)
+
 
 class Orc(NPC):
     def __init__(self):
-        super().__init__(3,3)
+        super().__init__(3, 3)
         self.name = "Orc"
         self.quip = ["Uagh!", "Uff!", "Gnar!", "Grrrrr!"]
         self.accuracy = 0.75
         self.loot_chance = 40
         self.loot_level = 3
-        self.ep_drop = random.randrange(50,71)
+        self.ep_drop = random.randrange(50, 71)
+
 
 class Giant(NPC):
     def __init__(self):
-        super().__init__(10,10)
+        super().__init__(10, 10)
         self.name = "Giant"
         self.quip = ["AAAAAH!", "Fi, Fai, Fo, Fumm!", "Hargh!"]
         self.accuracy = 0.9
         self.loot_chance = 50
         self.loot_level = 5
-        self.ep_drop = random.randrange(100,151) #bei 100EP cap quasi ein garantiertes level"UP"
+        self.ep_drop = random.randrange(100, 151)  # bei 100EP cap quasi ein garantiertes level"UP"
 
 
-def fight(player,poss):
+def fight(player, poss):
     os.system("clear")
-    print("#"*screen_width)
-    print(" "*int((screen_width-len("FIGHT"))/2) + "FIGHT")
-    print("#"*screen_width)
+    print("#" * screen_width)
+    print(" " * int((screen_width - len("FIGHT")) / 2) + "FIGHT")
+    print("#" * screen_width)
     enemy = ""
     x = random.random()
-    if x<poss[0]:
+    if x < poss[0]:
         enemy = Bandit()
-    elif x>poss[0] and x<poss[0]+poss[1]:
+    elif poss[0] < x < poss[0] + poss[1]:
         enemy = Orc()
     else:
-        enemy = Giant() #else, solange nur 3 mögliche Gegner
+        enemy = Giant()  # else, solange nur 3 mögliche Gegner
     flee = 0
     dead = 0
-    while dead == 0: #es läuft mal mit meinen beiden Schleifen, weil ich nicht genau weiß, wie wir bei dir game_over einbinden können
+    while dead == 0:  # es läuft mal mit meinen beiden Schleifen, weil ich nicht genau weiß, wie wir bei dir
+        # game_over einbinden können
         while enemy.health > 0 and flee == 0:
             print("                 ")
-            print("You fight against: "+enemy.name)
+            print("You fight against: " + enemy.name)
             enemy.health_print()
-            player.health() #Die fehlt noch in der init
-            a = fight_options() #das geht sicher eleganter
+            player.health()  # Die fehlt noch in der init
+            a = fight_options().lower()  # das geht sicher eleganter
+
+            valid_options = ["attack", "heal", "flee", "show stats", "quit"]
+            while a not in valid_options:
+                print("Please use a valid answer.")  # nochmal eine Chance zur Eingabe oder direkt Angriff Gegner?
+                a = fight_options().lower()
+
             if a == "attack":
-                print("You attack with your weapon and do "+str(player.weapon.damage)+" damage.")
+                print("You attack with your weapon and do " + str(player.weapon.damage) + " damage.")
                 enemy.health -= player.weapon.damage
-                print("enemy: "+random.choice(enemy.quip))
+                print("enemy: " + random.choice(enemy.quip))
                 if enemy.health <= 0:
                     print("       ")
                     print("**** You won!!! ****")
@@ -538,31 +604,34 @@ def fight(player,poss):
                     zonemap[myPlayer.location]["ENCOUNTERS"] -= 1
                     break
             elif a == "heal":
-                player.usePotion() #Einbindung neuer Methode
+                player.use_potion()  # Einbindung neuer Methode
             elif a == "flee":
-                if random.random() < 0.6: # 60% Fluchchance (fix? Future-Feature)
+                if random.random() < 0.6:  # 60% Fluchchance (fix? Future-Feature)
                     flee = 1
                     break
                 else:
                     print("Your enemy won't let you go!")
-            else:
-                print("Please use a valid answer.")#nochmal eine Chance zur Eingabe oder direkt Angriff Gegner?
+            elif a == "show stats":
+                myPlayer.show_stats()
+            elif a == "quit":
+                sys.exit()
 
             if random.random() < enemy.accuracy:
-                print("Your enemy attacks and does "+str(enemy.strength)+" damage.")
-                player.health_cur -= enemy.strength
-                #Hier kommt noch player.armor dazu
+                print("Your enemy attacks and does " + str(enemy.strength) + " damage.")
+                player.health_cur -= int(enemy.strength - (player.calc_armor() / 100))
+                # Hier kommt noch player.armor dazu
 
                 if player.health_cur <= 0:
-                    print("You are dead.")
+                    speech_manipulation("You are dead . . .", 0.03)
                     print(" ")
+                    time.sleep(2)
                     player.game_over = True
                     dead = 1
                     game_over()
-                    break #die Breaks sind etwas schwierig zu erklären ...
+                    break  # die Breaks sind etwas schwierig zu erklären ...
             else:
                 print("Your enemy attacks.")
-                #sleep(1) #dramatic pause :D
+                # sleep(1) #dramatic pause :D
                 print("Missed!")
         time.sleep(2)
         os.system("clear")
@@ -572,55 +641,58 @@ def fight(player,poss):
         elif dead == 1:
             break
         else:
-            if random.random() < enemy.loot_chance: #Chance ob Loot-Drop oder nicht (abhängig von Gegner)
-                loot(enemy,player)
+            if random.random() < enemy.loot_chance:  # Chance ob Loot-Drop oder nicht (abhängig von Gegner)
+                loot(enemy, player)
 
-                #gold_reward = enemy.loot_level * random.randrange(10,20)
-                #player.gold += gold_reward
-                #print("You get "+str(gold_reward)+" gold.")
+                # gold_reward = enemy.loot_level * random.randrange(10,20)
+                # player.gold += gold_reward
+                # print("You get "+str(gold_reward)+" gold.")
 
                 # player.getEP(enemy.ep_drop) #Versuch deine Player.methoden einzubinden
                 # print("You get "+str(enemy.ep_drop)+" experience.")
             else:
                 print("Looks like you got nothing...")
 
-            print("You get "+str(enemy.ep_drop)+" experience.") # Ich dachte vielleicht sollte man bei einem Sieg immer EP bekommen?
+            print("You get " + str(
+                enemy.ep_drop) + " experience.")  # Ich dachte vielleicht sollte man bei einem Sieg immer EP bekommen?
             time.sleep(2)
-            player.getEP(enemy.ep_drop) #Versuch deine Player.methoden einzubinden
+            player.get_ep(enemy.ep_drop)  # Versuch deine Player.methoden einzubinden
         time.sleep(2)
         os.system("clear")
         break
-    return dead #das war für meinen game_loop nötig, kann vermutlich weg
+    return dead  # das war für meinen game_loop nötig, kann vermutlich weg
 
-def loot(enemy,player):
+
+def loot(enemy, player):
     if random.random() < 0.70:
-        g = random.choice([weapon.Weapon(enemy.loot_level),weapon.Armor(enemy.loot_level)])
+        g = random.choice([weapon.Weapon(enemy.loot_level), weapon.Armor(enemy.loot_level)])
         if g.obj_type == "weapon":
-            print("You find: "+g.name)
-            print("Damage: "+str(g.damage))
+            print("You find: " + g.name)
+            print("Damage: " + str(g.damage))
             print("Would you like to swap your weapon? (y/n)\n")
-            ant=input("> ")
+            ant = input("> ")
             print(" ")
-            if ant.lower()[0] == "y":
+            if ant.lower()[0] in ["y", ""]:
                 # player.getObject(player.weapon) #aktuelle Waffe ins Inventar
-                player.getWeapon(g) #neue Waffe = aktuelle Waffe
+                player.get_weapon(g)  # neue Waffe = aktuelle Waffe
             elif ant.lower()[0] == "n":
-                player.getObject(g) #Waffe ins Inventar
+                player.get_object(g)  # Waffe ins Inventar
         elif g.obj_type == "armor":
-            print("You find: "+g.name)
-            print("Protection: "+str(g.protection))
+            print("You find: " + g.name)
+            print("Protection: " + str(g.protection))
             print("Slot: " + g.slot)
             print("Would you like to swap your armor? (y/n)\n")
-            ant=input("> ")
+            ant = input("> ")
             print("")
-            if ant.lower()[0] == "y":
+            if ant.lower()[0] in ["y", ""]:
                 # player.getObject(player.weapon) #aktuelle Waffe ins Inventar
-                player.getArmor(g) #neue Waffe = aktuelle Waffe
+                player.get_armor(g)  # neue Waffe = aktuelle Waffe
             elif ant.lower()[0] == "n":
-                player.getObject(g) #Waffe ins Inventar
+                player.get_object(g)  # Waffe ins Inventar
     else:
         print("You find a potion.")
-        player.getPotion(1)
+        player.get_potion(1)
+
 
 def fight_options():
     print("Choose: attack, heal, flee\n")
@@ -628,46 +700,58 @@ def fight_options():
     os.system("clear")
     return ant
 
+
 def print_location():
-    print("#"*screen_width)
-    print((" " * int((screen_width-len(zonemap[myPlayer.location]["ZONENAME"]))/2)) + zonemap[myPlayer.location]["ZONENAME"] + (" " * int((screen_width-len(zonemap[myPlayer.location]["ZONENAME"]))/2)))
-    print((" " * int((screen_width-len(zonemap[myPlayer.location]["DESCRIPTION"]))/2)) + zonemap[myPlayer.location]["DESCRIPTION"] + (" " * int((screen_width-len(zonemap[myPlayer.location]["DESCRIPTION"]))/2)))
+    print("#" * screen_width)
+    print((" " * int((screen_width - len(zonemap[myPlayer.location]["ZONENAME"])) / 2)) + zonemap[myPlayer.location][
+        "ZONENAME"] + (" " * int((screen_width - len(zonemap[myPlayer.location]["ZONENAME"])) / 2)))
+    print((" " * int((screen_width - len(zonemap[myPlayer.location]["DESCRIPTION"])) / 2)) + zonemap[myPlayer.location][
+        "DESCRIPTION"] + (" " * int((screen_width - len(zonemap[myPlayer.location]["DESCRIPTION"])) / 2)))
     if zonemap[myPlayer.location]["SOLVED"] == True:
-        print((" " * int((screen_width-len(zonemap[myPlayer.location]["EXAMINATION"]+"EXAMINATION"))/2)) + "EXAMINATION: " + zonemap[myPlayer.location]["EXAMINATION"] + (" " * int((screen_width-len(zonemap[myPlayer.location]["EXAMINATION"]+"EXAMINATION"))/2)))
-    print("#"*screen_width)
+        print((" " * int(
+            (screen_width - len(zonemap[myPlayer.location]["EXAMINATION"] + "EXAMINATION")) / 2)) + "EXAMINATION: " +
+              zonemap[myPlayer.location]["EXAMINATION"] + (" " * int(
+            (screen_width - len(zonemap[myPlayer.location]["EXAMINATION"] + "EXAMINATION")) / 2)))
+    print("#" * screen_width)
+
 
 def promt():
     print("You are here:")
     print_location()
-    print("\n"+"="*len("What would you like to do?"))
+    print("\n" + "=" * len("What would you like to do?"))
     print("What would you like to do?\n")
-    print("-"*len("What would you like to do?"))
-    print(" "*(int((len("What would you like to do?")-len("examine or move?"))/2))+"examine or move?")
-    print("-"*len("What would you like to do?")+"\n")
+    print("-" * len("What would you like to do?"))
+    print(" " * (int((len("What would you like to do?") - len("examine or move?")) / 2)) + "examine or move?")
+    print("-" * len("What would you like to do?") + "\n")
 
     action = input("> ")
-    acceptable_locations = ["move","go","travel","walk","quit","examine","inspect","interact","look","hunting","hunt","fishing","fish","corn","get corn","harvest","heal","healing","potion","use potion","show inventory","inventory"]
+    acceptable_locations = ["move", "go", "travel", "walk", "quit", "examine", "inspect", "interact", "look", "hunting",
+                            "hunt", "fishing", "fish", "corn", "get corn", "harvest", "heal", "healing", "potion",
+                            "use potion", "show inventory", "inventory", "show stats", "stats"]
 
     while action.lower() not in acceptable_locations:
-        print("Unknown action. Try again. (move, quit, examine)")
+        print("Unknown action. Try again. (move, examine, quit)")
         action = input("> ")
 
     if action.lower() == "quit":
         sys.exit()
-    elif action.lower() in ["move","go","travel","walk"]:
+    elif action.lower() in ["move", "go", "travel", "walk"]:
         player_move()
-    elif action.lower() in ["examine","inspect","interact","look"]:
+    elif action.lower() in ["examine", "inspect", "interact", "look"]:
         player_examine()
-    elif action.lower() in ["fishing","fish"]:
+    elif action.lower() in ["fishing", "fish"]:
         myPlayer.fishing()
-    elif action.lower() in ["hunting","hunt"]:
+    elif action.lower() in ["hunting", "hunt"]:
         myPlayer.hunting()
-    elif action.lower() in ["corn","get corn","harvest"]:
+    elif action.lower() in ["corn", "get corn", "harvest"]:
         myPlayer.getCorn()
-    elif action.lower() in ["heal","healing","potion","use potion"]:
-        myPlayer.usePotion()
-    elif action.lower() in ["show inventory","inventory"]:
+    elif action.lower() in ["heal", "healing", "potion", "use potion"]:
+        myPlayer.use_potion()
+    elif action.lower() in ["show inventory", "inventory"]:
         myPlayer.print_inventory()
+    elif action.lower() in ["show stats", "stats"]:
+        myPlayer.show_stats()
+
 
 def player_move():
     dest = input("Where do you like to move to? ('up', 'down', 'left', 'right')\n> ")
@@ -701,6 +785,7 @@ def player_move():
         else:
             stay(dest)
 
+
 def movement(destination):
     myPlayer.location = destination
     print("You have moved to the " + zonemap[myPlayer.location]["ZONENAME"] + ".")
@@ -716,11 +801,13 @@ def movement(destination):
     #     zonemap[myPlayer.location]["SOLVED"] = True
     #     "SOLVED"_places[myPlayer.location] = True
 
-def stay(dir):
-    directions = {"up":"north","down":"south","left":"west","right":"east"}
-    print("You cannot move further " + directions[dir] + ".")
+
+def stay(direct):
+    directions = {"up": "north", "down": "south", "left": "west", "right": "east"}
+    print("You cannot move further " + directions[direct] + ".")
     time.sleep(3)
     os.system("clear")
+
 
 def player_examine():
     if zonemap[myPlayer.location]["ENCOUNTERS"] > 0:
@@ -729,7 +816,7 @@ def player_examine():
         # poss = zonemap[myPlayer.location][POSSIBILITIES]
         # else:
         #     poss = POSSIBILITIES # global
-        fight(myPlayer,zonemap[myPlayer.location]["POSSIBILITIES"])
+        fight(myPlayer, zonemap[myPlayer.location]["POSSIBILITIES"])
 
     if zonemap[myPlayer.location]["SOLVED"] == True:
         print("You have already been here.")
@@ -744,21 +831,30 @@ def player_examine():
         time.sleep(3)
         os.system("clear")
 
+
 def intro():
     os.system("clear")
     question3 = "Welcome, " + myPlayer.name + " the " + myPlayer.play_class + ".\n"
-    speech_manipulation(question3,0.05)
-    speech_manipulation("Welcome to this fantasy world I created for you. ;)\n",0.05)
-    speech_manipulation("I hope you will have some fun\n ... \n ... \n ...\n",0.15)
-    speech_manipulation("Well, you are not the first adventurer here. There have been many before you. And to be honest, there will be many after you ... when you have ... ",0.05)
+    speech_manipulation(question3, 0.05)
+    speech_manipulation("Welcome to this fantasy world I created for you. ;)\n", 0.05)
+    speech_manipulation("I hope you will have some fun\n ... \n ... \n ...\n", 0.15)
+    speech_manipulation(
+        "Well, you are not the first adventurer here. There have been many before you. And to be honest, there will "
+        "be many after you ... when you have ... ",
+        0.05)
     speech_manipulation("passed away ... \n", 0.25)
-    speech_manipulation("Now have some fun exploring the world. We will see each other when it's time to.\n",0.05)
+    speech_manipulation("Now have some fun exploring the world. We will see each other when it's time to.\n", 0.05)
     time.sleep(2)
 
+
 def end_screen():
-    speech_manipulation("Congratulations, you have solved the complete game. I never thought you would be able to do this.",0.05)
+    speech_manipulation(
+        "Congratulations, you have solved the complete game. I never thought you would be able to do this.", 0.05)
     print("")
-    speech_manipulation("I will get in touch with you soon. Wait for a sign from me. I think I have a good job for some strong adventurer like you.",0.04)
+    speech_manipulation(
+        "I will get in touch with you soon. Wait for a sign from me. I think I have a good job for some strong "
+        "adventurer like you.",
+        0.04)
 
     time.sleep(5)
     os.system("clear")
@@ -768,49 +864,57 @@ def end_screen():
     # time.sleep(5)
     sys.exit()
 
+
 def game_over():
     os.system("clear")
-    speech_manipulation("Ouh there you are again.\n",0.05)
-    speech_manipulation("Don't understand me wrong. This is no surprise for me. Maybe you have more luck in your next reincarnation.",0.05)
-    speech_manipulation("Have a good day. :)",0.07)
+    speech_manipulation("Ouh there you are again.\n", 0.05)
+    speech_manipulation(
+        "Don't understand me wrong. This is no surprise for me. Maybe you have more luck in your next reincarnation.\n",
+        0.05)
+    speech_manipulation("Have a good day. :)", 0.07)
     time.sleep(2)
     sys.exit()
+
 
 def game_loop():
     while not myPlayer.game_over:
         promt()
 
-def speech_manipulation(text,speed):
+
+def speech_manipulation(text, speed):
     for char in text:
         sys.stdout.write(char)
         sys.stdout.flush()
         time.sleep(speed)
 
+
 def setup_game():
     os.system("clear")
     question1 = "Hello what's your name?\n"
-    speech_manipulation(question1,0.05)
+    speech_manipulation(question1, 0.05)
     print("")
     myPlayer.name = input("> ").lower()
 
     os.system("clear")
 
-    classes = ["warrior","mage","rogue"]
+    classes = ["warrior", "mage", "rogue"]
     question2 = "What Class do you want to play? (Warrior, Mage, Rogue)\n"
-    speech_manipulation(question2,0.01)
+    speech_manipulation(question2, 0.01)
     print("")
     player_class = input("> ").lower()
     print("")
     if player_class.lower() in classes:
         myPlayer.play_class = player_class
-        print("You are now "+player_class)
+        print("You are now " + player_class)
+        time.sleep(1.5)
     else:
         while player_class.lower() not in classes:
-            print("No valid race.\n")
-            player_race = input("> ").lower()
-            if player_class.lower() in classes:
-                myPlayer.race = input("> ").lower()
-                print("You are now "+player_class)
+            print("No valid class.\n")
+            player_class = input("> ").lower()
+        if player_class.lower() in classes:
+            myPlayer.play_class = player_class
+            print("You are now " + player_class)
+            time.sleep(1.5)
 
     if myPlayer.play_class == "warrior":
         myPlayer.health_max = 120
@@ -828,13 +932,15 @@ def setup_game():
     # intro()
 
     os.system("clear")
-    print("#"*screen_width+"\n")
-    print("#" + (" "*int((screen_width-2-len("Let's start now"))/2))  + "Let's start now" + (" "*int((screen_width-2-len("Let's start now"))/2)) + "#\n")
-    print("#"*screen_width+"\n")
+    print("#" * screen_width + "\n")
+    print("#" + (" " * int((screen_width - 2 - len("Let's start now")) / 2)) + "Let's start now" + (
+            " " * int((screen_width - 2 - len("Let's start now")) / 2)) + "#\n")
+    print("#" * screen_width + "\n")
 
     game_loop()
 
     end_screen()
+
 
 if __name__ == "__main__":
     title_screen()

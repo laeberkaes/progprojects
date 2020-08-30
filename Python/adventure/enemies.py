@@ -5,7 +5,7 @@ class Enemy():
         self.race = race
         self.size = size
         self.level = level
-        self.weapon = weapon.getWeapon(level)
+        self.weapon = weapon.get_weapon(level)
         self.health_max = health*size
         self.healt_cur = self.health_max
         self.sounds = sounds

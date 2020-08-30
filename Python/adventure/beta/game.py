@@ -183,7 +183,7 @@ class Player:
         time.sleep(2)
         os.system("clear")
 
-    def getCorn(self):
+    def get_corn(self):
         if self.location == "d2":
             p = random.random()
             if p > 0.25:
@@ -744,7 +744,7 @@ def promt():
     elif action.lower() in ["hunting", "hunt"]:
         myPlayer.hunting()
     elif action.lower() in ["corn", "get corn", "harvest"]:
-        myPlayer.getCorn()
+        myPlayer.get_corn()
     elif action.lower() in ["heal", "healing", "potion", "use potion"]:
         myPlayer.use_potion()
     elif action.lower() in ["show inventory", "inventory"]:

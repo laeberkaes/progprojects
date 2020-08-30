@@ -3,7 +3,7 @@ import random
 import sys
 import time
 
-import weapon  # player
+import game_object  # player
 
 screen_width = 60
 
@@ -20,61 +20,21 @@ class Player:
         self.status_effects = []
         self.location = "b2"
         self.game_over = False
-        self.weapon = weapon.Weapon(self.level)
-        self.weapon.equiped = True
+        self.weapon = game_object.Weapon(self.level)
+        self.weapon.equipped = True
         self.potions = 1
         self.inventory = {"weapons": [self.weapon], "armor": [], "misc": dict()}
         self.gold = 10
-        self.head_protect = 0
-        self.chest_protect = 0
-        self.leg_protect = 0
-        self.arm_protect = 0
+        self.head = "empty" #"empty" gebraucht für Player.equip_armor()
+        self.chest = "empty"
+        self.arm = "empty"
+        self.leg = "empty"
+        self.armor = 0
         self.pos = (0.95, 0.05, 0)
 
-    def calc_armor(self):
-        return sum([self.head_protect, self.chest_protect, self.leg_protect, self.arm_protect])
-
+# HUD-Optionen --------------------------------------------------------
     def health(self):
         print("Your health: " + str(self.health_cur) + "/" + str(self.health_max) + " HP")
-
-    def level_up(self):
-        self.level += 1
-        self.health_max += 20
-        self.ep -= 100
-        self.pos = (
-            self.pos[0] - (self.level * 0.05), self.pos[1] + (self.level * 0.1), self.pos[2] + (self.level * 0.05))
-        speech_manipulation(
-            "Congratulations, you leveled up. You are now a level " + str(self.level) + " " + self.play_class + ".\n",
-            0.03)
-        speech_manipulation("You have " + str(self.health_max) + " HP.", 0.03)
-        time.sleep(2)
-        while self.ep > 100:
-            self.level_up()
-
-    def get_ep(self, amount):
-        self.ep += amount
-        if self.ep > 100:
-            self.level_up()
-
-    def get_weapon(self, weapon):
-        self.weapon.equiped = False
-        self.weapon = weapon
-        self.weapon.equiped = True
-        self.inventory["weapons"].append(weapon)
-
-    def get_armor(self, armor):
-        for arm in self.inventory["armor"]:
-            if arm.slot == armor.slot and arm.equiped == True:
-                arm.equiped = False
-        self.protect(armor.slot, armor.protection)
-        armor.equiped = True
-        self.inventory["armor"].append(armor)
-
-    def get_gold(self, amount):
-        self.gold += amount
-
-    def get_potion(self, amount):
-        self.potions += amount
 
     def print_inventory(self):
         os.system("clear")
@@ -82,15 +42,15 @@ class Player:
         print(
             "=" * int((screen_width - len("WEAPONS")) / 2) + "WEAPONS" + "=" * int((screen_width - len("WEAPONS")) / 2))
         for weapon in self.inventory["weapons"]:
-            if weapon.equiped == True:
-                print("EQUIPED: " + str(weapon)[13:])
+            if weapon.equipped == True:
+                print("EQUIPPED: " + str(weapon)[13:])
             else:
                 print(str(weapon)[13:])
         print("")
         print("=" * int((screen_width - len("ARMOR")) / 2) + "ARMOR" + "=" * int((screen_width - len("ARMOR")) / 2))
         for armor in self.inventory["armor"]:
-            if armor.equiped == True:
-                print("EQUIPED: A" + str(armor)[6:])
+            if armor.equipped == True:
+                print("EQUIPPED: A" + str(armor)[6:])
             else:
                 print("A" + str(armor)[6:])
         print("")
@@ -118,13 +78,103 @@ class Player:
         print("Level:" + " " * (20 - len("Level:")) + str(self.level))
         print("EP:" + " " * (20 - len("EP:")) + str(self.ep))
         print("Health:" + " " * (20 - len("Health:")) + str(self.health_cur) + "/" + str(self.health_max))
-        print("Armor:" + " " * (20 - len("Armor:")) + str(self.calc_armor()))
+        print("Armor:" + " " * (20 - len("Armor:")) + str(self.armor))
+        print("Weapon:" + " " * (20- len("Weapon:")) + self.weapon.name + " with " + str(self.weapon.damage) + " damage")
         print("")
         print("#" * screen_width)
         print("")
         print("Press ENTER to continue.")
         input()
         os.system("clear")
+
+# Loot-Optionen --------------------------------------------------------
+    def get_gold(self, amount):
+        self.gold += amount
+        print("You found " + str(amount) + " gold.")
+
+    def get_potion(self):
+        self.potions += 1
+        print("You find a potion.")
+
+    def get_ep(self, amount):
+        self.ep += amount
+        print("You get " + str(amount) + " experience.")
+        if self.ep > 100:
+            self.level_up()
+
+    def level_up(self):
+        self.level += 1
+        self.health_max += 20
+        self.ep -= 100
+        self.pos = (
+            self.pos[0] - (self.level * 0.05), self.pos[1] + (self.level * 0.1), self.pos[2] + (self.level * 0.05))
+        speech_manipulation(
+            "Congratulations, you leveled up. You are now a level " + str(self.level) + " " + self.play_class + ".\n",
+            0.03)
+        speech_manipulation("You have " + str(self.health_max) + " HP.", 0.03)
+        time.sleep(2)
+        while self.ep > 100:
+            self.level_up()
+
+# Waffen-Optionen --------------------------------------------------------
+    def get_weapon(self, weapon, p=True):
+        if p == True:
+            print("You put " + weapon.name + " in your backpack.")
+        self.inventory["weapons"].append(weapon)
+
+    def drop_weapon(self, weapon): #Future Feature
+        for w in self.inventory["weapons"]:
+            if weapon.name == w.name and weapon.damage == w.damage and w.eqipped == False:
+                print("You dropped: " + w.name)
+                self.inventory["weapons"].pop(w) #Problem: popped evtl. identische Waffen.
+
+    def equip_weapon(self, weapon):
+        self.weapon.equipped = False
+        self.weapon = weapon
+        self.weapon.equipped = True
+        print("You wield: " + self.weapon.name)
+
+#Rüstungs-Optionen --------------------------------------------------------
+    def get_armor(self, armor, p=True):
+        if p == True:
+            print("You put " + armor.name + " in your backpack.")
+        self.inventory["armor"].append(armor)
+
+    def drop_armor(self, armor): #Future Feature
+        for a in self.inventory["armor"]:
+            if armor.slot == a.slot and armor.name == a.name and armor.protection == a.protection:
+                print("You dropped: " + a.name)
+                self.inventory["armor"].pop(a)
+
+    def equip_armor(self,armor):
+            if armor.slot == "head":
+                if self.head != "empty": #unequip falls bereits vorhanden, sodass Rüstungswert sinkt.
+                    self.armor -= self.head.protection
+                    self.head.equipped = False
+                self.armor += armor.protection
+                self.head = armor
+                self.head.equipped = True
+            elif armor.slot == "chest":
+                if self.chest != "empty":
+                    self.armor -= self.chest.protection
+                    self.chest.equipped = False
+                self.armor += armor.protection
+                self.chest = armor
+                self.chest.equipped = True
+            elif armor.slot == "leg":
+                if self.leg != "empty":
+                    self.armor -= self.leg.protection
+                    self.leg.equipped = False
+                self.armor += armor.protection
+                self.leg = armor
+                self.leg.equipped = True
+            elif armor.slot == "arm":
+                if self.arm != "empty":
+                    self.armor -= self.arm.protection
+                    self.arm.equipped = False
+                self.armor += armor.protection
+                self.arm = armor
+                self.arm.equipped = True
 
     def use_potion(self):
         if self.potions > 0:
@@ -148,16 +198,7 @@ class Player:
         elif obj.obj_type() == "armor":
             self.inventory["armor"].append(obj)
 
-    def protect(self, place, amount):
-        if place == "head":
-            self.head_protect = amount
-        elif place == "chest":
-            self.chest_protect = amount
-        elif place == "leg":
-            self.leg_protect = amount
-        elif place == "arm":
-            self.arm_protect = amount
-
+# Interaktionen --------------------------------------------------------
     def fishing(self):
         if self.location in ["a4", "c1", "c2"] and "fishingrot" in self.inventory:
             p = random.random()
@@ -274,8 +315,7 @@ def help_menu():
 
 
 ### MAP ###
-solved_places = {'a1': False, 'a2': False, 'a3': False, 'a4': False, 'b1': False, 'b2': False, 'b3': False, 'b4': False,
-                 'c1': False, 'c2': False, 'c3': False, 'c4': False, 'd1': False, 'd2': False, 'd3': False, 'd4': False}
+solved_places = {'a1': False, 'a2': False, 'a3': False, 'a4': False, 'b1': False, 'b2': False, 'b3': False, 'b4': False, 'c1': False, 'c2': False, 'c3': False, 'c4': False, 'd1': False, 'd2': False, 'd3': False, 'd4': False}
 
 ##### MAP PRE #####
 # ""ZONENAME"" = ""
@@ -486,42 +526,6 @@ zonemap = {
     }
 }
 
-
-# class Weapon():
-#     def __init__(self, level):
-#         adjective = ["Dirty", "Crooked", "Big", "Old", "Shiny", "Bloody"]
-#         subst = [" Dagger", " Hammer", " Sword", " Bow", " Spear", " Morning Star", " Club", " Axe"]
-#         self.obj_type = "weapon"
-#         self.level = level
-#         self.name = random.choice(adjective) + random.choice(subst)
-#         self.damage = random.randrange(3,6)*level #=> 3-5
-#
-#     def __repr__(self):
-#         return "Your weapon: "+self.name+", with "+str(self.damage)+" damage"
-#
-# class Armor():
-#     def __init__(self,level):
-#         adjective = ["Dirty", "Crooked", "Big", "Old", "Shiny", "Bloody"]
-#         subst = [" Plate Armor", " Chain Armor", " Leather Armor"]
-#         self.obj_type = "armor"
-#         self.slot = random.choice(["head","chest","leg","arm"])
-#         self.level = level
-#         self.name = random.choice(adjective) + random.choice(subst)
-#         self.protection = random.randrange(10,21)*level #=> 3-5
-#
-#     def __repr__(self):
-#         return "Your weapon: "+self.name+", with "+str(self.damage)+" damage"
-#
-#     def equip_armor(self,person):
-#             if self.slot == "head":
-#                 person.head_protect += self.protection
-#             elif self.slot == "chest":
-#                 person.chest_protect += self.protection
-#             elif self.slot == "leg":
-#                 person.leg_protect += self.protection
-#             elif self.slot == "arm":
-#                 person.arm_protect += self.protection
-
 class NPC:
     def __init__(self, health, strength):
         self.health = health * random.randrange(10, 21)
@@ -563,8 +567,7 @@ class Giant(NPC):
         self.loot_level = 5
         self.ep_drop = random.randrange(100, 151)  # bei 100EP cap quasi ein garantiertes level"UP"
 
-
-def fight(player, poss):
+def fight_setup(player, poss):
     os.system("clear")
     print("#" * screen_width)
     print(" " * int((screen_width - len("FIGHT")) / 2) + "FIGHT")
@@ -577,25 +580,36 @@ def fight(player, poss):
         enemy = Orc()
     else:
         enemy = Giant()  # else, solange nur 3 mögliche Gegner
+    fight(player, enemy)
+
+def fight(player, enemy):
     flee = 0
     dead = 0
-    while dead == 0:  # es läuft mal mit meinen beiden Schleifen, weil ich nicht genau weiß, wie wir bei dir
-        # game_over einbinden können
+    while dead == 0:  
         while enemy.health > 0 and flee == 0:
             print("                 ")
             print("You fight against: " + enemy.name)
             enemy.health_print()
-            player.health()  # Die fehlt noch in der init
+            player.health()
+#Auswahl für Kampf --------------------------------------------------
             a = fight_options().lower()  # das geht sicher eleganter
-
-            valid_options = ["attack", "heal", "flee", "show stats", "quit"]
+            valid_options = ["attack", "heal", "flee", "show stats", "quit"] #In den fight_options() immer ergänzen
             while a not in valid_options:
-                print("Please use a valid answer.")  # nochmal eine Chance zur Eingabe oder direkt Angriff Gegner?
+                print("Please use a valid answer.")
                 a = fight_options().lower()
-
+#Spieler-Angriff --------------------------------------------------
             if a == "attack":
-                print("You attack with your weapon and do " + str(player.weapon.damage) + " damage.")
-                enemy.health -= player.weapon.damage
+                if not player.weapon.broken:
+                    print("You attack with your weapon and do " + str(player.weapon.damage) + " damage.")
+                    player.weapon.durability[0] -= 1
+                    print("Weapon durability: " + str((player.weapon.durability[0]/player.weapon.durability[1])*100) + "%")
+                    if player.weapon.durability[0] == 0:
+                        player.weapon.broken = True
+                        print("Your weapon broke! Repair it at a Blacksmith's.")
+                    enemy.health -= player.weapon.damage
+                else:
+                    print("Your weapon is broken. You only do 2 damage.")
+                    enemy.health -= 2
                 print("enemy: " + random.choice(enemy.quip))
                 if enemy.health <= 0:
                     print("       ")
@@ -603,69 +617,77 @@ def fight(player, poss):
                     print("       ")
                     zonemap[myPlayer.location]["ENCOUNTERS"] -= 1
                     break
+#Spieler-Andere Optionen --------------------------------------------------
             elif a == "heal":
-                player.use_potion()  # Einbindung neuer Methode
+                player.use_potion() 
             elif a == "flee":
-                if random.random() < 0.6:  # 60% Fluchchance (fix? Future-Feature)
+                if random.random() < 0.6:  # 60% Fluchtchance (fix? Future-Feature)
                     flee = 1
                     break
                 else:
                     print("Your enemy won't let you go!")
             elif a == "show stats":
-                myPlayer.show_stats()
-            elif a == "quit":
+                player.show_stats()
+            elif a == "quit": #ganz Spiel aus im Kampf?
                 sys.exit()
 
+#Gegner-Angriff --------------------------------------------------
+            #Spieler nimmt Schaden
             if random.random() < enemy.accuracy:
-                print("Your enemy attacks and does " + str(enemy.strength) + " damage.")
-                player.health_cur -= int(enemy.strength - (player.calc_armor() / 100))
-                # Hier kommt noch player.armor dazu
-
+                if player.armor == 0: #Wenn keine Rüstung anliegt
+                    print("Your enemy attacks and does " + str(enemy.strength) + " damage.")
+                    player.health_cur -= enemy.strength
+                else: #Es gibt Rüstung
+                    print("Your enemy attacks and does " + str(enemy.strength-player.armor) + " damage.")
+                    player.health_cur -= enemy.strength-player.armor
+                    #Es wird ein Index eines zufälligen aber angelegten Rüstungsteils gewählt
+                    x = player.inventory["armor"][random.choice([a for a,b in list(enumerate(player.inventory["armor"])) if b.equipped == True])]
+                    x.durability[0] -= 1
+                    print("Your " + x.slot + " armor was hit.")
+                    print("Durability: " + str((x.durability[0]/x.durability[0])*100) + "%")
+                #Falls Spieler zu viel Schaden genommen hat --> Spielende
                 if player.health_cur <= 0:
                     speech_manipulation("You are dead . . .", 0.03)
                     print(" ")
                     time.sleep(2)
-                    player.game_over = True
+                    player.game_over = True 
                     dead = 1
-                    game_over()
-                    break  # die Breaks sind etwas schwierig zu erklären ...
+                    game_over() #Textanzeige
+                    break #Löst ersten loop der fight, anschließend automatisch zweiten
+
+            #Spieler nimmt keinen Schaden
             else:
                 print("Your enemy attacks.")
-                # sleep(1) #dramatic pause :D
+                time.sleep(0.7) #dramatic pause :D
                 print("Missed!")
+
+#Kampf ist vorbei --------------------------------------------------
         time.sleep(2)
         os.system("clear")
-        if flee == 1 and dead == 0:
+        if flee == 1 and dead == 0: #Lebendig aber geflohen? -> keine Belohnung
             print("You ran away. You don't get a reward.")
-            break
-        elif dead == 1:
-            break
+            break # Bricht while enemy.health > 0 and flee == 0: loop, anschließend while dead loop.
+        elif dead == 1: #Gestorben? 
+            break # Bricht while enemy.health > 0 and flee == 0: loop, anschließend while dead loop.
         else:
             if random.random() < enemy.loot_chance:  # Chance ob Loot-Drop oder nicht (abhängig von Gegner)
-                loot(enemy, player)
-
-                # gold_reward = enemy.loot_level * random.randrange(10,20)
-                # player.gold += gold_reward
-                # print("You get "+str(gold_reward)+" gold.")
-
-                # player.getEP(enemy.ep_drop) #Versuch deine Player.methoden einzubinden
-                # print("You get "+str(enemy.ep_drop)+" experience.")
+                loot(enemy, player) # Spieler erhält Trank(30%) oder Gegenstand(70%)
             else:
-                print("Looks like you got nothing...")
+                print("Looks like you found nothing interesting...")
+            #Garantierte Belohnungen: Gold und Erfahrung
+            player.get_ep(enemy.ep_drop)
+            player.get_gold(random.randrange(10,20)*enemy.loot_level)
+            time.sleep(2) #Notwendig?
 
-            print("You get " + str(
-                enemy.ep_drop) + " experience.")  # Ich dachte vielleicht sollte man bei einem Sieg immer EP bekommen?
-            time.sleep(2)
-            player.get_ep(enemy.ep_drop)  # Versuch deine Player.methoden einzubinden
+#Kampf-Loop wird aufgelöst --------------------------------------------------
         time.sleep(2)
         os.system("clear")
-        break
-    return dead  # das war für meinen game_loop nötig, kann vermutlich weg
+        break #Bricht while dead == 0: loop
 
 
 def loot(enemy, player):
-    if random.random() < 0.70:
-        g = random.choice([weapon.Weapon(enemy.loot_level), weapon.Armor(enemy.loot_level)])
+    if random.random() < 0.70: #Chance auf Gegenstand: 70%, sonst Trank
+        g = random.choice([game_object.Weapon(enemy.loot_level), game_object.Armor(enemy.loot_level)])
         if g.obj_type == "weapon":
             print("You find: " + g.name)
             print("Damage: " + str(g.damage))
@@ -673,10 +695,8 @@ def loot(enemy, player):
             ant = input("> ")
             print(" ")
             if ant.lower()[0] in ["y", ""]:
-                # player.getObject(player.weapon) #aktuelle Waffe ins Inventar
-                player.get_weapon(g)  # neue Waffe = aktuelle Waffe
-            elif ant.lower()[0] == "n":
-                player.get_object(g)  # Waffe ins Inventar
+                player.equip_weapon(g) # neue Waffe angelegt und alte Waffe equipped = False
+            player.get_weapon(g,p=False)  # Waffe (zusätzlich) ins Inventar
         elif g.obj_type == "armor":
             print("You find: " + g.name)
             print("Protection: " + str(g.protection))
@@ -685,21 +705,17 @@ def loot(enemy, player):
             ant = input("> ")
             print("")
             if ant.lower()[0] in ["y", ""]:
-                # player.getObject(player.weapon) #aktuelle Waffe ins Inventar
-                player.get_armor(g)  # neue Waffe = aktuelle Waffe
-            elif ant.lower()[0] == "n":
-                player.get_object(g)  # Waffe ins Inventar
+                player.equip_armor(g) #Rüstung angelegt und alte Rüstung equipped = False
+                print("You equip your new armor.")
+            player.get_armor(g,p=False)  # Waffe (zusätzlich) ins Inventar
     else:
-        print("You find a potion.")
-        player.get_potion(1)
-
+        player.get_potion()
 
 def fight_options():
-    print("Choose: attack, heal, flee\n")
+    print("Choose: attack, heal, flee, show stats, quit\n")
     ant = input("> ")
     os.system("clear")
     return ant
-
 
 def print_location():
     print("#" * screen_width)
@@ -791,15 +807,7 @@ def movement(destination):
     print("You have moved to the " + zonemap[myPlayer.location]["ZONENAME"] + ".")
     time.sleep(3)
     os.system("clear")
-    # if not zonemap[myPlayer.location]["SOLVED"] and zonemap[myPlayer.location][ENC_POS]:
-    #     pass # muss dann weg
-    # Hier würde dann die Ecounter Funktion rein passen denke ich.
-    # Und nach dem Encounter dann:
 
-    # zonemap[myPlayer.location]["SOLVED"_ENCOUNTER_COUNT] += 1
-    # if zonemap[myPlayer.location]["SOLVED"_ENCOUNTER_COUNT] == 2:
-    #     zonemap[myPlayer.location]["SOLVED"] = True
-    #     "SOLVED"_places[myPlayer.location] = True
 
 
 def stay(direct):
@@ -811,12 +819,7 @@ def stay(direct):
 
 def player_examine():
     if zonemap[myPlayer.location]["ENCOUNTERS"] > 0:
-        # poss = []
-        # if zonemap[myPlayer.location][POSSIBILITIES]:
-        # poss = zonemap[myPlayer.location][POSSIBILITIES]
-        # else:
-        #     poss = POSSIBILITIES # global
-        fight(myPlayer, zonemap[myPlayer.location]["POSSIBILITIES"])
+        fight_setup(myPlayer, zonemap[myPlayer.location]["POSSIBILITIES"])
 
     if zonemap[myPlayer.location]["SOLVED"] == True:
         print("You have already been here.")
@@ -869,7 +872,7 @@ def game_over():
     os.system("clear")
     speech_manipulation("Ouh there you are again.\n", 0.05)
     speech_manipulation(
-        "Don't understand me wrong. This is no surprise for me. Maybe you have more luck in your next reincarnation.\n",
+        "Don't get me wrong. This is no surprise for me. Maybe you have more luck in your next reincarnation.\n",
         0.05)
     speech_manipulation("Have a good day. :)", 0.07)
     time.sleep(2)

@@ -3,6 +3,7 @@ TODO
 - Waffe im Inventar auswählen und ausrüsten können
 - Schmied Verkaufen Methode, Repair Methode
 - Möglichkeit zu kaufen und verkaufen auf dem Markt. --> kauft miscellaneous (corn, fish ...)
+- Gegenstände kaufen (fishing rod, pickaxe, etc.)
 - Mining in der Höhle einbinden. Nach Schätzen suchen in der Höhle einbinden.
 - NPC (außer Gegner)? (Händler, Farmer, Reisender, Waldläufer im Wald, Fischer, ... )
 - Questen hinzufügen? In dem Zug dann auch noch eine Questübersicht
@@ -10,6 +11,7 @@ TODO
 - Corn wird im Inventar unter Misc nicht angezeigt
 - Bei lvl AUfstieg wird "you now have X HP" als max angezeigt, aber das ist nicht cur (also eigentlich der falsche Wert)
 - Angriff verursacht keinen Schaden an der Rüstung.
+
 
 DONE
 - ~~Equiped tag für Rüstungsteile, damit diese so in show_inventory angezeigt werden können.~~

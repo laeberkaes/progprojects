@@ -2,8 +2,7 @@ import os
 import random
 import sys
 import time
-
-import game_object  # player
+from adventure.beta import game_object  # player
 
 screen_width = 60
 

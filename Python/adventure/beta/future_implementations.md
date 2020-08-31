@@ -11,6 +11,7 @@ TODO
 - Corn wird im Inventar unter Misc nicht angezeigt
 - Bei lvl AUfstieg wird "you now have X HP" als max angezeigt, aber das ist nicht cur (also eigentlich der falsche Wert)
 - Angriff verursacht keinen Schaden an der Rüstung.
+- blacksmith infinite loop bei "nothing" als Antwort
 
 
 DONE

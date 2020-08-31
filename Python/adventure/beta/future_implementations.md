@@ -1,7 +1,7 @@
 # Future Implementations
 TODO
 - Waffe im Inventar auswählen und ausrüsten können
-- Schmied Verkaufen Methode
+- Schmied Verkaufen Methode, Repair Methode
 - Möglichkeit zu kaufen und verkaufen auf dem Markt. --> kauft miscellaneous (corn, fish ...)
 - Mining in der Höhle einbinden. Nach Schätzen suchen in der Höhle einbinden.
 - NPC (außer Gegner)? (Händler, Farmer, Reisender, Waldläufer im Wald, Fischer, ... )

@@ -48,7 +48,7 @@ class Blacksmith():
     def __init__(self, player):
         self.symbol = " \n     [\n@xxxx[{::::::::::::::::::::::::::::::>\n     ["
         self.greeting = ["Welcome, traveller. How may I help you?", "Hey! You. Get over here. How about a nice new sword for you?", "Oi! You have some coin to spend?"]
-        self.inventory  = []
+        self.inventory = []
         self.set_inventory(player) #Auslage wird erstellt
         self.gold = random.randrange(150,301) #Gold für Ankäufe
         print(self.symbol, sep="\n")
@@ -64,7 +64,7 @@ class Blacksmith():
         if a.lower() == "buy":
             self.buy_inventory(player)
         else:
-            self.sell_inventory(player) # TODO: methode erstellen
+            self.sell_inventory(player)
 
 
     def set_inventory(self, player): #Auslage wird erstellt
@@ -77,7 +77,7 @@ class Blacksmith():
 
     def buy_inventory(self, player):
         print("#" * screen_width)
-        for i in range(len(self.inventory)):
+        for i in range(3):
             o = self.inventory[i]
             if o.obj_type == "weapon":
                 m = o.obj_type + ": " + o.name + ", damage: " + str(o.damage) + "\nPrice: " + str(o.value)
@@ -132,6 +132,7 @@ class Blacksmith():
 
     def sell_inventory(self, player):
         print("Not yet, traveller!") #TODO
+        player.print_inventory()
         #Spielerinventar zeigen
         #Spieler wählt aus was verkauft werden soll
         #Wenn Schmied genug Gold hat, wird Gegenstand verkauft (player.drop_weapon oder .drop_armor könnte genutzt werden)

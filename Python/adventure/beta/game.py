@@ -2,8 +2,8 @@ import os
 import random
 import sys
 import time
-
-import game_object  # player
+import game_object
+#from . import game_object
 
 screen_width = 60
 
@@ -76,6 +76,7 @@ class Player:
         print("Name:" + " " * (20 - len("Name:")) + self.name)
         print("Class:" + " " * (20 - len("Class:")) + self.play_class)
         print("Level:" + " " * (20 - len("Level:")) + str(self.level))
+        print("Gold:" + " " * (20 - len("Gold:")) + str(self.gold)) #Gold ergänzt
         print("EP:" + " " * (20 - len("EP:")) + str(self.ep))
         print("Health:" + " " * (20 - len("Health:")) + str(self.health_cur) + "/" + str(self.health_max))
         print("Armor:" + " " * (20 - len("Armor:")) + str(self.armor))
@@ -260,9 +261,12 @@ class Player:
                 print("Well you are out of luck for now.")
         else:
             print("You will find no wild animals in this area. Try your luck in the eastern forest.")
-
         time.sleep(2)
         os.system("clear")
+    
+    def buy_equipment(self):
+        if self.location == "b1":
+            game_object.Blacksmith(self)
 
 
 myPlayer = Player()
@@ -743,7 +747,7 @@ def promt():
     action = input("> ")
     acceptable_locations = ["move", "go", "travel", "walk", "quit", "examine", "inspect", "interact", "look", "hunting",
                             "hunt", "fishing", "fish", "corn", "get corn", "harvest", "heal", "healing", "potion",
-                            "use potion", "show inventory", "inventory", "show stats", "stats"]
+                            "use potion", "show inventory", "inventory", "show stats", "stats", "buy", "sell", "blacksmith"]
 
     while action.lower() not in acceptable_locations:
         print("Unknown action. Try again. (move, examine, quit)")
@@ -767,6 +771,8 @@ def promt():
         myPlayer.print_inventory()
     elif action.lower() in ["show stats", "stats"]:
         myPlayer.show_stats()
+    elif action.lower() in ["buy", "sell", "blacksmith"]:
+        myPlayer.buy_equipment()
 
 
 def player_move():

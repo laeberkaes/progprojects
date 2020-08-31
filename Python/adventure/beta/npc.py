@@ -1,5 +1,5 @@
 import random
-from static import screen_width
+from static import screen_width, clear
 from game_object import Weapon, Armor
 
 
@@ -46,12 +46,15 @@ class Giant(NPC):
 
 class Blacksmith():
     def __init__(self, player):
-        self.symbol = " \n     [\n@xxxx[{::::::::::::::::::::::::::::::>\n     ["
+        self.symbol = " " * int((screen_width - len("@xxxx[{::::::::::::::::::::::::::::::>")) / 2) + "     [" + " " * int((len("::::::::::::::::::::::::::::::") - len("Mr. & Mrs. Smith")) / 2) + "Mr. & Mrs. Smith\n" + " " * int((screen_width - len("@xxxx[{::::::::::::::::::::::::::::::>")) / 2) + "@xxxx[{::::::::::::::::::::::::::::::>\n" + " " * int((screen_width - len("@xxxx[{::::::::::::::::::::::::::::::>")) / 2) + "     ["
         self.greeting = ["Welcome, traveller. How may I help you?", "Hey! You. Get over here. How about a nice new sword for you?", "Oi! You have some coin to spend?"]
         self.inventory = []
         self.set_inventory(player) #Auslage wird erstellt
         self.gold = random.randrange(150,301) #Gold für Ankäufe
+        clear()
+        print("#" * screen_width)
         print(self.symbol, sep="\n")
+        print("#" * screen_width + "\n")
         print(random.choice(self.greeting))
         self.buy_or_sell(player) #Interaktion mit blacksmith wird gestartet
 
@@ -76,19 +79,20 @@ class Blacksmith():
                 self.inventory.append(Armor(lvl))
 
     def buy_inventory(self, player):
+        clear()
         print("#" * screen_width)
         for i in range(3):
             o = self.inventory[i]
             if o.obj_type == "weapon":
-                m = o.obj_type + ": " + o.name + ", damage: " + str(o.damage) + "\nPrice: " + str(o.value)
+                m = o.obj_type + ": " + o.name + ", damage: " + str(o.damage) + " " * (screen_width - (11 + len(o.obj_type + ": " + o.name + ", damage: " + str(o.damage)))) + "#\n" + "#" + " " * 10 + ">> Price: " + str(o.value) + " <<" + " " * (screen_width - (12 + len(">> Price: " + str(o.value) + " <<"))) + "#"
             else:
-                m = o.obj_type + ": " + o.name + " for your " + o.slot + ", protection: " + str(o.protection) + "\nPrice: " + str(o.value)
-            print(str(i+1) + ". " + m)
+                m = o.obj_type + ": " + o.name + " for your " + o.slot + ", protection: " + str(o.protection) + " " * (screen_width - (11 + len(o.obj_type + ": " + o.name + " for your " + o.slot + ", protection: " + str(o.protection)))) + "#" + "\n" + "#" + " " * 10 + ">> Price: " + str(o.value) + " <<" + " " * (screen_width - (12 + len(">> Price: " + str(o.value) + " <<"))) + "#"
+            print("#" + " " * 6 + str(i+1) + ". " + m)
         print("#" * screen_width) #TODO Hannes, mach das schön! :D
         print(" ")
         print("Which one do you want? (1, 2, 3, nothing)")
         valid_input = ["1", "2", "3", "nothing"]
-        a_capital = input()
+        a_capital = input("> ")
         a = a_capital.lower() #Workaround fürs debuggen
         auswahl = -1 #Hilfsmittel :D
         while a not in valid_input:
@@ -131,6 +135,7 @@ class Blacksmith():
                 self.buy_inventory(player)
 
     def sell_inventory(self, player):
+        clear()
         print("Not yet, traveller!") #TODO
         player.print_inventory()
         #Spielerinventar zeigen

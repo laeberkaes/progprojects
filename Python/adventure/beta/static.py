@@ -4,7 +4,7 @@ import sys
 import time
 
 # Static Variables
-screen_width = 60
+screen_width = 90
 
 # Static Functions
 def clear():

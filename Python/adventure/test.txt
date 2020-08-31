@@ -1,8 +1,0 @@
-das
-s
-d
-END
-das
-ist der nächste
-END
-das ist dann der rest

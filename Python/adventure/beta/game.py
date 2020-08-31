@@ -2,6 +2,7 @@ import os
 import random
 import sys
 import time
+
 import game_object  # player
 
 screen_width = 60
@@ -24,17 +25,14 @@ class Player:
         self.potions = 1
         self.inventory = {"weapons": [self.weapon], "armor": [], "misc": dict()}
         self.gold = 10
-        self.head = "empty"  # "empty" gebraucht für Player.equip_armor()
+        self.head = "empty" #"empty" gebraucht für Player.equip_armor()
         self.chest = "empty"
         self.arm = "empty"
         self.leg = "empty"
         self.armor = 0
         self.pos = (0.95, 0.05, 0)
-        with open("notebook.txt", "w") as notebook:
-            notebook.write("")
-            pass
 
-    # HUD-Optionen --------------------------------------------------------
+# HUD-Optionen --------------------------------------------------------
     def health(self):
         print("Your health: " + str(self.health_cur) + "/" + str(self.health_max) + " HP")
 
@@ -81,8 +79,7 @@ class Player:
         print("EP:" + " " * (20 - len("EP:")) + str(self.ep))
         print("Health:" + " " * (20 - len("Health:")) + str(self.health_cur) + "/" + str(self.health_max))
         print("Armor:" + " " * (20 - len("Armor:")) + str(self.armor))
-        print(
-            "Weapon:" + " " * (20 - len("Weapon:")) + self.weapon.name + " with " + str(self.weapon.damage) + " damage")
+        print("Weapon:" + " " * (20- len("Weapon:")) + self.weapon.name + " with " + str(self.weapon.damage) + " damage")
         print("")
         print("#" * screen_width)
         print("")
@@ -90,37 +87,7 @@ class Player:
         input()
         os.system("clear")
 
-    def write_notebook(self):
-        os.system("clear")
-        print("#" * screen_width)
-        print("#" + " " * int((screen_width - len("NOTEBOOK")) / 2 - 1) + "NOTEBOOK" + " " * int((screen_width - len("NOTEBOOK")) / 2 - 1) + "#")
-        print("#" * screen_width)
-        print("\nYou can escape the notebook with writing 'END' in the last line.")
-        print("\nOlder Entries:\n")
-        with open("notebook.txt", "r") as notebook:
-            for line in notebook.readlines():
-                print("> " + line, end="")
-
-        print("\nAppend the following lines:\n")
-
-        with open("notebook.txt", "a") as notebook:
-            while True:
-                inp = input("> ")
-                if inp.strip() == "END":
-                    break
-                else:
-                    notebook.write(inp + "\n")
-
-    def show_notebook(self):
-        os.system("clear")
-        print("#" * screen_width)
-        print("#" + " " * int((screen_width - len("NOTEBOOK")) / 2 - 1) + "NOTEBOOK" + " " * int((screen_width - len("NOTEBOOK")) / 2 - 1) + "#")
-        print("#" * screen_width)
-        with open("notebook.txt", "r") as notebook:
-            for line in notebook.readlines():
-                print("> " + line, end="")
-
-    # Loot-Optionen --------------------------------------------------------
+# Loot-Optionen --------------------------------------------------------
     def get_gold(self, amount):
         self.gold += amount
         print("You found " + str(amount) + " gold.")
@@ -149,17 +116,17 @@ class Player:
         while self.ep > 100:
             self.level_up()
 
-    # Waffen-Optionen --------------------------------------------------------
+# Waffen-Optionen --------------------------------------------------------
     def get_weapon(self, weapon, p=True):
-        if p:
+        if p == True:
             print("You put " + weapon.name + " in your backpack.")
         self.inventory["weapons"].append(weapon)
 
-    def drop_weapon(self, weapon):  # Future Feature
+    def drop_weapon(self, weapon): #Future Feature
         for w in self.inventory["weapons"]:
-            if weapon.name == w.name and weapon.damage == w.damage and not w.eqipped:
+            if weapon.name == w.name and weapon.damage == w.damage and w.eqipped == False:
                 print("You dropped: " + w.name)
-                self.inventory["weapons"].pop(w)  # Problem: popped evtl. identische Waffen.
+                self.inventory["weapons"].pop(w) #Problem: popped evtl. identische Waffen.
 
     def equip_weapon(self, weapon):
         self.weapon.equipped = False
@@ -167,47 +134,47 @@ class Player:
         self.weapon.equipped = True
         print("You wield: " + self.weapon.name)
 
-    # Rüstungs-Optionen --------------------------------------------------------
+#Rüstungs-Optionen --------------------------------------------------------
     def get_armor(self, armor, p=True):
         if p == True:
             print("You put " + armor.name + " in your backpack.")
         self.inventory["armor"].append(armor)
 
-    def drop_armor(self, armor):  # Future Feature
+    def drop_armor(self, armor): #Future Feature
         for a in self.inventory["armor"]:
             if armor.slot == a.slot and armor.name == a.name and armor.protection == a.protection:
                 print("You dropped: " + a.name)
                 self.inventory["armor"].pop(a)
 
-    def equip_armor(self, armor):
-        if armor.slot == "head":
-            if self.head != "empty":  # unequip falls bereits vorhanden, sodass Rüstungswert sinkt.
-                self.armor -= self.head.protection
-                self.head.equipped = False
-            self.armor += armor.protection
-            self.head = armor
-            self.head.equipped = True
-        elif armor.slot == "chest":
-            if self.chest != "empty":
-                self.armor -= self.chest.protection
-                self.chest.equipped = False
-            self.armor += armor.protection
-            self.chest = armor
-            self.chest.equipped = True
-        elif armor.slot == "leg":
-            if self.leg != "empty":
-                self.armor -= self.leg.protection
-                self.leg.equipped = False
-            self.armor += armor.protection
-            self.leg = armor
-            self.leg.equipped = True
-        elif armor.slot == "arm":
-            if self.arm != "empty":
-                self.armor -= self.arm.protection
-                self.arm.equipped = False
-            self.armor += armor.protection
-            self.arm = armor
-            self.arm.equipped = True
+    def equip_armor(self,armor):
+            if armor.slot == "head":
+                if self.head != "empty": #unequip falls bereits vorhanden, sodass Rüstungswert sinkt.
+                    self.armor -= self.head.protection
+                    self.head.equipped = False
+                self.armor += armor.protection
+                self.head = armor
+                self.head.equipped = True
+            elif armor.slot == "chest":
+                if self.chest != "empty":
+                    self.armor -= self.chest.protection
+                    self.chest.equipped = False
+                self.armor += armor.protection
+                self.chest = armor
+                self.chest.equipped = True
+            elif armor.slot == "leg":
+                if self.leg != "empty":
+                    self.armor -= self.leg.protection
+                    self.leg.equipped = False
+                self.armor += armor.protection
+                self.leg = armor
+                self.leg.equipped = True
+            elif armor.slot == "arm":
+                if self.arm != "empty":
+                    self.armor -= self.arm.protection
+                    self.arm.equipped = False
+                self.armor += armor.protection
+                self.arm = armor
+                self.arm.equipped = True
 
     def use_potion(self):
         if self.potions > 0:
@@ -231,7 +198,7 @@ class Player:
         elif obj.obj_type() == "armor":
             self.inventory["armor"].append(obj)
 
-    # Interaktionen --------------------------------------------------------
+# Interaktionen --------------------------------------------------------
     def fishing(self):
         if self.location in ["a4", "c1", "c2"] and "fishingrot" in self.inventory:
             p = random.random()
@@ -257,7 +224,7 @@ class Player:
         time.sleep(2)
         os.system("clear")
 
-    def get_corn(self):
+    def getCorn(self):
         if self.location == "d2":
             p = random.random()
             if p > 0.25:
@@ -340,7 +307,6 @@ def help_menu():
     print(" -- You can always see your inventory with 'show inventory' and show your stats with 'show stats'")
     print(" -- If you examine a location you may trigger a random encounter and you can 'fish', 'hunt' or 'get corn'")
     print(" -- If you move, you can decide to move 'up', 'down', 'left' or 'right'")
-    print(" -- You can read and write your notebook with 'notebook'")
     print("")
     print("Press ENTER to continue.")
     input()
@@ -349,8 +315,7 @@ def help_menu():
 
 
 ### MAP ###
-solved_places = {'a1': False, 'a2': False, 'a3': False, 'a4': False, 'b1': False, 'b2': False, 'b3': False, 'b4': False,
-                 'c1': False, 'c2': False, 'c3': False, 'c4': False, 'd1': False, 'd2': False, 'd3': False, 'd4': False}
+solved_places = {'a1': False, 'a2': False, 'a3': False, 'a4': False, 'b1': False, 'b2': False, 'b3': False, 'b4': False, 'c1': False, 'c2': False, 'c3': False, 'c4': False, 'd1': False, 'd2': False, 'd3': False, 'd4': False}
 
 ##### MAP PRE #####
 # ""ZONENAME"" = ""
@@ -561,7 +526,6 @@ zonemap = {
     }
 }
 
-
 class NPC:
     def __init__(self, health, strength):
         self.health = health * random.randrange(10, 21)
@@ -603,7 +567,6 @@ class Giant(NPC):
         self.loot_level = 5
         self.ep_drop = random.randrange(100, 151)  # bei 100EP cap quasi ein garantiertes level"UP"
 
-
 def fight_setup(player, poss):
     os.system("clear")
     print("#" * screen_width)
@@ -619,29 +582,27 @@ def fight_setup(player, poss):
         enemy = Giant()  # else, solange nur 3 mögliche Gegner
     fight(player, enemy)
 
-
 def fight(player, enemy):
     flee = 0
     dead = 0
-    while dead == 0:
+    while dead == 0:  
         while enemy.health > 0 and flee == 0:
             print("                 ")
             print("You fight against: " + enemy.name)
             enemy.health_print()
             player.health()
-            # Auswahl für Kampf --------------------------------------------------
+#Auswahl für Kampf --------------------------------------------------
             a = fight_options().lower()  # das geht sicher eleganter
-            valid_options = ["attack", "heal", "flee", "show stats", "quit"]  # In den fight_options() immer ergänzen
+            valid_options = ["attack", "heal", "flee", "show stats", "quit"] #In den fight_options() immer ergänzen
             while a not in valid_options:
                 print("Please use a valid answer.")
                 a = fight_options().lower()
-            # Spieler-Angriff --------------------------------------------------
+#Spieler-Angriff --------------------------------------------------
             if a == "attack":
                 if not player.weapon.broken:
                     print("You attack with your weapon and do " + str(player.weapon.damage) + " damage.")
                     player.weapon.durability[0] -= 1
-                    print("Weapon durability: " + str(
-                        (player.weapon.durability[0] / player.weapon.durability[1]) * 100) + "%")
+                    print("Weapon durability: " + str((player.weapon.durability[0]/player.weapon.durability[1])*100) + "%")
                     if player.weapon.durability[0] == 0:
                         player.weapon.broken = True
                         print("Your weapon broke! Repair it at a Blacksmith's.")
@@ -656,9 +617,9 @@ def fight(player, enemy):
                     print("       ")
                     zonemap[myPlayer.location]["ENCOUNTERS"] -= 1
                     break
-            # Spieler-Andere Optionen --------------------------------------------------
+#Spieler-Andere Optionen --------------------------------------------------
             elif a == "heal":
-                player.use_potion()
+                player.use_potion() 
             elif a == "flee":
                 if random.random() < 0.6:  # 60% Fluchtchance (fix? Future-Feature)
                     flee = 1
@@ -667,66 +628,65 @@ def fight(player, enemy):
                     print("Your enemy won't let you go!")
             elif a == "show stats":
                 player.show_stats()
-            elif a == "quit":  # ganz Spiel aus im Kampf?
+            elif a == "quit": #ganz Spiel aus im Kampf?
                 sys.exit()
 
-            # Gegner-Angriff --------------------------------------------------
-            # Spieler nimmt Schaden
+#Gegner-Angriff --------------------------------------------------
+            #Spieler nimmt Schaden
             if random.random() < enemy.accuracy:
-                if player.armor == 0:  # Wenn keine Rüstung anliegt
+                if player.armor == 0: #Wenn keine Rüstung anliegt
                     print("Your enemy attacks and does " + str(enemy.strength) + " damage.")
                     player.health_cur -= enemy.strength
-                else:  # Es gibt Rüstung
-                    print("Your enemy attacks and does " + str(enemy.strength - player.armor) + " damage.")
-                    player.health_cur -= enemy.strength - player.armor
-                    # Es wird ein Index eines zufälligen aber angelegten Rüstungsteils gewählt
-                    x = player.inventory["armor"][
-                        random.choice([a for a, b in list(enumerate(player.inventory["armor"])) if b.equipped == True])]
+                else: #Es gibt Rüstung
+                    print("Your enemy attacks and does " + str(enemy.strength-player.armor) + " damage.")
+                    player.health_cur -= enemy.strength-player.armor
+                    #Es wird ein Index eines zufälligen aber angelegten Rüstungsteils gewählt
+                    x = player.inventory["armor"][random.choice([a for a,b in list(enumerate(player.inventory["armor"])) if b.equipped == True])]
                     x.durability[0] -= 1
                     print("Your " + x.slot + " armor was hit.")
-                    print("Durability: " + str((x.durability[0] / x.durability[0]) * 100) + "%")
-                # Falls Spieler zu viel Schaden genommen hat --> Spielende
+                    print("Durability: " + str((x.durability[0]/x.durability[0])*100) + "%")
+                #Falls Spieler zu viel Schaden genommen hat --> Spielende
                 if player.health_cur <= 0:
                     speech_manipulation("You are dead . . .", 0.03)
                     print(" ")
                     time.sleep(2)
-                    player.game_over = True
+                    player.game_over = True 
                     dead = 1
-                    game_over()  # Textanzeige
-                    break  # Löst ersten loop der fight, anschließend automatisch zweiten
+                    game_over() #Textanzeige
+                    break #Löst ersten loop der fight, anschließend automatisch zweiten
 
-            # Spieler nimmt keinen Schaden
+            #Spieler nimmt keinen Schaden
             else:
                 print("Your enemy attacks.")
-                time.sleep(0.7)  # dramatic pause :D
+                time.sleep(0.7) #dramatic pause :D
                 print("Missed!")
 
-        # Kampf ist vorbei --------------------------------------------------
+#Kampf ist vorbei --------------------------------------------------
         time.sleep(2)
         os.system("clear")
-        if flee == 1 and dead == 0:  # Lebendig aber geflohen? -> keine Belohnung
+        if flee == 1 and dead == 0: #Lebendig aber geflohen? -> keine Belohnung
             print("You ran away. You don't get a reward.")
-            break  # Bricht while enemy.health > 0 and flee == 0: loop, anschließend while dead loop.
-        elif dead == 1:  # Gestorben?
-            break  # Bricht while enemy.health > 0 and flee == 0: loop, anschließend while dead loop.
+            break # Bricht while enemy.health > 0 and flee == 0: loop, anschließend while dead loop.
+        elif dead == 1: #Gestorben? 
+            break # Bricht while enemy.health > 0 and flee == 0: loop, anschließend while dead loop.
         else:
             if random.random() < enemy.loot_chance:  # Chance ob Loot-Drop oder nicht (abhängig von Gegner)
-                loot(enemy, player)  # Spieler erhält Trank(30%) oder Gegenstand(70%)
+                loot(enemy, player) # Spieler erhält Trank(30%) oder Gegenstand(70%)
             else:
                 print("Looks like you found nothing interesting...")
-            # Garantierte Belohnungen: Gold und Erfahrung
+            #Garantierte Belohnungen: Gold und Erfahrung
             player.get_ep(enemy.ep_drop)
-            player.get_gold(random.randrange(10, 20) * enemy.loot_level)
-            time.sleep(2)  # Notwendig?
+            player.get_gold(random.randrange(10,20)*enemy.loot_level)
+            time.sleep(2) #Notwendig?
 
-        # Kampf-Loop wird aufgelöst --------------------------------------------------
+#Kampf-Loop wird aufgelöst --------------------------------------------------
         time.sleep(2)
         os.system("clear")
-        break  # Bricht while dead == 0: loop
+        break #Bricht while dead == 0: loop
 
 
 def loot(enemy, player):
-    if random.random() < 0.70:  # Chance auf Gegenstand: 70%, sonst Trank
+    if random.random() < 0.70: #Chance auf Gegenstand: 70%, sonst Trank
         g = random.choice([game_object.Weapon(enemy.loot_level), game_object.Armor(enemy.loot_level)])
         if g.obj_type == "weapon":
             print("You find: " + g.name)
@@ -735,8 +695,8 @@ def loot(enemy, player):
             ant = input("> ")
             print(" ")
             if ant.lower()[0] in ["y", ""]:
-                player.equip_weapon(g)  # neue Waffe angelegt und alte Waffe equipped = False
-            player.get_weapon(g, p=False)  # Waffe (zusätzlich) ins Inventar
+                player.equip_weapon(g) # neue Waffe angelegt und alte Waffe equipped = False
+            player.get_weapon(g,p=False)  # Waffe (zusätzlich) ins Inventar
         elif g.obj_type == "armor":
             print("You find: " + g.name)
             print("Protection: " + str(g.protection))
@@ -745,19 +705,17 @@ def loot(enemy, player):
             ant = input("> ")
             print("")
             if ant.lower()[0] in ["y", ""]:
-                player.equip_armor(g)  # Rüstung angelegt und alte Rüstung equipped = False
+                player.equip_armor(g) #Rüstung angelegt und alte Rüstung equipped = False
                 print("You equip your new armor.")
-            player.get_armor(g, p=False)  # Waffe (zusätzlich) ins Inventar
+            player.get_armor(g,p=False)  # Waffe (zusätzlich) ins Inventar
     else:
         player.get_potion()
-
 
 def fight_options():
     print("Choose: attack, heal, flee, show stats, quit\n")
     ant = input("> ")
     os.system("clear")
     return ant
-
 
 def print_location():
     print("#" * screen_width)
@@ -773,7 +731,7 @@ def print_location():
     print("#" * screen_width)
 
 
-def prompt():
+def promt():
     print("You are here:")
     print_location()
     print("\n" + "=" * len("What would you like to do?"))
@@ -785,7 +743,7 @@ def prompt():
     action = input("> ")
     acceptable_locations = ["move", "go", "travel", "walk", "quit", "examine", "inspect", "interact", "look", "hunting",
                             "hunt", "fishing", "fish", "corn", "get corn", "harvest", "heal", "healing", "potion",
-                            "use potion", "show inventory", "inventory", "show stats", "stats", "notebook"]
+                            "use potion", "show inventory", "inventory", "show stats", "stats"]
 
     while action.lower() not in acceptable_locations:
         print("Unknown action. Try again. (move, examine, quit)")
@@ -802,27 +760,13 @@ def prompt():
     elif action.lower() in ["hunting", "hunt"]:
         myPlayer.hunting()
     elif action.lower() in ["corn", "get corn", "harvest"]:
-        myPlayer.get_corn()
+        myPlayer.getCorn()
     elif action.lower() in ["heal", "healing", "potion", "use potion"]:
         myPlayer.use_potion()
     elif action.lower() in ["show inventory", "inventory"]:
         myPlayer.print_inventory()
     elif action.lower() in ["show stats", "stats"]:
         myPlayer.show_stats()
-    elif action.lower() in ["notebook"]:
-        dec = input("\nDo you want to 'read' or 'write'?\n> ")
-        while dec not in ["read", "write"]:
-            print("Unknown command!")
-            dec = input("\nDo you want to 'read' or 'write'?")
-        if dec == "write":
-            myPlayer.write_notebook()
-            print("\nPress ENTER to exit.")
-            input()
-        elif dec == "read":
-            myPlayer.show_notebook()
-            print("\nPress ENTER to exit.")
-            input()
-
 
 
 def player_move():
@@ -863,6 +807,7 @@ def movement(destination):
     print("You have moved to the " + zonemap[myPlayer.location]["ZONENAME"] + ".")
     time.sleep(3)
     os.system("clear")
+
 
 
 def stay(direct):
@@ -936,7 +881,7 @@ def game_over():
 
 def game_loop():
     while not myPlayer.game_over:
-        prompt()
+        promt()
 
 
 def speech_manipulation(text, speed):

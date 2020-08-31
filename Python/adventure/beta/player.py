@@ -3,6 +3,7 @@ import time
 
 from static import screen_width, clear, speech_manipulation
 import game_object
+import npc
 
 class Player:
     def __init__(self):
@@ -295,4 +296,4 @@ class Player:
 
     def buy_equipment(self):
         if self.location == "b1":
-            game_object.Blacksmith(self)
+            npc.Blacksmith(self)

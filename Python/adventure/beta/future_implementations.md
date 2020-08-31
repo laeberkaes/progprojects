@@ -7,7 +7,8 @@ TODO
 - NPC (außer Gegner)? (Händler, Farmer, Reisender, Waldläufer im Wald, Fischer, ... )
 - Questen hinzufügen? In dem Zug dann auch noch eine Questübersicht
 - Error, wenn eine Waffe nicht ausgerüstet werden soll: `TypeError: 'str' object is not callable`
-
+- Magie Angriffe inkl. Status Effekt
+- Corn wird im Inventar unter Misc nicht angezeigt
 
 DONE
 - ~~Equiped tag für Rüstungsteile, damit diese so in show_inventory angezeigt werden können.~~

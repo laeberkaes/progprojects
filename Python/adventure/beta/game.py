@@ -2,7 +2,6 @@ import os
 import random
 import sys
 import time
-
 import game_object  # player
 from static import clear, screen_width, speech_manipulation
 # from map import zonemap
@@ -10,6 +9,8 @@ import player
 from npc import NPC, Bandit, Orc, Giant
 
 myPlayer = player.Player()
+
+
 
 
 ##### Title #####
@@ -366,11 +367,8 @@ def fight(player, enemy):
 
 #Kampf ist vorbei --------------------------------------------------
         time.sleep(2)
-
         clear()
-
         if flee == 1 and dead == 0: #Lebendig aber geflohen? -> keine Belohnung
-
             print("You ran away. You don't get a reward.")
             break # Bricht while enemy.health > 0 and flee == 0: loop, anschließend while dead loop.
         elif dead == 1: #Gestorben? 
@@ -387,10 +385,8 @@ def fight(player, enemy):
 
 #Kampf-Loop wird aufgelöst --------------------------------------------------
         time.sleep(2)
-
         clear()
-        break  # Bricht while dead == 0: loop
-
+        break #Bricht while dead == 0: loop
 
 
 def loot(enemy, player):

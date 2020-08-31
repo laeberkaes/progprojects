@@ -2,11 +2,18 @@ import os
 import random
 import sys
 import time
-import game_object
-#from . import game_object
+import platform
+import game_object  # player
 
 screen_width = 60
 
+def clear():
+    if platform.system() in ["Linux", "Darwin"]:
+        os.system("clear")
+    elif platform.system() == "Windows":
+        os.system("cls")
+    else:
+        raise ValueError ("No known operating system.")
 
 class Player:
     def __init__(self):
@@ -37,7 +44,7 @@ class Player:
         print("Your health: " + str(self.health_cur) + "/" + str(self.health_max) + " HP")
 
     def print_inventory(self):
-        os.system("clear")
+        clear()
         print("#" * screen_width)
         print(
             "=" * int((screen_width - len("WEAPONS")) / 2) + "WEAPONS" + "=" * int((screen_width - len("WEAPONS")) / 2))
@@ -67,10 +74,10 @@ class Player:
         print("")
         print("Press ENTER to continue.")
         input()
-        os.system("clear")
+        clear()
 
     def show_stats(self):
-        os.system("clear")
+        clear()
         print("#" * screen_width)
         print("")
         print("Name:" + " " * (20 - len("Name:")) + self.name)
@@ -86,7 +93,39 @@ class Player:
         print("")
         print("Press ENTER to continue.")
         input()
-        os.system("clear")
+        clear()
+
+    def write_notebook(self):
+        clear()
+        print("#" * screen_width)
+        print("#" + " " * int((screen_width - len("NOTEBOOK")) / 2 - 1) + "NOTEBOOK" + " " * int((screen_width - len("NOTEBOOK")) / 2 - 1) + "#")
+        print("#" * screen_width)
+        print("\nYou can escape the notebook with writing 'END' in the last line.")
+        print("\nOlder Entries:\n")
+        with open("notebook.txt", "r") as notebook:
+            for line in notebook.readlines():
+                print("> " + line, end="")
+
+        print("\nAppend the following lines:\n")
+
+        with open("notebook.txt", "a") as notebook:
+            while True:
+                inp = input("> ")
+                if inp.strip() == "END":
+                    break
+                else:
+                    notebook.write(inp + "\n")
+
+    def show_notebook(self):
+        clear()
+        print("#" * screen_width)
+        print("#" + " " * int((screen_width - len("NOTEBOOK")) / 2 - 1) + "NOTEBOOK" + " " * int((screen_width - len("NOTEBOOK")) / 2 - 1) + "#")
+        print("#" * screen_width)
+        with open("notebook.txt", "r") as notebook:
+            for line in notebook.readlines():
+                print("> " + line, end="")
+
+
 
 # Loot-Optionen --------------------------------------------------------
     def get_gold(self, amount):
@@ -187,7 +226,7 @@ class Player:
         else:
             print("You don't have any potions left.")
         time.sleep(2)
-        os.system("clear")
+        clear()
 
     def get_object(self, obj):
         if obj not in self.inventory["misc"] and type(obj) == str:
@@ -223,7 +262,7 @@ class Player:
             print("Well you can try to fish here. But you will not get any more than some dirt.")
 
         time.sleep(2)
-        os.system("clear")
+        clear()
 
     def getCorn(self):
         if self.location == "d2":
@@ -240,7 +279,7 @@ class Player:
             print("Well you cannot get corn out of this place.")
 
         time.sleep(2)
-        os.system("clear")
+        clear()
 
     def hunting(self):
         if self.location in ["b3", "b4", "c3", "c4"]:
@@ -262,7 +301,7 @@ class Player:
         else:
             print("You will find no wild animals in this area. Try your luck in the eastern forest.")
         time.sleep(2)
-        os.system("clear")
+        clear()
     
     def buy_equipment(self):
         if self.location == "b1":
@@ -288,7 +327,7 @@ def title_screen_selections():
 
 
 def title_screen():
-    os.system("clear")
+    clear()
     print("#" * screen_width)
     print("#" + (" " * int((screen_width - len("Welcome to the Text RPG")) / 2)) + "Welcome to the Text RPG" + (
             " " * int((screen_width - 2 - len("Welcome to the Text RPG")) / 2)) + "#")
@@ -301,7 +340,7 @@ def title_screen():
 
 
 def help_menu():
-    os.system("clear")
+    clear()
     print("#" * screen_width)
     print(("=" * int((screen_width - len("HELP MENU")) / 2)) + "HELP MENU" + (
             "=" * int((screen_width - len("HELP MENU")) / 2)))
@@ -572,7 +611,7 @@ class Giant(NPC):
         self.ep_drop = random.randrange(100, 151)  # bei 100EP cap quasi ein garantiertes level"UP"
 
 def fight_setup(player, poss):
-    os.system("clear")
+    clear()
     print("#" * screen_width)
     print(" " * int((screen_width - len("FIGHT")) / 2) + "FIGHT")
     print("#" * screen_width)
@@ -667,7 +706,7 @@ def fight(player, enemy):
 
 #Kampf ist vorbei --------------------------------------------------
         time.sleep(2)
-        os.system("clear")
+        clear()
         if flee == 1 and dead == 0: #Lebendig aber geflohen? -> keine Belohnung
             print("You ran away. You don't get a reward.")
             break # Bricht while enemy.health > 0 and flee == 0: loop, anschließend while dead loop.
@@ -685,7 +724,7 @@ def fight(player, enemy):
 
 #Kampf-Loop wird aufgelöst --------------------------------------------------
         time.sleep(2)
-        os.system("clear")
+        clear()
         break #Bricht while dead == 0: loop
 
 
@@ -718,7 +757,7 @@ def loot(enemy, player):
 def fight_options():
     print("Choose: attack, heal, flee, show stats, quit\n")
     ant = input("> ")
-    os.system("clear")
+    clear()
     return ant
 
 def print_location():
@@ -812,7 +851,7 @@ def movement(destination):
     myPlayer.location = destination
     print("You have moved to the " + zonemap[myPlayer.location]["ZONENAME"] + ".")
     time.sleep(3)
-    os.system("clear")
+    clear()
 
 
 
@@ -820,7 +859,7 @@ def stay(direct):
     directions = {"up": "north", "down": "south", "left": "west", "right": "east"}
     print("You cannot move further " + directions[direct] + ".")
     time.sleep(3)
-    os.system("clear")
+    clear()
 
 
 def player_examine():
@@ -831,18 +870,18 @@ def player_examine():
         print("You have already been here.")
         print(zonemap[myPlayer.location]["EXAMINATION"])
         time.sleep(3)
-        os.system("clear")
+        clear()
     else:
         print(zonemap[myPlayer.location]["EXAMINATION"])
         zonemap[myPlayer.location]["SOLVED"] = True
         if all(solved_places.values()):
             myPlayer.game_over = True
         time.sleep(3)
-        os.system("clear")
+        clear()
 
 
 def intro():
-    os.system("clear")
+    clear()
     question3 = "Welcome, " + myPlayer.name + " the " + myPlayer.play_class + ".\n"
     speech_manipulation(question3, 0.05)
     speech_manipulation("Welcome to this fantasy world I created for you. ;)\n", 0.05)
@@ -866,7 +905,7 @@ def end_screen():
         0.04)
 
     time.sleep(5)
-    os.system("clear")
+    clear()
     # print("Made by laeberkaes")
     # print("Hit me "UP" at: https://github.com/laeberkaes/ or @laeberkaes:uraltemorla.xyz")
     #
@@ -875,7 +914,7 @@ def end_screen():
 
 
 def game_over():
-    os.system("clear")
+    clear()
     speech_manipulation("Ouh there you are again.\n", 0.05)
     speech_manipulation(
         "Don't get me wrong. This is no surprise for me. Maybe you have more luck in your next reincarnation.\n",
@@ -898,13 +937,13 @@ def speech_manipulation(text, speed):
 
 
 def setup_game():
-    os.system("clear")
+    clear()
     question1 = "Hello what's your name?\n"
     speech_manipulation(question1, 0.05)
     print("")
     myPlayer.name = input("> ").lower()
 
-    os.system("clear")
+    clear()
 
     classes = ["warrior", "mage", "rogue"]
     question2 = "What Class do you want to play? (Warrior, Mage, Rogue)\n"
@@ -940,7 +979,7 @@ def setup_game():
 
     # intro()
 
-    os.system("clear")
+    clear()
     print("#" * screen_width + "\n")
     print("#" + (" " * int((screen_width - 2 - len("Let's start now")) / 2)) + "Let's start now" + (
             " " * int((screen_width - 2 - len("Let's start now")) / 2)) + "#\n")

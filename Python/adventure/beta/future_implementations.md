@@ -9,5 +9,3 @@ TODO
 - Notizbuch hinzufügen?
 - Questen hinzufügen? In dem Zug dann auch noch eine Questübersicht
 - Error, wenn eine Waffe nicht ausgerüstet werden soll: `TypeError: 'str' object is not callable`
-
-- Da jedes Rüstungsteil eine durability hat, sollte man diese auch irgendwo überprüfen können

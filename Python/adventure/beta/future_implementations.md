@@ -9,6 +9,7 @@ TODO
 - Error, wenn eine Waffe nicht ausgerüstet werden soll: `TypeError: 'str' object is not callable`
 - Magie Angriffe inkl. Status Effekt
 - Corn wird im Inventar unter Misc nicht angezeigt
+- Bei lvl AUfstieg wird "you now have X HP" als max angezeigt, aber das ist nicht cur (also eigentlich der falsche Wert)
 
 DONE
 - ~~Equiped tag für Rüstungsteile, damit diese so in show_inventory angezeigt werden können.~~

@@ -1,5 +1,12 @@
 from sys import stdin
 
-input = stdin.readlines()
+with open("test.txt", "a") as notebook:
+    while True:
+        inp = stdin.readline()
+        if inp.strip() == "END":
+            break
+        else:
+            notebook.write(inp)
 
-print(input)
+for line in open("test.txt").readlines():
+    print(line)

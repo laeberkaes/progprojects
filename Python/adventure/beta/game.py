@@ -2,7 +2,7 @@ import os
 import random
 import sys
 import time
-from adventure.beta import game_object  # player
+import game_object  # player
 
 screen_width = 60
 
@@ -30,6 +30,9 @@ class Player:
         self.leg = "empty"
         self.armor = 0
         self.pos = (0.95, 0.05, 0)
+        with open("notebook.txt", "w") as notebook:
+            notebook.write("")
+            pass
 
     # HUD-Optionen --------------------------------------------------------
     def health(self):
@@ -86,6 +89,36 @@ class Player:
         print("Press ENTER to continue.")
         input()
         os.system("clear")
+
+    def write_notebook(self):
+        os.system("clear")
+        print("#" * screen_width)
+        print("#" + " " * int((screen_width - len("NOTEBOOK")) / 2 - 1) + "NOTEBOOK" + " " * int((screen_width - len("NOTEBOOK")) / 2 - 1) + "#")
+        print("#" * screen_width)
+        print("\nYou can escape the notebook with writing 'END' in the last line.")
+        print("\nOlder Entries:\n")
+        with open("notebook.txt", "r") as notebook:
+            for line in notebook.readlines():
+                print("> " + line, end="")
+
+        print("\nAppend the following lines:\n")
+
+        with open("notebook.txt", "a") as notebook:
+            while True:
+                inp = input("> ")
+                if inp.strip() == "END":
+                    break
+                else:
+                    notebook.write(inp + "\n")
+
+    def show_notebook(self):
+        os.system("clear")
+        print("#" * screen_width)
+        print("#" + " " * int((screen_width - len("NOTEBOOK")) / 2 - 1) + "NOTEBOOK" + " " * int((screen_width - len("NOTEBOOK")) / 2 - 1) + "#")
+        print("#" * screen_width)
+        with open("notebook.txt", "r") as notebook:
+            for line in notebook.readlines():
+                print("> " + line, end="")
 
     # Loot-Optionen --------------------------------------------------------
     def get_gold(self, amount):
@@ -307,6 +340,7 @@ def help_menu():
     print(" -- You can always see your inventory with 'show inventory' and show your stats with 'show stats'")
     print(" -- If you examine a location you may trigger a random encounter and you can 'fish', 'hunt' or 'get corn'")
     print(" -- If you move, you can decide to move 'up', 'down', 'left' or 'right'")
+    print(" -- You can read and write your notebook with 'notebook'")
     print("")
     print("Press ENTER to continue.")
     input()
@@ -739,7 +773,7 @@ def print_location():
     print("#" * screen_width)
 
 
-def promt():
+def prompt():
     print("You are here:")
     print_location()
     print("\n" + "=" * len("What would you like to do?"))
@@ -751,7 +785,7 @@ def promt():
     action = input("> ")
     acceptable_locations = ["move", "go", "travel", "walk", "quit", "examine", "inspect", "interact", "look", "hunting",
                             "hunt", "fishing", "fish", "corn", "get corn", "harvest", "heal", "healing", "potion",
-                            "use potion", "show inventory", "inventory", "show stats", "stats"]
+                            "use potion", "show inventory", "inventory", "show stats", "stats", "notebook"]
 
     while action.lower() not in acceptable_locations:
         print("Unknown action. Try again. (move, examine, quit)")
@@ -775,6 +809,20 @@ def promt():
         myPlayer.print_inventory()
     elif action.lower() in ["show stats", "stats"]:
         myPlayer.show_stats()
+    elif action.lower() in ["notebook"]:
+        dec = input("\nDo you want to 'read' or 'write'?\n> ")
+        while dec not in ["read", "write"]:
+            print("Unknown command!")
+            dec = input("\nDo you want to 'read' or 'write'?")
+        if dec == "write":
+            myPlayer.write_notebook()
+            print("\nPress ENTER to exit.")
+            input()
+        elif dec == "read":
+            myPlayer.show_notebook()
+            print("\nPress ENTER to exit.")
+            input()
+
 
 
 def player_move():
@@ -888,7 +936,7 @@ def game_over():
 
 def game_loop():
     while not myPlayer.game_over:
-        promt()
+        prompt()
 
 
 def speech_manipulation(text, speed):

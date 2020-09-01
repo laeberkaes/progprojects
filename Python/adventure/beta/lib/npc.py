@@ -1,8 +1,8 @@
 import random
 import time
 
-from lib.static import screen_width, clear
 from lib.game_object import Weapon, Armor
+from lib.static import screen_width, clear
 
 
 class NPC:
@@ -61,16 +61,18 @@ class Blacksmith():
         self.buy_or_sell(player) #Interaktion mit blacksmith wird gestartet
 
     def buy_or_sell(self, player):
-        print("Do you want to buy or sell something?")
+        print("Do you want to 'buy' or 'sell' something? Or you can 'go' if you cannot afford my goods.")
         a = input("> ")
-        while a.lower() not in ["buy", "sell"]:
+        while a.lower() not in ["buy", "sell", "go", "quit"]:
             print("What? I didn't catch that.")
             self.buy_or_sell(player)
         if a.lower() == "buy":
             self.buy_inventory(player)
-        else:
+        elif a.lower() == "sell":
             self.sell_inventory(player)
-
+        elif a.lower() in ["go", "quit"]:
+            print("Well in the moment you came in I saw, that you are a poor guy. Now get out of here.")
+            time.sleep(2)
 
     def set_inventory(self, player): #Auslage wird erstellt
         lvl = player.level
@@ -92,7 +94,7 @@ class Blacksmith():
             print("#" + " " * 6 + str(i+1) + ". " + m)
         print("#" * screen_width) #TODO Hannes, mach das schön! :D
         print(" ")
-        print("Which one do you want? (1, 2, 3, nothing)")
+        print("Which one do you want? ('1', '2', '3', 'nothing')")
         valid_input = ["1", "2", "3", "nothing"]
         a_capital = input("> ")
         a = a_capital.lower() #Workaround fürs debuggen
@@ -112,7 +114,7 @@ class Blacksmith():
         if auswahl >= 0:
             if self.inventory[auswahl] != " ":
                 if player.gold > self.inventory[auswahl].value:
-                    print("So you want the " + self.inventory[auswahl].name + ". Are you sure? (y/n)")
+                    print("So you want the " + self.inventory[auswahl].name + ". Are you sure? ('y'/'n')")
                     ax = input()
                     a2 = ax.lower() #debug workaround
 
@@ -151,35 +153,61 @@ class Blacksmith():
         clear()
         if sell.lower() == "weapon":
             print("#" * screen_width, end="\n\n")
-            for num,weapon in enumerate(player.inventory["weapons"]):
-                print(" " * 5 + str(num + 1) + " " + weapon.name + " with " + str(weapon.durability[0] / weapon.durability[1] * 100) + "% of durability.")
-                print(" " * 9 + "~~ Value: " + str(weapon.value) + " Gold ~~", end="\n\n")
+            for num, weapon in enumerate(player.inventory["weapons"]):
+                if not weapon.equipped:
+                    print(" " * 5 + str(num + 1) + " " + weapon.name + " with " + str(
+                        weapon.durability[0] / weapon.durability[1] * 100) + "% of durability.")
+                    print(" " * 9 + "~~ Value: " + str(weapon.value) + " Gold ~~", end="\n\n")
+                else:
+                    print(" " * 5 + str(num + 1) + " --> >>UNSELLABLE<< " + weapon.name + " with " + str(
+                        weapon.durability[0] / weapon.durability[1] * 100) + "% of durability.", end="\n\n")
             print("#" * screen_width, end="\n\n")
             print("Which one do you want to sell? (number):")
             select = input("> ")
 
-            print("You get " + str(player.inventory["weapons"][int(int(select)-1)].value) + " Gold.")
-            player.gold += player.inventory["weapons"][int(int(select)-1)].value
-            player.drop_weapon(player.inventory["weapons"][int(select)-1])
-
-            time.sleep(2)
-            clear()
+            if not player.inventory["weapons"][int(select) - 1].equipped:
+                if self.gold - player.inventory["weapons"][int(int(select) - 1)].value >= 0:
+                    print("You get " + str(player.inventory["weapons"][int(int(select) - 1)].value) + " Gold.")
+                    player.gold += player.inventory["weapons"][int(int(select) - 1)].value
+                    player.drop_weapon(player.inventory["weapons"][int(select) - 1])
+                else:
+                    print("Oh thats to much gold for me. Come again later.")
+                    time.sleep(2)
+                    self.buy_or_sell(player)
+            else:
+                print("Oh unfortunately this weapon is equipped and you cannot sell it.")
+                self.buy_or_sell(player)
 
         elif sell.lower() == "armor":
             print("#" * screen_width, end="\n\n")
-            for num,armor in enumerate(player.inventory["armor"]):
-                print(" " * 5 + str(num + 1) + " --> " + armor.name + " for your " + armor.slot + " with " + str(armor.durability[0] / armor.durability[1] * 100) + "% of durability.")
-                print(" " * 9 + "~~ Value: " + str(armor.value) + " Gold ~~", end="\n\n")
+            for num, armor in enumerate(player.inventory["armor"]):
+                if not armor.equipped:
+                    print(" " * 5 + str(num + 1) + " --> " + armor.name + " for your " + armor.slot + " with " + str(
+                        armor.durability[0] / armor.durability[1] * 100) + "% of durability.")
+                    print(" " * 9 + "~~ Value: " + str(armor.value) + " Gold ~~", end="\n\n")
+                else:
+                    print(" " * 5 + str(
+                        num + 1) + " --> >>UNSELLABLE<< " + armor.name + " for your " + armor.slot + " with " + str(
+                        armor.durability[0] / armor.durability[1] * 100) + "% of durability.", end="\n\n")
             print("#" * screen_width, end="\n\n")
             print("Which one do you want to sell? (number):")
             select = input("> ")
 
-            print("You get " + str(player.inventory["armor"][int(int(select)-1)].value) + " Gold.")
-            player.gold += player.inventory["armor"][int(int(select)-1)].value
-            player.drop_armor(player.inventory["armor"][int(select) - 1])
-
-            time.sleep(2)
-            clear()
+            if not player.inventory["armor"][int(select) - 1]:
+                if self.gold - player.inventory["armor"][int(int(select) - 1)].value >= 0:
+                    print("You get " + str(player.inventory["armor"][int(int(select) - 1)].value) + " Gold.")
+                    player.gold += player.inventory["armor"][int(int(select) - 1)].value
+                    player.drop_armor(player.inventory["armor"][int(select) - 1])
+                    time.sleep(2)
+                    self.buy_or_sell(player)
+                else:
+                    print("Oh thats to much gold for me. Come again later.")
+                    time.sleep(2)
+                    self.buy_or_sell(player)
+            else:
+                print("Oh unfortunately this armor is equipped and you cannot sell it.")
+                time.sleep(2)
+                self.buy_or_sell(player)
 
 
 class Magician():

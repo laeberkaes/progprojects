@@ -1,16 +1,12 @@
-import os
 import random
 import sys
 import time
-import game_object  # player
-from static import clear, screen_width, speech_manipulation
+from lib import game_object, player
+from lib.map import zonemap, solved_places
+from lib.player import myPlayer
+from lib.static import clear, screen_width, speech_manipulation
 # from map import zonemap
-import player
-from npc import NPC, Bandit, Orc, Giant
-
-myPlayer = player.Player()
-
-
+from lib.npc import Bandit, Orc, Giant
 
 
 ##### Title #####
@@ -59,218 +55,6 @@ def help_menu():
     title_screen_selections()
 
 
-### MAP ###
-solved_places = {'a1': False, 'a2': False, 'a3': False, 'a4': False, 'b1': False, 'b2': False, 'b3': False, 'b4': False, 'c1': False, 'c2': False, 'c3': False, 'c4': False, 'd1': False, 'd2': False, 'd3': False, 'd4': False}
-
-##### MAP PRE #####
-# ""ZONENAME"" = ""
-# ""DESCRIPTION"" = ""DESCRIPTION""
-# ""EXAMINATION"" = "examine"
-# ""SOLVED"" = False
-# ""UP"" = ""UP""
-# ""DOWN"" = ""DOWN""
-# ""LEFT"" = ""LEFT""
-# ""RIGHT"" = ""RIGHT""
-# ""SOLVED"_ENCOUNTER_COUNT" = 0
-# ""ENCOUNTERS"" = 0
-POSSIBILITIES = myPlayer.pos
-
-zonemap = {
-    "a1": {
-        "ZONENAME": "Town Marketplace",
-        "DESCRIPTION": "This is the marketplace of your hometown.",
-        "EXAMINATION": "You can see some stalls selling different things.",
-        "SOLVED": False,
-        "UP": "",
-        "DOWN": "b1",
-        "LEFT": "",
-        "RIGHT": "a2",
-        "ENCOUNTERS": 0,
-        "POSSIBILITIES": POSSIBILITIES
-    },
-    "a2": {
-        "ZONENAME": "Towngate",
-        "DESCRIPTION": "This is the gate of your hometown.",
-        "EXAMINATION": "The gate is locked at night. You have to be nice to the guardsmen, if you try to enter at "
-                       "night.",
-        "SOLVED": False,
-        "UP": "",
-        "DOWN": "b2",
-        "LEFT": "a1",
-        "RIGHT": "a3",
-        "ENCOUNTERS": 0,
-        "POSSIBILITIES": POSSIBILITIES
-    },
-    "a3": {
-        "ZONENAME": "Grassland",
-        "DESCRIPTION": "Nothing but green grass.",
-        "EXAMINATION": "I'm serious. It's nothing but grass.",
-        "SOLVED": False,
-        "UP": "",
-        "DOWN": "b3",
-        "LEFT": "a2",
-        "RIGHT": "a4",
-        "ENCOUNTERS": 2,
-        "POSSIBILITIES": POSSIBILITIES
-    },
-    "a4": {
-        "ZONENAME": "Little Pond",
-        "DESCRIPTION": "This is a cute little pond.",
-        "EXAMINATION": "With a fishingrot you could get some fish out of it.",
-        "SOLVED": False,
-        "UP": "",
-        "DOWN": "b4",
-        "LEFT": "a3",
-        "RIGHT": "",
-        "ENCOUNTERS": 2,
-        "POSSIBILITIES": POSSIBILITIES
-    },
-    "b1": {
-        "ZONENAME": "Blacksmith",
-        "DESCRIPTION": "This is your local blacksmith.",
-        "EXAMINATION": "Here you can buy/sell some weapons or protections",
-        "SOLVED": False,
-        "UP": "a1",
-        "DOWN": "c1",
-        "LEFT": "",
-        "RIGHT": "b2",
-        "ENCOUNTERS": 0,
-        "POSSIBILITIES": POSSIBILITIES
-    },
-    "b2": {
-        "ZONENAME": "Home",
-        "DESCRIPTION": "This is your home!",
-        "EXAMINATION": "Your home looks cosy.",
-        "SOLVED": False,
-        "UP": "a2",
-        "DOWN": "c2",
-        "LEFT": "b1",
-        "RIGHT": "b3",
-        "ENCOUNTERS": 0,
-        "POSSIBILITIES": POSSIBILITIES
-    },
-    "b3": {
-        "ZONENAME": "Small Forest",
-        "DESCRIPTION": "A small forest next to your home.",
-        "EXAMINATION": "You could hunt in this forest to get some food. But some bandits were seen in there, too.",
-        "SOLVED": False,
-        "UP": "a3",
-        "DOWN": "c3",
-        "LEFT": "b2",
-        "RIGHT": "b4",
-        "ENCOUNTERS": 3,
-        "POSSIBILITIES": POSSIBILITIES
-    },
-    "b4": {
-        "ZONENAME": "Small Forest",
-        "DESCRIPTION": "A small forest next to your home.",
-        "EXAMINATION": "You could hunt in this forest to get some food. But some bandits were seen in there, too.",
-        "SOLVED": False,
-        "UP": "a4",
-        "DOWN": "c4",
-        "LEFT": "b3",
-        "RIGHT": "",
-        "ENCOUNTERS": 3,
-        "POSSIBILITIES": POSSIBILITIES
-    },
-    "c1": {
-        "ZONENAME": "Little River",
-        "DESCRIPTION": "This river comes out of the forest in the east.",
-        "EXAMINATION": "Further to the forest you can see a bridge over the river.",
-        "SOLVED": False,
-        "UP": "b1",
-        "DOWN": "d1",
-        "LEFT": "",
-        "RIGHT": "c2",
-        "ENCOUNTERS": 2,
-        "POSSIBILITIES": POSSIBILITIES
-    },
-    "c2": {
-        "ZONENAME": "Little River (Bridge)",
-        "DESCRIPTION": "This river comes out of the forest in the east.",
-        "EXAMINATION": "You see a bridge leading over the river to get to the other side.",
-        "SOLVED": False,
-        "UP": "b2",
-        "DOWN": "d2",
-        "LEFT": "c1",
-        "RIGHT": "c3",
-        "ENCOUNTERS": 2,
-        "POSSIBILITIES": POSSIBILITIES
-    },
-    "c3": {
-        "ZONENAME": "Small Forest",
-        "DESCRIPTION": "A small forest next to your home.",
-        "EXAMINATION": "You could hunt in this forest to get some food. But some bandits were seen in there, too.",
-        "SOLVED": False,
-        "UP": "b3",
-        "DOWN": "d3",
-        "LEFT": "c2",
-        "RIGHT": "c4",
-        "ENCOUNTERS": 3,
-        "POSSIBILITIES": POSSIBILITIES
-    },
-    "c4": {
-        "ZONENAME": "Small Forest",
-        "DESCRIPTION": "A small forest next to your home.",
-        "EXAMINATION": "You could hunt in this forest to get some food. But some bandits were seen in there, too.",
-        "SOLVED": False,
-        "UP": "b4",
-        "DOWN": "d4",
-        "LEFT": "c3",
-        "RIGHT": "",
-        "ENCOUNTERS": 3,
-        "POSSIBILITIES": POSSIBILITIES
-    },
-    "d1": {
-        "ZONENAME": "Cave",
-        "DESCRIPTION": "Down in the south is a small Trollcave.",
-        "EXAMINATION": "You see some skelletons of deer and horses. Is it really a good idea to go into the cave?",
-        "SOLVED": False,
-        "UP": "c1",
-        "DOWN": "",
-        "LEFT": "",
-        "RIGHT": "d2",
-        "ENCOUNTERS": 5,
-        "POSSIBILITIES": [0.7, 0.3, 1]
-    },
-    "d2": {
-        "ZONENAME": "Cornfield",
-        "DESCRIPTION": "This cornfield belongs to the farm in the east. Maybe you can get some corn from it?",
-        "EXAMINATION": "Looks like this corn is better than what you have ever seen.",
-        "SOLVED": False,
-        "UP": "c2",
-        "DOWN": "",
-        "LEFT": "d1",
-        "RIGHT": "d3",
-        "ENCOUNTERS": 2,
-        "POSSIBILITIES": POSSIBILITIES
-    },
-    "d3": {
-        "ZONENAME": "Farm",
-        "DESCRIPTION": "This farm is owned by an old farmer.",
-        "EXAMINATION": "You have heard some scary stories about this farmer. Maybe he is not very nice?",
-        "SOLVED": False,
-        "UP": "c3",
-        "DOWN": "",
-        "LEFT": "d2",
-        "RIGHT": "d4",
-        "ENCOUNTERS": 3,
-        "POSSIBILITIES": POSSIBILITIES
-    },
-    "d4": {
-        "ZONENAME": "Bandit Hideout",
-        "DESCRIPTION": "This looks like some bandit hideout, which was not here the last time you were here.",
-        "EXAMINATION": "You cannot see any other human being. But you feel that you better move away.",
-        "SOLVED": False,
-        "UP": "c4",
-        "DOWN": "",
-        "LEFT": "d3",
-        "RIGHT": "",
-        "ENCOUNTERS": 7,
-        "POSSIBILITIES": [0.5, 1, 0]
-    }
-}
-
 def fight_setup(player, poss):
     clear()
     print("#" * screen_width)
@@ -286,27 +70,29 @@ def fight_setup(player, poss):
         enemy = Giant()  # else, solange nur 3 mögliche Gegner
     fight(player, enemy)
 
+
 def fight(player, enemy):
     flee = 0
     dead = 0
-    while dead == 0:  
+    while dead == 0:
         while enemy.health > 0 and flee == 0:
             print("                 ")
             print("You fight against: " + enemy.name)
             enemy.health_print()
             player.health()
-#Auswahl für Kampf --------------------------------------------------
+            # Auswahl für Kampf --------------------------------------------------
             a = fight_options().lower()  # das geht sicher eleganter
-            valid_options = ["attack", "heal", "flee", "show stats", "quit"] #In den fight_options() immer ergänzen
+            valid_options = ["attack", "heal", "flee", "show stats", "quit"]  # In den fight_options() immer ergänzen
             while a not in valid_options:
                 print("Please use a valid answer.")
                 a = fight_options().lower()
-#Spieler-Angriff --------------------------------------------------
+            # Spieler-Angriff --------------------------------------------------
             if a == "attack":
                 if not player.weapon.broken:
                     print("You attack with your weapon and do " + str(player.weapon.damage) + " damage.")
                     player.weapon.durability[0] -= 1
-                    print("Weapon durability: " + str((player.weapon.durability[0]/player.weapon.durability[1])*100) + "%")
+                    print("Weapon durability: " + str(
+                        (player.weapon.durability[0] / player.weapon.durability[1]) * 100) + "%")
                     if player.weapon.durability[0] == 0:
                         player.weapon.broken = True
                         print("Your weapon broke! Repair it at a Blacksmith's.")
@@ -321,9 +107,9 @@ def fight(player, enemy):
                     print("       ")
                     zonemap[myPlayer.location]["ENCOUNTERS"] -= 1
                     break
-#Spieler-Andere Optionen --------------------------------------------------
+            # Spieler-Andere Optionen --------------------------------------------------
             elif a == "heal":
-                player.use_potion() 
+                player.use_potion()
             elif a == "flee":
                 if random.random() < 0.6:  # 60% Fluchtchance (fix? Future-Feature)
                     flee = 1
@@ -332,65 +118,66 @@ def fight(player, enemy):
                     print("Your enemy won't let you go!")
             elif a == "show stats":
                 player.show_stats()
-            elif a == "quit": #ganz Spiel aus im Kampf?
+            elif a == "quit":  # ganz Spiel aus im Kampf?
                 sys.exit()
 
-#Gegner-Angriff --------------------------------------------------
-            #Spieler nimmt Schaden
+            # Gegner-Angriff --------------------------------------------------
+            # Spieler nimmt Schaden
             if random.random() < enemy.accuracy:
-                if player.armor == 0: #Wenn keine Rüstung anliegt
+                if player.armor == 0:  # Wenn keine Rüstung anliegt
                     print("Your enemy attacks and does " + str(enemy.strength) + " damage.")
                     player.health_cur -= enemy.strength
-                else: #Es gibt Rüstung
-                    print("Your enemy attacks and does " + str(enemy.strength-player.armor) + " damage.")
-                    player.health_cur -= enemy.strength-player.armor
-                    #Es wird ein Index eines zufälligen aber angelegten Rüstungsteils gewählt
-                    x = player.inventory["armor"][random.choice([a for a,b in list(enumerate(player.inventory["armor"])) if b.equipped == True])]
+                else:  # Es gibt Rüstung
+                    print("Your enemy attacks and does " + str(enemy.strength - player.armor) + " damage.")
+                    player.health_cur -= enemy.strength - player.armor
+                    # Es wird ein Index eines zufälligen aber angelegten Rüstungsteils gewählt
+                    x = player.inventory["armor"][
+                        random.choice([a for a, b in list(enumerate(player.inventory["armor"])) if b.equipped == True])]
                     x.durability[0] -= 1
                     print("Your " + x.slot + " armor was hit.")
-                    print("Durability: " + str((x.durability[0]/x.durability[0])*100) + "%")
-                #Falls Spieler zu viel Schaden genommen hat --> Spielende
+                    print("Durability: " + str((x.durability[0] / x.durability[0]) * 100) + "%")
+                # Falls Spieler zu viel Schaden genommen hat --> Spielende
                 if player.health_cur <= 0:
                     speech_manipulation("You are dead . . .", 0.03)
                     print(" ")
                     time.sleep(2)
-                    player.game_over = True 
+                    player.game_over = True
                     dead = 1
-                    game_over() #Textanzeige
-                    break #Löst ersten loop der fight, anschließend automatisch zweiten
+                    game_over()  # Textanzeige
+                    break  # Löst ersten loop der fight, anschließend automatisch zweiten
 
-            #Spieler nimmt keinen Schaden
+            # Spieler nimmt keinen Schaden
             else:
                 print("Your enemy attacks.")
-                time.sleep(0.7) #dramatic pause :D
+                time.sleep(0.7)  # dramatic pause :D
                 print("Missed!")
 
-#Kampf ist vorbei --------------------------------------------------
+        # Kampf ist vorbei --------------------------------------------------
         time.sleep(2)
         clear()
-        if flee == 1 and dead == 0: #Lebendig aber geflohen? -> keine Belohnung
+        if flee == 1 and dead == 0:  # Lebendig aber geflohen? -> keine Belohnung
             print("You ran away. You don't get a reward.")
-            break # Bricht while enemy.health > 0 and flee == 0: loop, anschließend while dead loop.
-        elif dead == 1: #Gestorben? 
-            break # Bricht while enemy.health > 0 and flee == 0: loop, anschließend while dead loop.
+            break  # Bricht while enemy.health > 0 and flee == 0: loop, anschließend while dead loop.
+        elif dead == 1:  # Gestorben?
+            break  # Bricht while enemy.health > 0 and flee == 0: loop, anschließend while dead loop.
         else:
             if random.random() < enemy.loot_chance:  # Chance ob Loot-Drop oder nicht (abhängig von Gegner)
-                loot(enemy, player) # Spieler erhält Trank(30%) oder Gegenstand(70%)
+                loot(enemy, player)  # Spieler erhält Trank(30%) oder Gegenstand(70%)
             else:
                 print("Looks like you found nothing interesting...")
-            #Garantierte Belohnungen: Gold und Erfahrung
+            # Garantierte Belohnungen: Gold und Erfahrung
             player.get_ep(enemy.ep_drop)
-            player.get_gold(random.randrange(10,20)*enemy.loot_level)
-            time.sleep(2) #Notwendig?
+            player.get_gold(random.randrange(10, 20) * enemy.loot_level)
+            time.sleep(2)  # Notwendig?
 
-#Kampf-Loop wird aufgelöst --------------------------------------------------
+        # Kampf-Loop wird aufgelöst --------------------------------------------------
         time.sleep(2)
         clear()
-        break #Bricht while dead == 0: loop
+        break  # Bricht while dead == 0: loop
 
 
 def loot(enemy, player):
-    if random.random() < 0.70: #Chance auf Gegenstand: 70%, sonst Trank
+    if random.random() < 0.70:  # Chance auf Gegenstand: 70%, sonst Trank
         g = random.choice([game_object.Weapon(enemy.loot_level), game_object.Armor(enemy.loot_level)])
         if g.obj_type == "weapon":
             print("You find: " + g.name)
@@ -399,8 +186,8 @@ def loot(enemy, player):
             ant = input("> ")
             print(" ")
             if ant.lower()[0] in ["y", ""]:
-                player.equip_weapon(g) # neue Waffe angelegt und alte Waffe equipped = False
-            player.get_weapon(g,p=False)  # Waffe (zusätzlich) ins Inventar
+                player.equip_weapon(g)  # neue Waffe angelegt und alte Waffe equipped = False
+            player.get_weapon(g, p=False)  # Waffe (zusätzlich) ins Inventar
         elif g.obj_type == "armor":
             print("You find: " + g.name)
             print("Protection: " + str(g.protection))
@@ -409,17 +196,19 @@ def loot(enemy, player):
             ant = input("> ")
             print("")
             if ant.lower()[0] in ["y", ""]:
-                player.equip_armor(g) #Rüstung angelegt und alte Rüstung equipped = False
+                player.equip_armor(g)  # Rüstung angelegt und alte Rüstung equipped = False
                 print("You equip your new armor.")
-            player.get_armor(g,p=False)  # Waffe (zusätzlich) ins Inventar
+            player.get_armor(g, p=False)  # Waffe (zusätzlich) ins Inventar
     else:
         player.get_potion()
+
 
 def fight_options():
     print("Choose: attack, heal, flee, show stats, quit\n")
     ant = input("> ")
     clear()
     return ant
+
 
 def print_location():
     print("#" * screen_width)
@@ -447,7 +236,8 @@ def promt():
     action = input("> ")
     acceptable_locations = ["move", "go", "travel", "walk", "quit", "examine", "inspect", "interact", "look", "hunting",
                             "hunt", "fishing", "fish", "corn", "get corn", "harvest", "heal", "healing", "potion",
-                            "use potion", "show inventory", "inventory", "show stats", "stats", "buy", "sell", "blacksmith"]
+                            "use potion", "show inventory", "inventory", "show stats", "stats", "buy", "sell",
+                            "blacksmith"]
 
     while action.lower() not in acceptable_locations:
         print("Unknown action. Try again. (move, examine, quit)")
@@ -513,7 +303,6 @@ def movement(destination):
     print("You have moved to the " + zonemap[myPlayer.location]["ZONENAME"] + ".")
     time.sleep(3)
     clear()
-
 
 
 def stay(direct):

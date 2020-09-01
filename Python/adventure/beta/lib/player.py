@@ -33,7 +33,7 @@ class Player:
     def health(self):
         print("Your health: " + str(self.health_cur) + "/" + str(self.health_max) + " HP")
 
-    def print_inventory(self):
+    def print_inventory(self, interactive=False):
         clear()
         print("#" * screen_width)
         print(
@@ -62,9 +62,11 @@ class Player:
         for misc in self.inventory["misc"]:
             print(misc + ": " + str(self.inventory["misc"][misc]))
         print("")
-        print("Press ENTER to continue.")
-        input()
-        clear()
+
+        if not interactive:
+            print("Press ENTER to continue.")
+            input()
+            clear()
 
     def show_stats(self):
         clear()
@@ -155,10 +157,10 @@ class Player:
         self.inventory["weapons"].append(weapon)
 
     def drop_weapon(self, weapon):  # Future Feature
-        for w in self.inventory["weapons"]:
-            if weapon.name == w.name and weapon.damage == w.damage and w.eqipped == False:
+        for num,w in enumerate(self.inventory["weapons"]):
+            if weapon.name == w.name and weapon.damage == w.damage and weapon.durability == w.durability and not w.equipped:
                 print("You dropped: " + w.name)
-                self.inventory["weapons"].pop(w)  # Problem: popped evtl. identische Waffen.
+                self.inventory["weapons"].pop(num)  # Problem: popped evtl. identische Waffen.
 
     def equip_weapon(self, weapon):
         self.weapon.equipped = False
@@ -173,10 +175,10 @@ class Player:
         self.inventory["armor"].append(armor)
 
     def drop_armor(self, armor):  # Future Feature
-        for a in self.inventory["armor"]:
-            if armor.slot == a.slot and armor.name == a.name and armor.protection == a.protection:
+        for num,a in enumerate(self.inventory["armor"]):
+            if armor.slot == a.slot and armor.name == a.name and armor.protection == a.protection and armor.durability == a.durability and not a.equipped:
                 print("You dropped: " + a.name)
-                self.inventory["armor"].pop(a)
+                self.inventory["armor"].pop(num)
 
     def equip_armor(self, armor):
         if armor.slot == "head":

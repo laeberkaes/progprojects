@@ -4,7 +4,11 @@ import sys
 import time
 
 # Static Variables
-screen_width = os.get_terminal_size().columns
+try:
+    screen_width = os.get_terminal_size().columns
+except:
+    screen_width = 90
+    pass
 
 # Static Functions
 def clear():

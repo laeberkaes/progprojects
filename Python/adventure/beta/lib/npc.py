@@ -139,9 +139,51 @@ class Blacksmith():
         clear()
 
     def sell_inventory(self, player):
+        clear() #TODO
+        player.print_inventory(interactive=True)
+        print("What do you want to sell? ('weapon', 'armor'): ")
+        sell = input("> ")
+
+        while sell.lower() not in ["weapon", "armor"]:
+            print("Please write 'weapon' or 'armor'")
+            sell = input("> ")
+
         clear()
-        print("Not yet, traveller!") #TODO
-        player.print_inventory()
-        #Spielerinventar zeigen
+        if sell.lower() == "weapon":
+            print("#" * screen_width, end="\n\n")
+            for num,weapon in enumerate(player.inventory["weapons"]):
+                print(" " * 5 + str(num + 1) + " " + weapon.name + " with " + str(weapon.durability[0] / weapon.durability[1] * 100) + "% of durability.")
+                print(" " * 9 + "~~ Value: " + str(weapon.value) + " Gold ~~", end="\n\n")
+            print("#" * screen_width, end="\n\n")
+            print("Which one do you want to sell? (number):")
+            select = input("> ")
+
+            print("You get " + str(player.inventory["weapons"][int(int(select)-1)].value) + " Gold.")
+            player.gold += player.inventory["weapons"][int(int(select)-1)].value
+            player.drop_weapon(player.inventory["weapons"][int(select)-1])
+
+            time.sleep(2)
+            clear()
+
+        elif sell.lower() == "armor":
+            print("#" * screen_width, end="\n\n")
+            for num,armor in enumerate(player.inventory["armor"]):
+                print(" " * 5 + str(num + 1) + " --> " + armor.name + " for your " + armor.slot + " with " + str(armor.durability[0] / armor.durability[1] * 100) + "% of durability.")
+                print(" " * 9 + "~~ Value: " + str(armor.value) + " Gold ~~", end="\n\n")
+            print("#" * screen_width, end="\n\n")
+            print("Which one do you want to sell? (number):")
+            select = input("> ")
+
+            print("You get " + str(player.inventory["armor"][int(int(select)-1)].value) + " Gold.")
+            player.gold += player.inventory["armor"][int(int(select)-1)].value
+            player.drop_armor(player.inventory["armor"][int(select) - 1])
+
+            time.sleep(2)
+            clear()
+
+
+
+
+#Spielerinventar zeigen
         #Spieler wählt aus was verkauft werden soll
         #Wenn Schmied genug Gold hat, wird Gegenstand verkauft (player.drop_weapon oder .drop_armor könnte genutzt werden)

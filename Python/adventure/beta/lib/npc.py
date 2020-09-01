@@ -9,7 +9,7 @@ class NPC:
     def __init__(self, health, strength):
         self.health = health * random.randrange(10, 21)
         self.strength = strength * random.randrange(5, 11)
-
+        self.active_effect = []
     def health_print(self):
         print("Enemy Health " + str(self.health))
 
@@ -182,8 +182,119 @@ class Blacksmith():
             clear()
 
 
+class Magician():
+    def __init__(self, player):
+        self.inventory = list()
+        self.symbol = """         /^\ \n    /\   "V"\n   /__\   I\n  //..\\\  I\n  \].`[/  I\n  /l\/j\  (]\n /. ~~ ,\/I\n \\\L__j^\/I\n  \/--v}  I\n  |    |  I\n  |    |  I\n  |    l  I\n_/j  L l\_!"""
+        self.greeting = ["Who dares knocking at my door? Go away.", "Chrrr... Zzzzz... Huh?", "Raven eyes and kitten pee, I wish my wife had not left me..."]
+        print(self.symbol, sep="\n")
+        print(random.choice(self.greeting))
+        self.set_inventory(player)
+        self.teach_magic(player)
+    
+    def set_inventory(self, player):
+        i = 0
+        while i<3:
+            s = Spell(player)
+            if s not in self.inventory:
+                self.inventory.append(s)
+                i+=1 #sorgt für 3 verschiedene spells, damit kein dict.key identisch ist
 
+    def teach_magic(self,player):
+        self.show_inventory()
+        valid_choices = ["1", "2", "3", "nothing"]
+        print("Do you want to learn something? (1,2,3,nothing)")
+        a = str(input("> ")).lower()
+        while a not in valid_choices:
+            print("What did you call me??")
+            a = str(input("> ")).lower()
+        choice = -1
+        if a == "1":
+            choice = 0
+        elif a == "2":
+            choice = 1
+        elif a == "3":
+            choice = 2
+        else: #a == "nothing"
+            print("Then leave me alone...")
+        if choice >=0:
+            if player.gold > self.inventory[choice].value:
+                print("Ah, yes. " + self.inventory[choice].name+". Are you sure? (y/n)")
+                b = str(input("> ")).lower()
+                if b == "y":
+                    player.spells.append(self.inventory[choice])
+                    print("You learned "+self.inventory[choice].name+".")
+                    player.gold -= self.inventory[choice].value
+                else:
+                    print("Coward. Are you afraid of the dark arts?... I mean, magic?")
+            else:
+                print("Come again, when you can pay me.")
 
-#Spielerinventar zeigen
-        #Spieler wählt aus was verkauft werden soll
-        #Wenn Schmied genug Gold hat, wird Gegenstand verkauft (player.drop_weapon oder .drop_armor könnte genutzt werden)
+    def show_inventory(self):
+        print("#" * screen_width)
+        print("I can teach you the ancient arts of destruction and creation... for a price.") 
+        print(" ")
+        for spell in self.inventory:
+            if spell.status_effect == "healing":
+                print("Name: " + spell.name + "    Healing: " + str(spell.damage) + "    Effect: " + spell.status_effect + "\n Price: " + str(spell.value))
+                print(" ")
+            else:
+                print("Name: " + spell.name + "    Damage: " + str(spell.damage) + "    Effect: " + spell.status_effect + "\n Price: " + str(spell.value))
+            print(" ")
+        print("#" * screen_width)
+
+class Spell():
+    def __init__(self, player):
+        self.element_type = random.choice(["Fire", "Earth", "Ice", "Water", "Air"])
+        self.damage = random.randrange(10,20) * player.level
+        self.name = ""
+        self.status_effect = ""
+        self.status_chance = 0
+        self.status_damage = 0
+        self.status_duration = 0
+        self.spell_activated = False
+        self.status_description = ""
+        self.set_spell(self.element_type, player)
+        self.mana_cost = 10 #erst mal fix, später im balancing (#TODO)
+        self.value = random.randrange(50,100) * player.level
+    
+    def set_spell(self,element_type, player):
+        element_type = self.element_type
+        if element_type == "Fire":
+            self.name = random.choice(["Firestorm", "Fireball", "Flamewall"])
+            x = random.randrange(0,2)
+            self.status_effect = ["lingering fire", "severe burn"][x]
+            self.status_description = ["Your enemy is burning.", "Your enemy was burnt."][x]
+            self.status_chance = [0.5,0.4][x]
+            self.status_damage = [5, 10][x]*player.level
+            self.status_duration = [3, 1][x]
+        elif element_type == "Earth":
+            self.name = random.choice(["Rock Slide", "Meteor", "Boulder"])
+            x = random.randrange(0,2)
+            self.status_effect = ["bleeding", "knockout"][x]
+            self.status_description = ["Your enemy is bleeding.", "Your enemy was knocked out."][x]
+            self.status_chance = [0.5,0.3][x]
+            self.status_damage = [7, 0][x] * player.level
+            self.status_duration = [3, 1][x]
+        elif element_type == "Ice":
+            self.name = random.choice(["Avalanche","Ice Crystal", "Freeze"])
+            self.status_effect = "freezing"
+            self.status_description = "Your enemy is frozen."
+            self.status_chance = 0.3
+            self.status_damage = 0
+            self.status_duration = 1
+        elif element_type == "Water":
+            self.name = random.choice(["Wave", "Water Blast", "Heavy Rain"])
+            self.status_effect = random.choice(["drowning", "soaking"])
+            x = random.randrange(0,2)
+            self.status_effect = ["drowning", "soaking"][x]
+            self.status_description = ["Your enemy can't breath.", "Your enemy is soaking wet."][x]
+            self.status_chance = [0.4,0.5][x]
+            self.status_damage = [8, 6][x]*player.level
+            self.status_duration = [2, 2][x]
+        elif element_type == "Air":
+            self.name = random.choice(["Healing winds", "Soft Breeze", "Gentle Blow"])
+            self.status_effect = random.choice(["healing"])
+            x = random.randrange(0,3)
+            self.damage = [20,30,40][x]
+            self.value = [100, 150, 200][x]

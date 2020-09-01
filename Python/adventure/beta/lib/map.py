@@ -152,15 +152,15 @@ zonemap = {
         "POSSIBILITIES": POSSIBILITIES
     },
     "c4": {
-        "ZONENAME": "Small Forest",
-        "DESCRIPTION": "A small forest next to your home.",
-        "EXAMINATION": "You could hunt in this forest to get some food. But some bandits were seen in there, too.",
+        "ZONENAME": "Magician's hut",
+        "DESCRIPTION": "An odd magician lives here.",
+        "EXAMINATION": "Maybe he can teach you something?",
         "SOLVED": False,
         "UP": "b4",
         "DOWN": "d4",
         "LEFT": "c3",
         "RIGHT": "",
-        "ENCOUNTERS": 3,
+        "ENCOUNTERS": 0,
         "POSSIBILITIES": POSSIBILITIES
     },
     "d1": {

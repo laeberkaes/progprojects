@@ -434,7 +434,9 @@ class Player:
             if self.mp_cur_max[0] > self.mp_cur_max[1]:
                 self.mp_cur_max[0] = self.mp_cur_max[1]
 
-
+    def play_game(self):
+        if self.location == "e4":
+            npc.Trickster(self)
 
 # Hier wird dann ein neuer Spieler erzeugt, der von anderen Dateien importiert werden kann.
 myPlayer = Player()

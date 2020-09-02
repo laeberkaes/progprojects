@@ -1,13 +1,13 @@
+import math
 import random
 import sys
 import time
-import math
 
 from lib import game_object
 from lib.map import zonemap, solved_places
+from lib.npc import Bandit, Orc, Giant
 from lib.player import myPlayer
 from lib.static import clear, screen_width, speech_manipulation
-from lib.npc import Bandit, Orc, Giant
 
 
 def title_screen_selections():
@@ -46,7 +46,8 @@ def help_menu():
     print("")
     print(" -- You can always decide to 'examine' a location or 'move' to another.")
     print(" -- You can always see your inventory with 'show inventory' and show your stats with 'show stats'")
-    print(" -- If you examine a location you may trigger a random encounter and you can 'fish', 'hunt' or 'get corn'")
+    print("-- If you examine a location you may trigger a random encounter and you can 'fish', 'hunt'. 'rest', "
+          "'learn' or 'get corn'")
     print(" -- If you move, you can decide to move 'up', 'down', 'left' or 'right'")
     print("")
     print("Press ENTER to continue.")
@@ -328,7 +329,7 @@ def prompt():
     acceptable_locations = ["move", "go", "travel", "walk", "quit", "examine", "inspect", "interact", "look", "hunting",
                             "hunt", "fishing", "fish", "corn", "get corn", "harvest", "heal", "healing", "potion",
                             "use potion", "show inventory", "inventory", "show stats", "stats", "buy", "sell",
-                            "blacksmith", "knock", "magic", "learn", "spell"]
+                            "blacksmith", "knock", "magic", "learn", "spell", "rest"]
 
     while action.lower() not in acceptable_locations:
         print("Unknown action. Try again. (move, examine, quit)")
@@ -356,6 +357,8 @@ def prompt():
         myPlayer.buy_equipment()
     elif action.lower() in ["knock", "magic", "learn", "spell"]:
         myPlayer.learn_spell()
+    elif action.lower() == "rest":
+        myPlayer.rest()
 
 
 def player_move():

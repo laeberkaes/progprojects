@@ -425,7 +425,7 @@ class Trickster():
                 amount = int(x)
             except ValueError:
                 print("Tell me, how much money do you want to bet?")
-            if amound > 0:
+            if amount > 0:
                 if amount > player.gold:
                     print("Sorry, your coin purse seems a little light for such a bet.")
                     time.sleep(1)

@@ -2,7 +2,8 @@
 from lib.player import myPlayer
 
 solved_places = {'a1': False, 'a2': False, 'a3': False, 'a4': False, 'b1': False, 'b2': False, 'b3': False, 'b4': False,
-                 'c1': False, 'c2': False, 'c3': False, 'c4': False, 'd1': False, 'd2': False, 'd3': False, 'd4': False}
+                 'c1': False, 'c2': False, 'c3': False, 'c4': False, 'd1': False, 'd2': False, 'd3': False, 'd4': False,
+                'e1': False, 'e2': False, 'e3': False, 'e4': False}
 
 ##### MAP PRE #####
 # ""ZONENAME"" = ""
@@ -64,7 +65,7 @@ zonemap = {
         "DOWN": "b4",
         "LEFT": "a3",
         "RIGHT": "",
-        "ENCOUNTERS": 2,
+        "ENCOUNTERS": 1,
         "POSSIBILITIES": POSSIBILITIES
     },
     "b1": {
@@ -173,11 +174,11 @@ zonemap = {
         "LEFT": "",
         "RIGHT": "d2",
         "ENCOUNTERS": 5,
-        "POSSIBILITIES": [0.7, 0.3, 1]
+        "POSSIBILITIES": [0.7, 0.3, 1] #TODO: Poss 1 macht keinen Sinn, Code steht aber auf else, also ist Zahl irrelevant :D 
     },
     "d2": {
-        "ZONENAME": "Cornfield",
-        "DESCRIPTION": "This cornfield belongs to the farm in the east. Maybe you can get some corn from it?",
+        "ZONENAME": "Corn Field",
+        "DESCRIPTION": "This corn field belongs to the farm in the east. Maybe you can get some corn from it?",
         "EXAMINATION": "Looks like this corn is better than what you have ever seen.",
         "SOLVED": False,
         "UP": "c2",
@@ -209,6 +210,54 @@ zonemap = {
         "LEFT": "d3",
         "RIGHT": "",
         "ENCOUNTERS": 7,
-        "POSSIBILITIES": [0.5, 1, 0]
+        "POSSIBILITIES": [0.5, 0.5, 0]
+    },
+    "e1": {
+        "ZONENAME": "Bottom of the Mountain",
+        "DESCRIPTION": "The beginning of a high climb to the top of the world.",
+        "EXAMINATION": "You look up in awe but feel a little overwhelmed.",
+        "SOLVED": False,
+        "UP": "d1",
+        "DOWN": "",
+        "LEFT": "",
+        "RIGHT": "e2",
+        "ENCOUNTERS": 3,
+        "POSSIBILITIES": [0.4, 0.6, 0]
+    },
+    "e2": {
+        "ZONENAME": "Wheat Field",
+        "DESCRIPTION": "A wide field, glimmering yellow in the sunlight.",
+        "EXAMINATION": "Maybe you can pick up something here?",
+        "SOLVED": False,
+        "UP": "d2",
+        "DOWN": "",
+        "LEFT": "e1",
+        "RIGHT": "e3",
+        "ENCOUNTERS": 2,
+        "POSSIBILITIES": [0.8, 0.2, 0]
+    },
+    "e3": {
+        "ZONENAME": "Horse Stables",
+        "DESCRIPTION": "The farmer keeps his horses here.",
+        "EXAMINATION": "Neighing of horses and clapping of hoofs fills the air around you.",
+        "SOLVED": False,
+        "UP": "d3",
+        "DOWN": "",
+        "LEFT": "e2",
+        "RIGHT": "e4",
+        "ENCOUNTERS": 0,
+        "POSSIBILITIES": POSSIBILITIES
+    },
+    "e4": {
+        "ZONENAME": "Forest Crossing",
+        "DESCRIPTION": "Two roads diverge in a yellow wood.",
+        "EXAMINATION": "Do you take the one less travelled by?",
+        "SOLVED": False,
+        "UP": "d4",
+        "DOWN": "",
+        "LEFT": "e3",
+        "RIGHT": "",
+        "ENCOUNTERS": 3,
+        "POSSIBILITIES": [0.3, 0.7, 0]
     }
 }

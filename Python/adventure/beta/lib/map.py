@@ -58,7 +58,7 @@ zonemap = {
     "a4": {
         "ZONENAME": "Little Pond",
         "DESCRIPTION": "This is a cute little pond.",
-        "EXAMINATION": "With a fishingrot you could get some fish out of it.",
+        "EXAMINATION": "With a fishingrod you could get some fish out of it.",
         "SOLVED": False,
         "UP": "",
         "DOWN": "b4",
@@ -70,7 +70,7 @@ zonemap = {
     "b1": {
         "ZONENAME": "Blacksmith",
         "DESCRIPTION": "This is your local blacksmith.",
-        "EXAMINATION": "Here you can buy/sell some weapons or protections",
+        "EXAMINATION": "Here you can buy/sell some weapons or armor",
         "SOLVED": False,
         "UP": "a1",
         "DOWN": "c1",
@@ -100,20 +100,20 @@ zonemap = {
         "DOWN": "c3",
         "LEFT": "b2",
         "RIGHT": "b4",
-        "ENCOUNTERS": 3,
+        "ENCOUNTERS": 2,
         "POSSIBILITIES": POSSIBILITIES
     },
     "b4": {
-        "ZONENAME": "Small Forest",
-        "DESCRIPTION": "A small forest next to your home.",
-        "EXAMINATION": "You could hunt in this forest to get some food. But some bandits were seen in there, too.",
+        "ZONENAME": "Dark Forest",
+        "DESCRIPTION": "The darker parts of the forest.",
+        "EXAMINATION": "It's a scary place. Look out for monsters!",
         "SOLVED": False,
         "UP": "a4",
         "DOWN": "c4",
         "LEFT": "b3",
         "RIGHT": "",
-        "ENCOUNTERS": 3,
-        "POSSIBILITIES": POSSIBILITIES
+        "ENCOUNTERS": 4,
+        "POSSIBILITIES": POSSIBILITIES #TODO Add more Orks here
     },
     "c1": {
         "ZONENAME": "Little River",
@@ -129,8 +129,8 @@ zonemap = {
     },
     "c2": {
         "ZONENAME": "Little River (Bridge)",
-        "DESCRIPTION": "This river comes out of the forest in the east.",
-        "EXAMINATION": "You see a bridge leading over the river to get to the other side.",
+        "DESCRIPTION": "A tiny bridge over the river.",
+        "EXAMINATION": "You can barely see the town from here.",
         "SOLVED": False,
         "UP": "b2",
         "DOWN": "d2",
@@ -140,19 +140,19 @@ zonemap = {
         "POSSIBILITIES": POSSIBILITIES
     },
     "c3": {
-        "ZONENAME": "Small Forest",
-        "DESCRIPTION": "A small forest next to your home.",
-        "EXAMINATION": "You could hunt in this forest to get some food. But some bandits were seen in there, too.",
+        "ZONENAME": "Forest Clearing",
+        "DESCRIPTION": "There are deer and other animals here.",
+        "EXAMINATION": "You could hunt or just relax and enjoy your life for a moment.",
         "SOLVED": False,
         "UP": "b3",
         "DOWN": "d3",
         "LEFT": "c2",
         "RIGHT": "c4",
-        "ENCOUNTERS": 3,
+        "ENCOUNTERS": 2,
         "POSSIBILITIES": POSSIBILITIES
     },
     "c4": {
-        "ZONENAME": "Magician's hut",
+        "ZONENAME": "Magician's Hut",
         "DESCRIPTION": "An odd magician lives here.",
         "EXAMINATION": "Maybe he can teach you something?",
         "SOLVED": False,

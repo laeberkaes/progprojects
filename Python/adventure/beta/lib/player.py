@@ -266,10 +266,10 @@ class Player:
             p = random.random()
             if p > 0.25:
                 print("You get some nice corn.")
-                if "bag of corn" not in self.inventory:
-                    self.inventory["bag of corn"] = 1
+                if "bag of corn" not in self.inventory["misc"]:
+                    self.inventory["misc"]["bag of corn"] = 1
                 else:
-                    self.inventory["bag of corn"] += 1
+                    self.inventory["misc"]["bag of corn"] += 1
             else:
                 print("Baaah. You better not take this corn with you.")
         else:

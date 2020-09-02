@@ -402,3 +402,121 @@ class Spell():
             x = random.randrange(0,3)
             self.damage = [20,30,40][x]
             self.value = [100, 150, 200][x]
+           
+class Trickster():
+    def __init__(self, player):
+        self.setup_game(player)
+
+    def setup_game(self, player):
+        print("Hello stranger. Care for a round of the shell game?")
+        time.sleep(0.3)
+        print("The rules are simple. One ball, three cups. You tell me where the ball is and I pay you money.")
+        time.sleep(0.3)
+        print("If you lose, you pay me.")
+        time.sleep(0.3)
+        print("Do you want to play?")
+        a = str(input("> ")).lower()
+        if a == "yes":
+            print("Alright! Place your bet.")
+            time.sleep(0.3)
+            print("How much do you want to play for? If you win, I'll double it.")
+            x = input("> ")
+            try:
+                amount = int(x)
+            except ValueError:
+                print("Tell me, how much money do you want to bet?")
+            if amound > 0:
+                if amount > player.gold:
+                    print("Sorry, your coin purse seems a little light for such a bet.")
+                    time.sleep(1)
+                else:
+                    print("Okay, here we go.")
+                    win = self.play_game(player)
+                    if win > 0:
+                        player.gold += amount
+                        print("You get " + str(amount)+" gold from me. Be sure to play again.")
+                        time.sleep(2)
+                    else:
+                        player.gold -= amount
+                        print("Thanks for the money, sucker!")
+                        time.sleep(2)
+            else:
+                print("Not funny.")
+        else:
+            print("Really? Well then... See you around.")
+
+    def play_game(self, player):
+        print("Watch the ball!")
+        time.sleep(0.5)
+        clear()
+        self.print_animation()
+        print("Could you follow? Tell me, under which cup is the ball? (left, middle, right)")
+        a = str(input("> ")).lower()
+        valid_options = ["left", "middle", "right"]
+        while a not in valid_options:
+            print("Come on... play the game!")
+            a = str(input("> ")).lower()
+        x = random.randint(1,3)
+        if x == 1:
+            position = "left"
+        elif x == 2:
+            position = "middle"
+        elif x == 3:
+            position = "right"
+        
+        if a == position:
+            print("Not bad, you got it right.")
+            self.result(x)
+            return 1
+        else:
+            print("Sorry, no luck this time.")
+            self.result(x)
+            return 0
+
+
+    def print_animation(self):
+        cups_opened = "    .-------.           .-------.           .-------.\n   /         \         /         \         /         \\\n  /           \       /           \       /           \\\n ;    _ _ _    ;     ;    _ _ _    ;     ;    _ _ _    ;\n .-' `     ' '-.     .-' ` _._ ' '-.     .-' `     ' '-.\n(               )   (    .'--.`.    )   (               )\n `-=.._____..--'     `-=.|  .' |.--'     `-=.._____..--'\n                          `--`'"
+        cups_closed = "        ____             ____             ____\n     ,,:____:,,       ,,:____:,,       ,,:____:,,\n    /          \     /          \     /          \\\n   ;            ;   ;            ;   ;            ;\n   |            |   |            |   |            |\n   ;            ;   ;            ;   ;            ; \n    '-.,____,.-'     '-.,____,.-'     '-.,____,.-'"
+        shuffle_left = "                              ____\n                           ,,:____:,,\n        ____              /          \\\n     ,,:____:,,          ;            ;\n    /          \         |            |\n   ;            ;        ;        ____;\n   |            |         '-.,_,,:____:,,\n   ;            ;             /          \\\n    '-.,____,.-'             ;            ;\n                             |            |\n                             ;            ;\n                              '-.,____,.-'"
+        shuffle_left2 = "                              ____\n                           ,,:____:,,\n        ____              /          \\\n     ,,:____:,,          ;            ;\n    /          \         |            |\n   ;            ;    ____;            ;\n   |            | ,,:____:,,.,____,.-'\n   ;            ;/          \\\n    '-.,____,.-';            ;\n                |            |\n                ;            ;\n                 '-.,____,.-'"
+        shuffle_right = "                 ____\n              ,,:____:,,                  ____\n             /          \              ,,:____:,,\n            ;            ;            /          \\\n            |            |           ;            ;\n            ____         ;           |            |\n         ,,:____:,,__,.-'            ;            ;\n        /          \                  '-.,____,.-'\n       ;            ;\n       |            |\n       ;            ;\n        '-.,____,.-'"
+        shuffle_right2 = "                 ____\n              ,,:____:,,                  ____\n             /          \              ,,:____:,,\n            ;            ;            /          \\\n            |            |           ;            ;\n            ;            ____        |            |\n             '-.,____,,,:____:,,     ;            ;\n                     /          \     '-.,____,.-'\n                    ;            ;\n                    |            |\n                    ;            ;\n                     '-.,____,.-'"
+
+        self.box_print(cups_opened,1.0)
+        self.box_print(cups_closed,1.0)
+        self.box_print(shuffle_left,0.5)
+        self.box_print(cups_closed,0.5)
+        self.box_print(shuffle_right,0.5)
+        self.box_print(cups_closed,0.5)
+        self.box_print(shuffle_left,0.2)
+        self.box_print(shuffle_left2,0.2)
+        self.box_print(shuffle_right,0.2)
+        self.box_print(shuffle_right2,0.2)
+        for i in range(4):
+            self.box_print(shuffle_left,0.1)
+            self.box_print(shuffle_right2,0.1)
+            self.box_print(shuffle_left2,0.1)
+            self.box_print(shuffle_right,0.1)
+        print(cups_closed)
+
+    def box_print(self, message, x):
+        print("#" * 70)
+        print(" ")
+        print(" ")
+        print(message)
+        print(" ")
+        print(" ")
+        print("#"*70)
+        time.sleep(x)
+        clear()
+
+    def result(self,x):
+        ball_left = "    .-------.            ____             ____\n   /         \        ,,:____:,,       ,,:____:,,\n  /           \      /          \     /          \\\n ;    _ _ _    ;    ;            ;   ;            ;\n .-' ` _._ ' '-.    |            |   |            |\n(    .'--.`.    )   ;            ;   ;            ;\n `-=.|  .' |.--'     '-.,____,.-'     '-.,____,.-'\n      `--`'"
+        ball_middle = "        ____            .-------.            ____\n     ,,:____:,,        /         \        ,,:____:,,\n    /          \      /           \      /          \\\n   ;            ;    ;    _ _ _    ;    ;            ;\n   |            |    .-' ` _._ ' '-.    |            |\n   ;            ;   (    .'--.`.    )   ;            ; \n    '-.,____,.-'     `-=.|  .' |.--'     '-.,____,.-'\n                          `--`' "
+        ball_right = "        ____             ____            .-------.\n     ,,:____:,,       ,,:____:,,        /         \\\n    /          \     /          \      /           \\\n   ;            ;   ;            ;    ;    _ _ _    ;\n   |            |   |            |    .-' ` _._ ' '-.\n   ;            ;   ;            ;   (    .'--.`.    )\n    '-.,____,.-'     '-.,____,.-'     `-=.|  .' |.--'\n                                           `--`'"
+        if x == 1:
+            print(ball_left)
+        elif x == 2:
+            print(ball_middle)
+        elif x == 3:
+            print(ball_right)

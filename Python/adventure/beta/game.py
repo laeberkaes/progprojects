@@ -109,12 +109,12 @@ def player_attack(player, enemy, zonemap):
         if player.weapon.durability[0] == 0:
             player.weapon.broken = True
             print("Your weapon broke! Repair it at a Blacksmith's.")
-        enemy.health_mana -= player.weapon.damage
+        enemy.health -= player.weapon.damage
     else:
         broken_damage = math.ceil(
             player.weapon.damage * 0.1)  # Immer aufgerundet (aka 1,2 wird 2), 10% Waffenschaden falls kaputt
         print("Your weapon is broken. You only do " + str(broken_damage) + " damage.")
-        enemy.health_mana -= broken_damage
+        enemy.health -= broken_damage
     print("enemy: " + random.choice(enemy.quip))
     check_victory(player, enemy, zonemap)
 
@@ -159,7 +159,7 @@ def use_magic(player, enemy, zonemap):
                 print("You cast " + cast_spell.name)
                 if cast_spell.damage > 0:  # Spell hat Sofort-Schaden
                     print("Your enemy takes " + str(cast_spell.damage) + " damage")
-                    enemy.health_mana -= cast_spell.damage
+                    enemy.health -= cast_spell.damage
                 if not enemy.active_effect:  # Noch kein Effekt vorhanden
                     if random.random() < cast_spell.status_chance:
                         print("Your enemy suffers from " + cast_spell.status_effect)
@@ -223,7 +223,7 @@ def activate_status_effect(player, enemy, zonemap):  # Es muss SICHER SEIN, dass
         if magic.status_damage > 0:  # Es ist ein Spell mit Schadenswirkung
             print(magic.status_description)
             print("Your enemy takes " + str(magic.status_damage) + " damage.")
-            enemy.health_mana -= magic.status_damage
+            enemy.health -= magic.status_damage
             if magic.status_duration < 0:
                 enemy.active_effect.clear()
             check_victory(player, enemy, zonemap)
@@ -257,7 +257,7 @@ def win_fight(player, enemy, zonemap):
 
 
 def check_victory(player, enemy, zonemap):
-    if enemy.health_mana <= 0:
+    if enemy.health <= 0:
         win_fight(player, enemy, zonemap)
     else:
         if enemy.active_effect and enemy.active_effect[0].spell_activated == False:
@@ -276,6 +276,9 @@ def loot(enemy, player):
             print("Damage: " + str(g.damage))
             print("Would you like to swap your weapon? (y/n)\n")
             ant = input("> ")
+            while ant not in ["y", "n"]:
+                print("I need a decision: ")
+                ant = input("> ")
             print(" ")
             if ant.lower()[0] in ["y", ""]:
                 player.equip_weapon(g)  # neue Waffe angelegt und alte Waffe equipped = False
@@ -328,7 +331,7 @@ def prompt():
     action = input("> ")
     acceptable_locations = ["move", "go", "travel", "walk", "quit", "examine", "inspect", "interact", "look", "hunting",
                             "hunt", "fishing", "fish", "corn", "get corn", "harvest", "heal", "healing", "potion",
-                            "use potion", "show inventory", "inventory", "show stats", "stats", "buy", "sell",
+                            "use potion", "show inventory", "inventory", "show stats", "stats", "buy", "sell", "repair",
                             "blacksmith", "knock", "magic", "learn", "spell", "rest"]
 
     while action.lower() not in acceptable_locations:
@@ -353,7 +356,7 @@ def prompt():
         myPlayer.print_inventory()
     elif action.lower() in ["show stats", "stats"]:
         myPlayer.show_stats()
-    elif action.lower() in ["buy", "sell", "blacksmith"]:
+    elif action.lower() in ["buy", "sell", "blacksmith", "repair"]:
         myPlayer.buy_equipment()
     elif action.lower() in ["knock", "magic", "learn", "spell"]:
         myPlayer.learn_spell()

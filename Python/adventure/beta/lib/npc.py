@@ -51,25 +51,27 @@ class Blacksmith():
         self.symbol = " " * int((screen_width - len("@xxxx[{::::::::::::::::::::::::::::::>")) / 2) + "     [" + " " * int((len("::::::::::::::::::::::::::::::") - len("Mr. & Mrs. Smith")) / 2) + "Mr. & Mrs. Smith\n" + " " * int((screen_width - len("@xxxx[{::::::::::::::::::::::::::::::>")) / 2) + "@xxxx[{::::::::::::::::::::::::::::::>\n" + " " * int((screen_width - len("@xxxx[{::::::::::::::::::::::::::::::>")) / 2) + "     ["
         self.greeting = ["Welcome, traveller. How may I help you?", "Hey! You. Get over here. How about a nice new sword for you?", "Oi! You have some coin to spend?"]
         self.inventory = []
-        self.set_inventory(player) #Auslage wird erstellt
-        self.gold = random.randrange(150,301) #Gold für Ankäufe
+        self.set_inventory(player)  # Auslage wird erstellt
+        self.gold = random.randrange(150, 301)  # Gold für Ankäufe
         clear()
         print("#" * screen_width)
         print(self.symbol, sep="\n")
         print("#" * screen_width + "\n")
         print(random.choice(self.greeting))
-        self.buy_or_sell(player) #Interaktion mit blacksmith wird gestartet
+        self.decision(player)  # Interaktion mit blacksmith wird gestartet
 
-    def buy_or_sell(self, player):
-        print("Do you want to 'buy' or 'sell' something? Or you can 'go' if you cannot afford my goods.")
+    def decision(self, player):
+        print("Do you want to 'buy', 'sell' or 'repair' something? Or you can 'go' if you cannot afford my goods.")
         a = input("> ")
-        while a.lower() not in ["buy", "sell", "go", "quit"]:
+        while a.lower() not in ["buy", "sell", "go", "repair", "quit"]:
             print("What? I didn't catch that.")
-            self.buy_or_sell(player)
+            self.decision(player)
         if a.lower() == "buy":
             self.buy_inventory(player)
         elif a.lower() == "sell":
             self.sell_inventory(player)
+        elif a.lower() == "repair":
+            self.repair(player)
         elif a.lower() in ["go", "quit"]:
             print("Well in the moment you came in I saw, that you are a poor guy. Now get out of here.")
             time.sleep(2)
@@ -141,7 +143,7 @@ class Blacksmith():
         clear()
 
     def sell_inventory(self, player):
-        clear() #TODO
+        clear()
         player.print_inventory(interactive=True)
         print("What do you want to sell? ('weapon', 'armor'): ")
         sell = input("> ")
@@ -173,10 +175,10 @@ class Blacksmith():
                 else:
                     print("Oh thats to much gold for me. Come again later.")
                     time.sleep(2)
-                    self.buy_or_sell(player)
+                    self.decision(player)
             else:
                 print("Oh unfortunately this weapon is equipped and you cannot sell it.")
-                self.buy_or_sell(player)
+                self.decision(player)
 
         elif sell.lower() == "armor":
             print("#" * screen_width, end="\n\n")
@@ -199,15 +201,89 @@ class Blacksmith():
                     player.gold += player.inventory["armor"][int(int(select) - 1)].value
                     player.drop_armor(player.inventory["armor"][int(select) - 1])
                     time.sleep(2)
-                    self.buy_or_sell(player)
+                    self.decision(player)
                 else:
                     print("Oh thats to much gold for me. Come again later.")
                     time.sleep(2)
-                    self.buy_or_sell(player)
+                    self.decision(player)
             else:
                 print("Oh unfortunately this armor is equipped and you cannot sell it.")
                 time.sleep(2)
-                self.buy_or_sell(player)
+                self.decision(player)
+
+    def repair(self, player):
+        clear()
+        player.print_inventory(interactive=True)
+        print("What do you want to repair? ('weapon', 'armor'): ")
+        sell = input("> ")
+
+        while sell.lower() not in ["weapon", "armor"]:
+            print("Please write 'weapon' or 'armor'")
+            sell = input("> ")
+
+        clear()
+        if sell.lower() == "weapon":
+            print("#" * screen_width, end="\n\n")
+            for num, weapon in enumerate(player.inventory["weapons"]):
+                if weapon.durability[0] < weapon.durability[1]:
+                    print(" " * 5 + str(num + 1) + " " + weapon.name + " with " + str(
+                        weapon.durability[0] / weapon.durability[1] * 100) + "% of durability.")
+                    print(" " * 9 + "~~ Cost: " + str(int(weapon.value * .25)) + " Gold ~~", end="\n\n")
+                else:
+                    print(" " * 5 + str(num + 1) + " --> >>FULL DURABILITY<< " + weapon.name + " with " + str(
+                        weapon.durability[0] / weapon.durability[1] * 100) + "% of durability.", end="\n\n")
+            print("#" * screen_width, end="\n\n")
+            print("Which one do you want to repair? (number):")
+            select = input("> ")
+
+            if player.inventory["weapons"][int(select) - 1].durability[0] < \
+                    player.inventory["weapons"][int(select) - 1].durability[1]:
+                if player.gold - int(player.inventory["weapons"][int(int(select) - 1)].value * .25) >= 0:
+                    print("This costs you " + str(
+                        int(player.inventory["weapons"][int(int(select) - 1)].value * .25)) + " Gold.")
+                    player.gold -= int(player.inventory["weapons"][int(int(select) - 1)].value * .25)
+                    player.inventory["weapons"][int(select) - 1].durability[0] = \
+                    player.inventory["weapons"][int(select) - 1].durability[1]
+                    time.sleep(2)
+                else:
+                    print("Oh this seems to be too expensive for a poor guy like you.")
+                    time.sleep(2)
+                    self.decision(player)
+            else:
+                print("This weapon is in shape. No need to repair..")
+                self.decision(player)
+
+        elif sell.lower() == "armor":
+            print("#" * screen_width, end="\n\n")
+            for num, armor in enumerate(player.inventory["armor"]):
+                if armor.durability[0] < armor.durability[1]:
+                    print(" " * 5 + str(num + 1) + " --> " + armor.name + " for your " + armor.slot + " with " + str(
+                        armor.durability[0] / armor.durability[1] * 100) + "% of durability.")
+                    print(" " * 9 + "~~ Cost: " + str(int(armor.value * .25)) + " Gold ~~", end="\n\n")
+                else:
+                    print(" " * 5 + str(
+                        num + 1) + " --> >> FULL DURABILITY<< " + armor.name + " for your " + armor.slot + " with " + str(
+                        armor.durability[0] / armor.durability[1] * 100) + "% of durability.", end="\n\n")
+            print("#" * screen_width, end="\n\n")
+            print("Which one do you want to repair? (number):")
+            select = input("> ")
+
+            if player.inventory["armor"][int(select) - 1].durability[0] < \
+                    player.inventory["armor"][int(select) - 1].durability[1]:
+                if player.gold - int(player.inventory["weapons"][int(int(select) - 1)].value * .25) >= 0:
+                    print("This costs you " + str(
+                        int(player.inventory["armor"][int(int(select) - 1)].value * .25)) + " Gold.")
+                    player.gold -= int(player.inventory["armor"][int(int(select) - 1)].value * .25)
+                    player.inventory["armor"][int(select) - 1].durability[0] = \
+                    player.inventory["armor"][int(select) - 1].durability[1]
+                    time.sleep(2)
+                else:
+                    print("Oh this seems to be too expensive for a poor guy like you.")
+                    time.sleep(2)
+                    self.decision(player)
+            else:
+                print("This armor is in shape. No need to repair..")
+                self.decision(player)
 
 
 class Magician():

@@ -1,7 +1,6 @@
 # Future Implementations
 TODO
 - Waffe im Inventar auswählen und ausrüsten können
-- Schmied Verkaufen Methode, Repair Methode
 - Möglichkeit zu kaufen und verkaufen auf dem Markt. --> kauft miscellaneous (corn, fish ...)
 - Gegenstände kaufen (fishing rod, pickaxe, etc.)
 - Mining in der Höhle einbinden. Nach Schätzen suchen in der Höhle einbinden.
@@ -9,7 +8,6 @@ TODO
 - Questen hinzufügen? In dem Zug dann auch noch eine Questübersicht
 - Magie Angriffe inkl. Status Effekt
 - Angriff verursacht keinen Schaden an der Rüstung.
-- Leben im Wald regenerieren?
 
 
 DONE
@@ -26,3 +24,5 @@ DONE
 - ~~sell funktion für ausgerüstete Waffen und Rüstungsteile~~
 - ~~Bei lvl Aufstieg wird "you now have X HP" als max angezeigt, aber das ist nicht cur (also eigentlich der falsche Wert)~~
 - ~~Corn wird im Inventar unter Misc nicht angezeigt~~
+- ~~Leben im Wald regenerieren?~~
+- ~~Schmied Verkaufen Methode, Repair Methode~~

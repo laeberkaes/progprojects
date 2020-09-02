@@ -12,25 +12,102 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b1e08c3c-8e08-4e3b-8e22-57b26de0fdf1" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 1/HelloWorldChallenge.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 1/HelloWorldChallenge.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 1/HelloWorldSolution.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 1/HelloWorldSolution.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 2/02_03/begin/Chap2_3_Begin.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 2/02_03/begin/Chap2_3_Begin.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 2/02_03/end/Chap2_3_End.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 2/02_03/end/Chap2_3_End.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 2/02_03/end/DiceRoll.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 2/02_03/end/DiceRoll.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 2/02_04/begin/Chap2_4_Begin.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 2/02_04/begin/Chap2_4_Begin.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 2/02_04/end/CalcChargeWTax.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 2/02_04/end/CalcChargeWTax.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 2/02_04/end/Chap2_4_End.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 2/02_05/begin/Chap2_5_Begin.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 2/02_05/begin/Chap2_5_Begin.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 2/02_05/end/Chap2_5_End.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 2/02_05/end/Chap2_5_End.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 2/02_05/end/Chap2_End.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 2/Chap2Challenge.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 2/Chap2Solution.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 2/Chap2Solution.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 3/03_01/begin/Chap3_1_Start.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 3/03_01/begin/Chap3_1_Start.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 3/03_01/end/Chap3_1_End.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 3/03_01/end/Chap3_1_End.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 3/03_03/Begin/DiceRoll.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 3/03_03/End/DiceRoll.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 3/03_03/End/DiceRoll.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 3/03_04/Begin/HourLoop.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 3/03_04/Begin/HourLoop.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 3/03_04/End/HourMinLoop.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 3/03_04/End/HourMinLoop.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 3/03_04/End/HourMinSecLoop.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 3/03_04/End/HourMinSecLoop.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 3/03_06/begin/WhileLoop.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 3/03_06/begin/chips03_06_start.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 3/03_06/end/WhileLoop.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 3/03_06/end/WhileLoop.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 3/03_06/end/chips03_06_End.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 3/03_06/end/chips03_06_End.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 3/chap03Challenge.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 3/chap03Solution.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 3/chap03Solution.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 4/04_02/begin/NoFunctionHBD.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 4/04_02/begin/NoFunctionHBD.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 4/04_02/end/WithFunctionHBD.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 4/04_02/end/WithFunctionHBD.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 4/04_03/begin/WithTwoFunctionHBD.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 4/04_03/begin/WithTwoFunctionHBDbyRef.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 4/04_03/end/WithTwoFunctionHBD.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 4/04_03/end/WithTwoFunctionHBDbyRef.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 4/04_03/end/WithTwoFunctionHBDbyRef.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 4/04_04/begin/WithFunctionHBD.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 4/04_04/end/WithFunctionHBD.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 4/04_05/begin/chips04_05_begin.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 4/04_05/end/chips04_05_end.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 4/chap04Challenge.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 4/chap04Solution.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 4/chap04Solution.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 5/05_01/begin/ReadFile.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 5/05_01/begin/passphrase.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 5/05_01/end/ReadFile.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 5/05_01/end/ReadFile.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 5/05_01/end/passphrase.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 5/05_02/begin/WriteFile.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 5/05_02/begin/passphrase.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 5/05_02/end/NewPassPhrase.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 5/05_02/end/WriteFile.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 5/05_02/end/WriteFile.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 5/05_02/end/passphrase.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 5/Winners.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 5/chap05Challenge.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 5/chap05Solution.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 5/chap05Solution.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 6/06_01/begin/structExample.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 6/06_01/begin/structExample.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 6/06_01/end/structExample.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 6/06_02/begin/ClassExample.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 6/06_02/begin/ClassExample.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 6/06_02/end/ClassExample.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 6/06_02/end/ClassExample.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 6/06_03/begin/pointers.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 6/06_03/end/pointers.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 6/06_03/end/pointers.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 6/06_04/begin/LinkedList.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 6/06_04/end/LinkedList.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 6/06_04/end/LinkedList.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 6/Winners.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 6/chap06Challenge.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 6/chap06Solution.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/Ex_Files_Learning_C_Plus_Plus/Exercise Files/Chapter 6/chap06Solution.exe" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cpp_linkedin/first.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bitwise" beforeDir="false" afterPath="$PROJECT_DIR$/bitwise" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gutentag" beforeDir="false" afterPath="$PROJECT_DIR$/gutentag" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/helloworld/build/default/CMakeFiles/3.18.1/CMakeDetermineCompilerABI_C.bin" beforeDir="false" afterPath="$PROJECT_DIR$/helloworld/build/default/CMakeFiles/3.18.1/CMakeDetermineCompilerABI_C.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/helloworld/build/default/CMakeFiles/3.18.1/CMakeDetermineCompilerABI_CXX.bin" beforeDir="false" afterPath="$PROJECT_DIR$/helloworld/build/default/CMakeFiles/3.18.1/CMakeDetermineCompilerABI_CXX.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/helloworld/build/default/CMakeFiles/3.18.1/CompilerIdC/a.out" beforeDir="false" afterPath="$PROJECT_DIR$/helloworld/build/default/CMakeFiles/3.18.1/CompilerIdC/a.out" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/helloworld/build/default/CMakeFiles/3.18.1/CompilerIdCXX/a.out" beforeDir="false" afterPath="$PROJECT_DIR$/helloworld/build/default/CMakeFiles/3.18.1/CompilerIdCXX/a.out" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/helloworld/build/default/helloworld" beforeDir="false" afterPath="$PROJECT_DIR$/helloworld/build/default/helloworld" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/helloworld/cmake-build-debug/CMakeFiles/3.17.3/CMakeDetermineCompilerABI_C.bin" beforeDir="false" afterPath="$PROJECT_DIR$/helloworld/cmake-build-debug/CMakeFiles/3.17.3/CMakeDetermineCompilerABI_C.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/helloworld/cmake-build-debug/CMakeFiles/3.17.3/CMakeDetermineCompilerABI_CXX.bin" beforeDir="false" afterPath="$PROJECT_DIR$/helloworld/cmake-build-debug/CMakeFiles/3.17.3/CMakeDetermineCompilerABI_CXX.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/helloworld/cmake-build-debug/CMakeFiles/3.17.3/CompilerIdC/a.out" beforeDir="false" afterPath="$PROJECT_DIR$/helloworld/cmake-build-debug/CMakeFiles/3.17.3/CompilerIdC/a.out" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/helloworld/cmake-build-debug/CMakeFiles/3.17.3/CompilerIdCXX/a.out" beforeDir="false" afterPath="$PROJECT_DIR$/helloworld/cmake-build-debug/CMakeFiles/3.17.3/CompilerIdCXX/a.out" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/helloworld/cmake-build-debug/helloworld" beforeDir="false" afterPath="$PROJECT_DIR$/helloworld/cmake-build-debug/helloworld" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/uebungen_buch/EurUsd" beforeDir="false" afterPath="$PROJECT_DIR$/uebungen_buch/EurUsd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/uebungen_buch/NettoBrutto1" beforeDir="false" afterPath="$PROJECT_DIR$/uebungen_buch/NettoBrutto1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/uebungen_buch/Referenz" beforeDir="false" afterPath="$PROJECT_DIR$/uebungen_buch/Referenz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/uebungen_buch/temperatur" beforeDir="false" afterPath="$PROJECT_DIR$/uebungen_buch/temperatur" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Python/adventure/beta/dist/game" beforeDir="false" afterPath="$PROJECT_DIR$/../Python/adventure/beta/dist/game" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Python/adventure/beta/dist/run" beforeDir="false" afterPath="$PROJECT_DIR$/../Python/adventure/beta/dist/run" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Python/adventure/beta/future_implementations.md" beforeDir="false" afterPath="$PROJECT_DIR$/../Python/adventure/beta/future_implementations.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,21 +121,30 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="ProjectId" id="1g9RDpxDxi56a3tmh44Nxp62OJU" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="cf.first.check.clang-format" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../Privat/Bewerbungen/Allgemein" />
+    <property name="settings.editor.selected.configurable" value="CMakeSettings" />
   </component>
   <component name="RunManager">
-    <configuration name="helloworld" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="helloworld" TARGET_NAME="helloworld" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="helloworld" RUN_TARGET_NAME="helloworld">
+    <configuration name="helloworld" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" RUN_TARGET_PROJECT_NAME="helloworld" RUN_TARGET_NAME="helloworld" EXPLICIT_BUILD_TARGET_NAME="all">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
   </component>
@@ -72,11 +158,33 @@
       <updated>1597524705512</updated>
       <workItem from="1597524706541" duration="18000" />
       <workItem from="1599052213159" duration="42000" />
-      <workItem from="1599052282431" duration="610000" />
+      <workItem from="1599052282431" duration="2329000" />
+      <workItem from="1599062088417" duration="135000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="438" y="209" width="1084" height="734" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1599061895719">
+      <screen x="44" y="0" width="1876" height="1080" />
+    </state>
+    <state x="438" y="209" width="1084" height="734" key="#com.intellij.execution.impl.EditConfigurationsDialog/44.0.1876.1080@44.0.1876.1080" timestamp="1599061895719" />
+    <state x="1234" y="298" width="428" height="484" key="FileChooserDialogImpl" timestamp="1599062211703">
+      <screen x="44" y="0" width="1876" height="1080" />
+    </state>
+    <state x="1234" y="298" width="428" height="484" key="FileChooserDialogImpl/44.0.1876.1080@44.0.1876.1080" timestamp="1599062211703" />
+    <state x="1034" y="286" width="828" height="508" key="IDE.errors.dialog" timestamp="1599062050847">
+      <screen x="44" y="0" width="1876" height="1080" />
+    </state>
+    <state x="1034" y="286" width="828" height="508" key="IDE.errors.dialog/44.0.1876.1080@44.0.1876.1080" timestamp="1599062050847" />
+    <state x="898" y="151" key="SettingsEditor" timestamp="1599062159311">
+      <screen x="44" y="0" width="1876" height="1080" />
+    </state>
+    <state x="898" y="151" key="SettingsEditor/44.0.1876.1080@44.0.1876.1080" timestamp="1599062159311" />
   </component>
 </project>

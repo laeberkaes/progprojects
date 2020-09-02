@@ -9,6 +9,7 @@ TODO
 - Questen hinzufügen? In dem Zug dann auch noch eine Questübersicht
 - Magie Angriffe inkl. Status Effekt
 - Angriff verursacht keinen Schaden an der Rüstung.
+- Leben im Wald regenerieren?
 
 
 DONE

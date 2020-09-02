@@ -12,23 +12,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b1e08c3c-8e08-4e3b-8e22-57b26de0fdf1" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/helloworld/cmake-build-debug/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/helloworld/cmake-build-debug/CMakeCache.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/helloworld/cmake-build-debug/CMakeFiles/3.17.3/CMakeSystem.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/helloworld/cmake-build-debug/CMakeFiles/3.17.3/CMakeSystem.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/helloworld/cmake-build-debug/CMakeFiles/CMakeDirectoryInformation.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/helloworld/cmake-build-debug/CMakeFiles/CMakeDirectoryInformation.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/helloworld/cmake-build-debug/CMakeFiles/CMakeOutput.log" beforeDir="false" afterPath="$PROJECT_DIR$/helloworld/cmake-build-debug/CMakeFiles/CMakeOutput.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/helloworld/cmake-build-debug/CMakeFiles/Makefile.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/helloworld/cmake-build-debug/CMakeFiles/Makefile.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/helloworld/cmake-build-debug/CMakeFiles/Makefile2" beforeDir="false" afterPath="$PROJECT_DIR$/helloworld/cmake-build-debug/CMakeFiles/Makefile2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/helloworld/cmake-build-debug/CMakeFiles/TargetDirectories.txt" beforeDir="false" afterPath="$PROJECT_DIR$/helloworld/cmake-build-debug/CMakeFiles/TargetDirectories.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/helloworld/cmake-build-debug/CMakeFiles/clion-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/helloworld/cmake-build-debug/CMakeFiles/clion-log.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/helloworld/cmake-build-debug/CMakeFiles/helloworld.dir/CXX.includecache" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/helloworld/cmake-build-debug/CMakeFiles/helloworld.dir/DependInfo.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/helloworld/cmake-build-debug/CMakeFiles/helloworld.dir/DependInfo.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/helloworld/cmake-build-debug/CMakeFiles/helloworld.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/helloworld/cmake-build-debug/CMakeFiles/helloworld.dir/build.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/helloworld/cmake-build-debug/CMakeFiles/helloworld.dir/depend.internal" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/helloworld/cmake-build-debug/CMakeFiles/helloworld.dir/depend.make" beforeDir="false" afterPath="$PROJECT_DIR$/helloworld/cmake-build-debug/CMakeFiles/helloworld.dir/depend.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/helloworld/cmake-build-debug/CMakeFiles/helloworld.dir/helloworld.cpp.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/helloworld/cmake-build-debug/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/helloworld/cmake-build-debug/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/helloworld/cmake-build-debug/cmake_install.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/helloworld/cmake-build-debug/cmake_install.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/helloworld/cmake-build-debug/helloworld.cbp" beforeDir="false" afterPath="$PROJECT_DIR$/helloworld/cmake-build-debug/helloworld.cbp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bitwise" beforeDir="false" afterPath="$PROJECT_DIR$/bitwise" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gutentag" beforeDir="false" afterPath="$PROJECT_DIR$/gutentag" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/helloworld/build/default/CMakeFiles/3.18.1/CMakeDetermineCompilerABI_C.bin" beforeDir="false" afterPath="$PROJECT_DIR$/helloworld/build/default/CMakeFiles/3.18.1/CMakeDetermineCompilerABI_C.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/helloworld/build/default/CMakeFiles/3.18.1/CMakeDetermineCompilerABI_CXX.bin" beforeDir="false" afterPath="$PROJECT_DIR$/helloworld/build/default/CMakeFiles/3.18.1/CMakeDetermineCompilerABI_CXX.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/helloworld/build/default/CMakeFiles/3.18.1/CompilerIdC/a.out" beforeDir="false" afterPath="$PROJECT_DIR$/helloworld/build/default/CMakeFiles/3.18.1/CompilerIdC/a.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/helloworld/build/default/CMakeFiles/3.18.1/CompilerIdCXX/a.out" beforeDir="false" afterPath="$PROJECT_DIR$/helloworld/build/default/CMakeFiles/3.18.1/CompilerIdCXX/a.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/helloworld/build/default/helloworld" beforeDir="false" afterPath="$PROJECT_DIR$/helloworld/build/default/helloworld" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/helloworld/cmake-build-debug/CMakeFiles/3.17.3/CMakeDetermineCompilerABI_C.bin" beforeDir="false" afterPath="$PROJECT_DIR$/helloworld/cmake-build-debug/CMakeFiles/3.17.3/CMakeDetermineCompilerABI_C.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/helloworld/cmake-build-debug/CMakeFiles/3.17.3/CMakeDetermineCompilerABI_CXX.bin" beforeDir="false" afterPath="$PROJECT_DIR$/helloworld/cmake-build-debug/CMakeFiles/3.17.3/CMakeDetermineCompilerABI_CXX.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/helloworld/cmake-build-debug/CMakeFiles/3.17.3/CompilerIdC/a.out" beforeDir="false" afterPath="$PROJECT_DIR$/helloworld/cmake-build-debug/CMakeFiles/3.17.3/CompilerIdC/a.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/helloworld/cmake-build-debug/CMakeFiles/3.17.3/CompilerIdCXX/a.out" beforeDir="false" afterPath="$PROJECT_DIR$/helloworld/cmake-build-debug/CMakeFiles/3.17.3/CompilerIdCXX/a.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/helloworld/cmake-build-debug/helloworld" beforeDir="false" afterPath="$PROJECT_DIR$/helloworld/cmake-build-debug/helloworld" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uebungen_buch/EurUsd" beforeDir="false" afterPath="$PROJECT_DIR$/uebungen_buch/EurUsd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uebungen_buch/NettoBrutto1" beforeDir="false" afterPath="$PROJECT_DIR$/uebungen_buch/NettoBrutto1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uebungen_buch/Referenz" beforeDir="false" afterPath="$PROJECT_DIR$/uebungen_buch/Referenz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uebungen_buch/temperatur" beforeDir="false" afterPath="$PROJECT_DIR$/uebungen_buch/temperatur" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Python/adventure/beta/dist/game" beforeDir="false" afterPath="$PROJECT_DIR$/../Python/adventure/beta/dist/game" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Python/adventure/beta/dist/run" beforeDir="false" afterPath="$PROJECT_DIR$/../Python/adventure/beta/dist/run" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,7 +40,6 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
@@ -55,22 +56,13 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RunManager">
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="helloworld" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="helloworld" TARGET_NAME="helloworld" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="helloworld" RUN_TARGET_NAME="helloworld">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="b1e08c3c-8e08-4e3b-8e22-57b26de0fdf1" name="Default Changelist" comment="" />
@@ -79,7 +71,12 @@
       <option name="presentableId" value="Default" />
       <updated>1597524705512</updated>
       <workItem from="1597524706541" duration="18000" />
+      <workItem from="1599052213159" duration="42000" />
+      <workItem from="1599052282431" duration="610000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
 </project>

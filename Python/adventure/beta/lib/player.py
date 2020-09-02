@@ -6,6 +6,9 @@ from lib import game_object, npc
 
 
 class Player:
+    """
+    This is the player class. Possibility for multiplayer game.
+    """
     def __init__(self):
         self.name = ""
         self.play_class = ""
@@ -31,11 +34,17 @@ class Player:
         self.pos = (0.95, 0.05, 0)
 
     # HUD-Optionen --------------------------------------------------------
-    def health(self):
+    def health_mana(self):
+        """
+        This function shows the health and mana of the player.
+        """
         print("Your health: " + str(self.health_cur) + "/" + str(self.health_max) + " HP")
         print("Your mana: " + str(self.mp_cur_max[0]) + "/" + str(self.mp_cur_max[1]) + " MP")
         
     def print_inventory(self, interactive=False):
+        """
+        This function prints out the inventory of the player with weapons, armor, potions and miscellaneous.
+        """
         clear()
         print("#" * screen_width)
         print(
@@ -71,6 +80,9 @@ class Player:
             clear()
 
     def show_stats(self):
+        """
+        This function shows the stats of the player.
+        """
         clear()
         print("#" * screen_width)
         print("")
@@ -92,6 +104,9 @@ class Player:
         clear()
 
     def write_notebook(self):
+        """
+        This function gives the possibility to write into the notebook.
+        """
         clear()
         print("#" * screen_width)
         print("#" + " " * int((screen_width - len("NOTEBOOK")) / 2 - 1) + "NOTEBOOK" + " " * int(
@@ -114,6 +129,9 @@ class Player:
                     notebook.write(inp + "\n")
 
     def show_notebook(self):
+        """
+        Prints out the notebook of the player.
+        """
         clear()
         print("#" * screen_width)
         print("#" + " " * int((screen_width - len("NOTEBOOK")) / 2 - 1) + "NOTEBOOK" + " " * int(
@@ -126,22 +144,41 @@ class Player:
     # Loot-Optionen --------------------------------------------------------
 
     def get_gold(self, amount):
+        """
+        Used if the player gets some gold.
+        :param amount:
+        :return:
+        """
         self.gold += amount
         print("You found " + str(amount) + " gold.")
 
     def get_potion(self):
+        """
+        Used if the player gets a potion.
+        :return:
+        """
         self.potions += 1
         print("You find a potion.")
 
     def get_ep(self, amount):
+        """
+        Will give the player EP points (mostly after fight for now).
+        :param amount:
+        :return:
+        """
         self.ep += amount
         print("You get " + str(amount) + " experience.")
         if self.ep > 100:
             self.level_up()
 
     def level_up(self):
+        """
+        Used to level up. More health, more mana.
+        :return:
+        """
         self.level += 1
         self.health_max += 20
+        self.mp_cur_max[1] += 20
         self.ep -= 100
         self.pos = (
             self.pos[0] - (self.level * 0.05), self.pos[1] + (self.level * 0.1), self.pos[2] + (self.level * 0.05))
@@ -155,17 +192,33 @@ class Player:
 
     # Waffen-Optionen --------------------------------------------------------
     def get_weapon(self, weapon, p=True):
+        """
+        Used if the player gets a weapon.
+        :param weapon:
+        :param p:
+        :return:
+        """
         if p == True:
             print("You put " + weapon.name + " in your backpack.")
         self.inventory["weapons"].append(weapon)
 
     def drop_weapon(self, weapon):  # Future Feature
+        """
+        Drop a weapon.
+        :param weapon:
+        :return:
+        """
         for num,w in enumerate(self.inventory["weapons"]):
             if weapon.name == w.name and weapon.damage == w.damage and weapon.durability == w.durability and not w.equipped:
                 print("You dropped: " + w.name)
                 self.inventory["weapons"].pop(num)  # Problem: popped evtl. identische Waffen.
 
     def equip_weapon(self, weapon):
+        """
+        Will equip a weapon.
+        :param weapon:
+        :return:
+        """
         self.weapon.equipped = False
         self.weapon = weapon
         self.weapon.equipped = True
@@ -173,17 +226,33 @@ class Player:
 
     # Rüstungs-Optionen --------------------------------------------------------
     def get_armor(self, armor, p=True):
+        """
+        Used if the player get some armor.
+        :param armor:
+        :param p:
+        :return:
+        """
         if p == True:
             print("You put " + armor.name + " in your backpack.")
         self.inventory["armor"].append(armor)
 
     def drop_armor(self, armor):  # Future Feature
+        """
+        Drops armor.
+        :param armor:
+        :return:
+        """
         for num,a in enumerate(self.inventory["armor"]):
-            if armor.slot == a.slot and armor.name == a.name and armor.protection == a.protection and armor.durability == a.durability and not a.equipped:
+            if armor.slot == a.slot and armor.name == a.name and armor.protection == a.protection and armor.durability == a.durability:
                 print("You dropped: " + a.name)
                 self.inventory["armor"].pop(num)
 
     def equip_armor(self, armor):
+        """
+        Is used to equip armor or weapons.
+        :param armor:
+        :return:
+        """
         if armor.slot == "head":
             if self.head != "empty":  # unequip falls bereits vorhanden, sodass Rüstungswert sinkt.
                 self.armor -= self.head.protection
@@ -214,10 +283,21 @@ class Player:
             self.arm.equipped = True
 
     def use_potion(self):
+        """
+        Adds health and mana, if the player has potions left.
+        :return:
+        """
         if self.potions > 0:
+            # Adding health and mana
             self.health_cur += 25
+            self.mp_cur_max[0] += 25
+
+            # Check if the result is more than the max value
             if self.health_cur > self.health_max:
                 self.health_cur = self.health_max
+            if self.mp_cur_max[0] > self.mp_cur_max[1]:
+                self.mp_cur_max[0] = self.mp_cur_max[1]
+
             self.potions -= 1
             print("Ahhhh this feels good. You feel new power filling up your body. (HP +25)")
         else:
@@ -226,6 +306,11 @@ class Player:
         clear()
 
     def get_object(self, obj):
+        """
+        This adds an object to the inventory of the player.
+        :param obj:
+        :return:
+        """
         if obj not in self.inventory["misc"] and type(obj) == str:
             self.inventory["misc"][obj] = 1
         elif obj in self.inventory["misc"]:
@@ -237,6 +322,10 @@ class Player:
 
     # Interaktionen --------------------------------------------------------
     def fishing(self):
+        """
+        The player can go fishing in the water if he has a fishingrot. Adds fish to the inventory.
+        :return:
+        """
         if self.location in ["a4", "c1", "c2"] and "fishingrot" in self.inventory:
             p = random.random()
             if p > 0.95:
@@ -261,7 +350,11 @@ class Player:
         time.sleep(2)
         clear()
 
-    def getCorn(self):
+    def get_corn(self):
+        """
+        The player can get corn from the corn field. Adds corn to the inventory.
+        :return:
+        """
         if self.location == "d2":
             p = random.random()
             if p > 0.25:
@@ -279,6 +372,10 @@ class Player:
         clear()
 
     def hunting(self):
+        """
+        The player can hunt in the forest. This adds meat to the inventory.
+        :return:
+        """
         if self.location in ["b3", "b4", "c3"]:
             p = random.random()
             if p > 0.95:
@@ -300,12 +397,44 @@ class Player:
         time.sleep(2)
 
     def buy_equipment(self):
+        """
+        The player can sell and buy stuff.
+        :return:
+        """
         if self.location == "b1":
             npc.Blacksmith(self)
+        else:
+            print("You can not trade anything from this place.")
             
     def learn_spell(self):
+        """
+        Adds the possibility to learn spells from the magician.
+        :return:
+        """
         if self.location == "c4":
             npc.Magician(self)
+        else:
+            print("This is nothing you can do here.")
+
+    def rest(self):
+        """
+        This function can be used to let the player rest.
+        """
+        if self.location in ["c3", "b3", "b4"]:
+            print("You lay down on the warm ground and all your sorrows go away for some time. After your rest you "
+                  "feel refreshed. You gained 10 HP and 10 MP.\n Have a nice day, adventurer.")
+            # Increase health and mana
+            self.health_cur += 10
+            self.mp_cur_max[0] += 10
+
+            # check if result is more than max value
+            if self.health_cur > self.health_max:
+                self.health_cur = self.health_max
+
+            if self.mp_cur_max[0] > self.mp_cur_max[1]:
+                self.mp_cur_max[0] = self.mp_cur_max[1]
+
+
 
 # Hier wird dann ein neuer Spieler erzeugt, der von anderen Dateien importiert werden kann.
 myPlayer = Player()

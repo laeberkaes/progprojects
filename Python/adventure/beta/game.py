@@ -10,7 +10,6 @@ from lib.static import clear, screen_width, speech_manipulation
 from lib.npc import Bandit, Orc, Giant
 
 
-##### Title #####
 def title_screen_selections():
     option = input("> ")
     if option.lower() == "play":
@@ -75,7 +74,7 @@ def fight(player, enemy, zonemap):
     print("                 ")
     print("You fight against: " + enemy.name)
     enemy.health_print()
-    player.health()
+    player.health_mana()
     # Auswahl für Kampf --------------------------------------------------
     a = fight_options().lower()  # das geht sicher eleganter
     valid_options = ["attack", "heal", "magic", "flee", "show stats", "quit"]  # In den fight_options() immer ergänzen
@@ -109,12 +108,12 @@ def player_attack(player, enemy, zonemap):
         if player.weapon.durability[0] == 0:
             player.weapon.broken = True
             print("Your weapon broke! Repair it at a Blacksmith's.")
-        enemy.health -= player.weapon.damage
+        enemy.health_mana -= player.weapon.damage
     else:
         broken_damage = math.ceil(
             player.weapon.damage * 0.1)  # Immer aufgerundet (aka 1,2 wird 2), 10% Waffenschaden falls kaputt
         print("Your weapon is broken. You only do " + str(broken_damage) + " damage.")
-        enemy.health -= broken_damage
+        enemy.health_mana -= broken_damage
     print("enemy: " + random.choice(enemy.quip))
     check_victory(player, enemy, zonemap)
 
@@ -159,7 +158,7 @@ def use_magic(player, enemy, zonemap):
                 print("You cast " + cast_spell.name)
                 if cast_spell.damage > 0:  # Spell hat Sofort-Schaden
                     print("Your enemy takes " + str(cast_spell.damage) + " damage")
-                    enemy.health -= cast_spell.damage
+                    enemy.health_mana -= cast_spell.damage
                 if not enemy.active_effect:  # Noch kein Effekt vorhanden
                     if random.random() < cast_spell.status_chance:
                         print("Your enemy suffers from " + cast_spell.status_effect)
@@ -223,7 +222,7 @@ def activate_status_effect(player, enemy, zonemap):  # Es muss SICHER SEIN, dass
         if magic.status_damage > 0:  # Es ist ein Spell mit Schadenswirkung
             print(magic.status_description)
             print("Your enemy takes " + str(magic.status_damage) + " damage.")
-            enemy.health -= magic.status_damage
+            enemy.health_mana -= magic.status_damage
             if magic.status_duration < 0:
                 enemy.active_effect.clear()
             check_victory(player, enemy, zonemap)
@@ -257,7 +256,7 @@ def win_fight(player, enemy, zonemap):
 
 
 def check_victory(player, enemy, zonemap):
-    if enemy.health <= 0:
+    if enemy.health_mana <= 0:
         win_fight(player, enemy, zonemap)
     else:
         if enemy.active_effect and enemy.active_effect[0].spell_activated == False:
@@ -346,7 +345,7 @@ def prompt():
     elif action.lower() in ["hunting", "hunt"]:
         myPlayer.hunting()
     elif action.lower() in ["corn", "get corn", "harvest"]:
-        myPlayer.getCorn()
+        myPlayer.get_corn()
     elif action.lower() in ["heal", "healing", "potion", "use potion"]:
         myPlayer.use_potion()
     elif action.lower() in ["show inventory", "inventory"]:

@@ -437,6 +437,8 @@ class Player:
     def play_game(self):
         if self.location == "e4":
             npc.Trickster(self)
-
+        elif self.location == "a1":
+            npc.RPSMan(self)
+            
 # Hier wird dann ein neuer Spieler erzeugt, der von anderen Dateien importiert werden kann.
 myPlayer = Player()

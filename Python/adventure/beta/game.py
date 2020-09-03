@@ -4,6 +4,7 @@ import sys
 import time
 
 from lib import game_object
+from lib.ascii import print_warrior, print_mage, print_rogue
 from lib.map import zonemap, solved_places
 from lib.npc import Bandit, Orc, Giant
 from lib.player import myPlayer
@@ -489,15 +490,14 @@ def setup_game():
     clear()
 
     classes = ["warrior", "mage", "rogue"]
-    question2 = "What Class do you want to play? (Warrior, Mage, Rogue)\n"
+    question2 = "What Class do you want to play? ('Warrior', 'Mage', 'Rogue')\n"
     speech_manipulation(question2, 0.01)
     print("")
     player_class = input("> ").lower()
     print("")
     if player_class.lower() in classes:
         myPlayer.play_class = player_class
-        print("You are now a " + player_class)
-        time.sleep(1.5)
+        print("You are now a:")
     else:
         while player_class.lower() not in classes:
             print("No valid class.\n")
@@ -505,19 +505,24 @@ def setup_game():
         if player_class.lower() in classes:
             myPlayer.play_class = player_class
             print("You are now " + player_class)
-            time.sleep(1.5)
 
     if myPlayer.play_class == "warrior":
+        print_warrior()
+        time.sleep(2)
         myPlayer.health_max = 120
         myPlayer.health_cur = 120
         myPlayer.mp_cur_max.append(20)
         myPlayer.mp_cur_max.append(20)
     elif myPlayer.play_class == "mage":
+        print_mage()
+        time.sleep(2)
         myPlayer.health_max = 80
         myPlayer.health_cur = 80
         myPlayer.mp_cur_max.append(80)
         myPlayer.mp_cur_max.append(80)
     elif myPlayer.play_class == "rogue":
+        print_rogue()
+        time.sleep(2)
         myPlayer.health_max = 100
         myPlayer.health_cur = 100
         myPlayer.mp_cur_max.append(40)

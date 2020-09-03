@@ -250,7 +250,7 @@ zonemap = {
     },
     "e4": {
         "ZONENAME": "Forest Crossing",
-        "DESCRIPTION": "Two roads diverge in a yellow wood. Oh, someone is sitting by the road.",
+        "DESCRIPTION": "Two roads diverge in a yellow wood. Oh, a gambling man is sitting by the road.",
         "EXAMINATION": "Do you take the one less travelled by?",
         "SOLVED": False,
         "UP": "d4",

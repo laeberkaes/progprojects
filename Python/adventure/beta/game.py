@@ -489,7 +489,7 @@ def setup_game():
 
     clear()
 
-    classes = ["warrior", "mage", "rogue"]
+    classes = ["warrior", "mage", "rogue", "debug"]
     question2 = "What Class do you want to play? ('Warrior', 'Mage', 'Rogue')\n"
     speech_manipulation(question2, 0.01)
     print("")
@@ -527,7 +527,18 @@ def setup_game():
         myPlayer.health_cur = 100
         myPlayer.mp_cur_max.append(40)
         myPlayer.mp_cur_max.append(40)
-
+    elif myPlayer.play_class == "debug":
+        myPlayer.health_max = 1000
+        myPlayer.health_cur = 1000
+        myPlayer.mp_cur_max.append(400)
+        myPlayer.mp_cur_max.append(400)
+        myPlayer.level = 10
+        myPlayer.gold = 10000
+        for i in range(3):
+            myPlayer.spells.append(Spell(myPlayer))
+        myPlayer.weapon = game_object.Weapon(10)
+        print("Where to start? (a1, a2, etc.")
+        myPlayer.location = input("> ")
     # intro()
 
     clear()

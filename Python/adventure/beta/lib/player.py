@@ -18,7 +18,7 @@ class Player:
         self.ep = 0
         self.level = 1
         self.status_effects = []
-        self.location = "e4"
+        self.location = "b1"
         self.game_over = False
         self.weapon = game_object.Weapon(self.level)
         self.weapon.equipped = True

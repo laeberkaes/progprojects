@@ -1,7 +1,5 @@
-import random
 #import game.py
 import random
-screen_width = 60
 class Weapon():
     def __init__(self, level):
         adjective = ["Dirty", "Crooked", "Big", "Old", "Shiny", "Bloody", "Sharp"]

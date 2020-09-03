@@ -1,3 +1,6 @@
+from lib.static import screen_width
+
+
 def print_warrior():
     print("""
       __      _
@@ -83,3 +86,34 @@ j J         /-;-A'-'|'--'-j\\
 
         ~~ Rogue ~~
     """)
+
+
+def print_blacksmith():
+    print("#" * screen_width)
+    print(" " * int((screen_width - len("@xxxx[{::::::::::::::::::::::::::::::>")) / 2) + "     [" + " " * int(
+        (len("::::::::::::::::::::::::::::::") - len("Mr. & Mrs. Smith")) / 2) + "Mr. & Mrs. Smith\n" + " " * int((
+                                                                                                                              screen_width - len(
+                                                                                                                          "@xxxx[{::::::::::::::::::::::::::::::>")) / 2) + "@xxxx[{::::::::::::::::::::::::::::::>\n" + " " * int(
+        (screen_width - len("@xxxx[{::::::::::::::::::::::::::::::>")) / 2) + "     [", sep="\n")
+    print("#" * screen_width + "\n")
+
+
+def print_market():
+    print()
+    pass
+
+
+def print_corn():
+    pass
+
+
+def print_fish():
+    pass
+
+
+def print_meat():
+    pass
+
+
+def print_gems():
+    pass

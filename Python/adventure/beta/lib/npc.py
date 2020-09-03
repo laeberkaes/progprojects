@@ -1,6 +1,7 @@
 import random
 import time
 
+from lib.ascii import print_blacksmith
 from lib.game_object import Weapon, Armor
 from lib.static import screen_width, clear, speech_manipulation
 
@@ -48,15 +49,12 @@ class Giant(NPC):
 
 class Blacksmith():
     def __init__(self, player):
-        self.symbol = " " * int((screen_width - len("@xxxx[{::::::::::::::::::::::::::::::>")) / 2) + "     [" + " " * int((len("::::::::::::::::::::::::::::::") - len("Mr. & Mrs. Smith")) / 2) + "Mr. & Mrs. Smith\n" + " " * int((screen_width - len("@xxxx[{::::::::::::::::::::::::::::::>")) / 2) + "@xxxx[{::::::::::::::::::::::::::::::>\n" + " " * int((screen_width - len("@xxxx[{::::::::::::::::::::::::::::::>")) / 2) + "     ["
         self.greeting = ["Welcome, traveller. How may I help you?", "Hey! You. Get over here. How about a nice new sword for you?", "Oi! You have some coin to spend?"]
         self.inventory = []
         self.set_inventory(player)  # Auslage wird erstellt
         self.gold = random.randrange(150, 301)  # Gold für Ankäufe
         clear()
-        print("#" * screen_width)
-        print(self.symbol, sep="\n")
-        print("#" * screen_width + "\n")
+        print_blacksmith()
         print(random.choice(self.greeting))
         self.decision(player)  # Interaktion mit blacksmith wird gestartet
 

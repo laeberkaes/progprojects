@@ -523,3 +523,132 @@ class Trickster():
             print(ball_middle)
         elif x == 3:
             print(ball_right)
+
+class RPSMan():
+    def __init__(self,player):
+        self.setup(player)
+
+    def setup(self, player):
+        print("Hello there. Do you want to make some money?")
+        time.sleep(0.5)
+        speech_manipulation("How about a round of rock, paper, scissors?\n", 0.05)
+        a = str(input("> ")).lower()
+        while a not in ["yes", "no"]:
+            print("What did you say?")
+            a = str(input("> ")).lower()
+        if a == "yes":
+            clear()
+            speech_manipulation("Alright! Place your bet.\n", 0.05)
+            time.sleep(0.3)
+            speech_manipulation("How much do you want to play for? If you win, I'll double it.\n", 0.05)
+            amount = input("> ")
+            while not all([c in "0123456789" for c in amount]):
+                speech_manipulation("You should give me an amount of gold you want to bet?\n", 0.05)
+                amount = input("> ")
+            amount = int(amount)
+            if amount > 0:
+                if amount > player.gold:
+                    print("Sorry mate, you don't have the bank for that.")
+                else:
+                    speech_manipulation("Alright.",0.05)
+                    win = self.play_rps()
+                    if win == 1:
+                        speech_manipulation("You won! Not bad.\n",0.05)
+                        time.sleep(0.5)
+                        print("Here is your reward!")
+                        speech_manipulation("You earn " + str(amount) + " Gold.",0.05)
+                        player.gold += amount
+                        time.sleep(2)
+                    elif win == 2:
+                        speech_manipulation("Oh. A tie.\n", 0.05)
+                        print("Well, no luck for both of us.")
+                        time.sleep(2)
+                    else:
+                        speech_manipulation("You lose... Better luck next time!\n", 0.05)
+                        time.sleep(0.5)
+                        print("Pay your bet!")
+                        player.gold -= amount
+                        time.sleep(2)
+            else:
+                print("Try again...")
+
+
+    def play_rps(self):
+        rock_left = """    _______
+---'   ____)
+      (_____)
+      (_____)
+      (____)
+---.__(___)
+        """
+        rock_right = """  _______
+ (____   '---
+(_____)
+(_____)
+ (____)
+  (___)__.---
+"""
+        paper_left = """    _______
+---'   ____)____
+          ______)
+          _______)
+         _______)
+---.__________)"""
+        paper_right = """       _______
+  ____(____   '---
+ (______
+(_______
+ (_______
+   (__________.---"""
+        scissors_left = """    _______
+---'   ____)____
+          ______)
+       __________)
+      (____)
+---.__(___)"""
+        scissors_right = """       _______
+  ____(____   '---
+ (______
+(__________
+      (____)
+       (___)__.---"""
+        clear()
+        print("Choose your symbol: (rock, paper, scissors)")
+        choice = str(input("> ")).lower()
+        while choice not in ["rock", "paper", "scissors"]:
+            print("Choose a valid answer.")
+            choice = str(input("> ")).lower()
+        print("ROCK")
+        time.sleep(0.8)
+        print("PAPER")
+        time.sleep(0.8)
+        print("SCISSORS")
+        time.sleep(0.8)
+        clear()
+        own_choice = random.choice(["rock", "paper", "scissors"])
+        print("Your choice:                              Opponent's choice:")
+        print("    "+choice+"                                   "+own_choice)
+        if choice == "rock":
+            print(rock_left)
+        elif choice == "paper":
+            print(paper_left)
+        else:
+            print(scissors_left)
+        if own_choice == "rock":
+            print(rock_right)
+        elif own_choice == "paper":
+            print(paper_right)
+        else:
+            print(scissors_right)
+        winning_combinations = [("rock", "scissors"),("scissors", "paper"), ("paper", "rock")]
+        losing_combinations = [("rock", "paper"), ("paper", "scissors"), ("scissors", "rock")]
+        tie_combinations = [("scissors", "scissors"), ("rock", "rock"), ("paper", "paper")]
+        for combination in winning_combinations:
+            if combination[0] == choice and combination[1] == own_choice:
+                return 1
+        for combination in losing_combinations:
+            if combination[0] == choice and combination[1] == own_choice:
+                return 0
+        for combination in tie_combinations:
+            if combination[0] == choice and combination[1] == own_choice:
+                return 2

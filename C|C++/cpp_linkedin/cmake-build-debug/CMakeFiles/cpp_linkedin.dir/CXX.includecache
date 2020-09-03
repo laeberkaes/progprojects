@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/fuchur/Documents/Hochschule/HS-AlbSig/progprojects/C|C++/cpp_linkedin/main.cpp
+iostream
+-
+ctime
+-
+cstdlib
+-
+

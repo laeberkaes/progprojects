@@ -2,7 +2,7 @@ import random
 import time
 
 from lib.game_object import Weapon, Armor
-from lib.static import screen_width, clear
+from lib.static import screen_width, clear, speech_manipulation
 
 
 class NPC:
@@ -408,42 +408,47 @@ class Trickster():
         self.setup_game(player)
 
     def setup_game(self, player):
-        print("Hello stranger. Care for a round of the shell game?")
+        speech_manipulation("Hello stranger. Care for a round of the shell game?\n", 0.05)
         time.sleep(0.3)
-        print("The rules are simple. One ball, three cups. You tell me where the ball is and I pay you money.")
+        speech_manipulation(
+            "The rules are simple. One ball, three cups. You tell me where the ball is and I pay you money.\n", 0.05)
         time.sleep(0.3)
-        print("If you lose, you pay me.")
+        speech_manipulation("If you lose, you pay me.\n", 0.05)
         time.sleep(0.3)
-        print("Do you want to play?")
+        speech_manipulation("Do you want to play?\n", 0.05)
         a = str(input("> ")).lower()
-        if a == "yes":
-            print("Alright! Place your bet.")
+        if a in ["yes", "y"]:
+            speech_manipulation("Alright! Place your bet.\n", 0.05)
             time.sleep(0.3)
-            print("How much do you want to play for? If you win, I'll double it.")
-            x = input("> ")
-            try:
-                amount = int(x)
-            except ValueError:
-                print("Tell me, how much money do you want to bet?")
+            speech_manipulation("How much do you want to play for? If you win, I'll double it.\n", 0.05)
+            amount = input("> ")
+            while not all([c in "0123456789" for c in amount]):
+                speech_manipulation("You should give me an amount of gold you want to bet?\n", 0.05)
+                amount = input("> ")
+            # try:
+            #     amount = int(input("> "))
+            # except ValueError:
+            #     print("Tell me, how much money do you want to bet?")
+            amount = int(amount)
             if amount > 0:
                 if amount > player.gold:
-                    print("Sorry, your coin purse seems a little light for such a bet.")
+                    speech_manipulation("Sorry, your coin purse seems a little light for such a bet.\n", 0.05)
                     time.sleep(1)
                 else:
-                    print("Okay, here we go.")
+                    speech_manipulation("Okay, here we go.\n", 0.05)
                     win = self.play_game(player)
                     if win > 0:
                         player.gold += amount
-                        print("You get " + str(amount)+" gold from me. Be sure to play again.")
+                        speech_manipulation("You get " + str(amount) + " gold from me. Be sure to play again.\n", 0.05)
                         time.sleep(2)
                     else:
                         player.gold -= amount
-                        print("Thanks for the money, sucker!")
+                        speech_manipulation("Thanks for the money, sucker!\n", 0.05)
                         time.sleep(2)
             else:
-                print("Not funny.")
+                speech_manipulation("Not funny.\n", 0.05)
         else:
-            print("Really? Well then... See you around.")
+            speech_manipulation("Really? Well then... See you around.\n", 0.05)
 
     def play_game(self, player):
         print("Watch the ball!")

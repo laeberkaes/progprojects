@@ -1,8 +1,8 @@
 import random
 import time
 
-from lib.static import screen_width, clear, speech_manipulation
 from lib import game_object, npc
+from lib.static import screen_width, clear, speech_manipulation
 
 
 class Player:
@@ -18,7 +18,7 @@ class Player:
         self.ep = 0
         self.level = 1
         self.status_effects = []
-        self.location = "b2"
+        self.location = "e4"
         self.game_over = False
         self.weapon = game_object.Weapon(self.level)
         self.weapon.equipped = True

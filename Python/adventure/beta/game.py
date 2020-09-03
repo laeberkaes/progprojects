@@ -401,7 +401,7 @@ def player_move():
 def movement(destination):
     myPlayer.location = destination
     print("You have moved to the " + zonemap[myPlayer.location]["ZONENAME"] + ".")
-    time.sleep(3)
+    time.sleep(2)
     clear()
 
 

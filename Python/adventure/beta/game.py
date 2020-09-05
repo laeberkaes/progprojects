@@ -9,7 +9,7 @@ from lib.map import zonemap, solved_places
 from lib.npc import Bandit, Orc, Giant
 from lib.player import myPlayer
 from lib.static import clear, screen_width, speech_manipulation
-
+from lib import room1
 
 def title_screen_selections():
     option = input("> ")

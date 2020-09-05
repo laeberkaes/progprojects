@@ -1,4 +1,4 @@
-from static import screen_width, clear, speech_manipulation, confirmation
+from lib.static import screen_width, clear, speech_manipulation, confirmation
 import random
 import time
 class P():

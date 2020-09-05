@@ -3,6 +3,7 @@ import time
 
 from lib import game_object, npc
 from lib.static import screen_width, clear, speech_manipulation
+from lib import room1
 
 
 class Player:
@@ -439,6 +440,9 @@ class Player:
             npc.Trickster(self)
         elif self.location == "a1":
             npc.RPSMan(self)
+    def escape_room(self):
+        if self.location == "a2":
+            room1.Room1(self)
             
 # Hier wird dann ein neuer Spieler erzeugt, der von anderen Dateien importiert werden kann.
 myPlayer = Player()

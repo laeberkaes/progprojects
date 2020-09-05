@@ -34,8 +34,7 @@ zonemap = {
     "a2": {
         "ZONENAME": "Towngate",
         "DESCRIPTION": "This is the gate of your hometown.",
-        "EXAMINATION": "The gate is locked at night. You have to be nice to the guardsmen, if you try to enter at "
-                       "night.",
+        "EXAMINATION": "The gate is locked at night. There is a sad man sitting by the gate.",
         "SOLVED": False,
         "UP": "",
         "DOWN": "b2",

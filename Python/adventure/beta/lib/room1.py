@@ -267,5 +267,5 @@ class Book():
     def turn(self,room):
         print("You turn around the book but it has nothing interesting on its back.")
 
-p = P()
-Room1 = Room1(p)
+#p = P()
+#Room1 = Room1(p)

@@ -6,7 +6,7 @@ import time
 from lib import game_object
 from lib.ascii import print_warrior, print_mage, print_rogue
 from lib.map import zonemap, solved_places
-from lib.npc import Bandit, Orc, Giant
+from lib.npc import Bandit, Orc, Giant, Spell
 from lib.player import myPlayer
 from lib.static import clear, screen_width, speech_manipulation
 from lib import room1

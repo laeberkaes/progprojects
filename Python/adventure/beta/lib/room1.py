@@ -224,7 +224,7 @@ class Door():
     def examine(self, room):
         print("A scratched metal door with a combination look. You need three digits to open it.")
     def open(self, room):
-        if room.clues_found <= 4:
+        if room.clues_found >= 4:
             print("If you know the combination, try it now:")
             ant = str(input("> ")).lower()
             if ant == self.combination:

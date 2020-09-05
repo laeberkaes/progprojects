@@ -333,7 +333,7 @@ def prompt():
     acceptable_locations = ["move", "go", "travel", "walk", "quit", "examine", "inspect", "interact", "look", "hunting",
                             "hunt", "fishing", "fish", "corn", "get corn", "harvest", "heal", "healing", "potion",
                             "use potion", "show inventory", "inventory", "show stats", "stats", "buy", "sell", "repair",
-                            "blacksmith", "knock", "magic", "learn", "spell", "rest", "play"]
+                            "blacksmith", "knock", "magic", "learn", "spell", "rest", "play", "talk"]
 
     while action.lower() not in acceptable_locations:
         print("Unknown action. Try again. (move, examine, quit)")
@@ -365,6 +365,8 @@ def prompt():
         myPlayer.rest()
     elif action.lower() == "play":
         myPlayer.play_game()
+    elif action.lower() == "talk":
+        myPlayer.escape_room()
 
 def player_move():
     dest = input("Where do you like to move to? ('up', 'down', 'left', 'right')\n> ")

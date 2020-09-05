@@ -7,8 +7,8 @@ class P():
         self.location = "a2"
 class Room1():
     def __init__(self, player):
-        #self.intro(player)
-        #self.story_setup()
+        self.intro(player)
+        self.story_setup()
         self.solved = False
         self.clues_found = 0
         self.found_objects = []

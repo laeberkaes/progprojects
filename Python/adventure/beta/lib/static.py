@@ -24,3 +24,5 @@ def speech_manipulation(text, speed):
         sys.stdout.write(char)
         sys.stdout.flush()
         time.sleep(speed)
+def confirmation():
+    input("Press ENTER to continue.")

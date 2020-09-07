@@ -1,24 +1,29 @@
 class Quest():
-    def __init__(self):
-        self.quest_name = "Example-Quest"
-        self.quest_description = "Go X, do Y."
+    def __init__(self, name, , description, goals=1, gold = 0, ep=0, potion=0, origin = "b2", equipment = ...):
+        self.quest_name = name
+        self.quest_description = description
         self.tag = [", active", ", done"]
         self.quest_solved = False
-        self.quest_goals = 2 #Falls 2 objectives erf¸llt werden m¸ssen.
-        self.quest_gold_reward = 100
-        self.quest_ep_reward = 100
-        self.quest_potion_reward = 1 #man weiﬂ ja nie, ob man sowas mal braucht
-        self.quest_origin = "b1" #location quest giver
-        self.quest_equipment_reward = ... #Spell / Armor / Weapon Objekte
+        self.quest_goals = goals #Falls 2 objectives erf√ºllt werden m√ºssen.
+        self.quest_gold_reward = gold
+        self.quest_ep_reward = ep
+        self.quest_potion_reward = potion #man wei√ü ja nie, ob man sowas mal braucht
+        self.quest_origin = origin #location quest giver
+        self.quest_equipment_reward = equipment #Spell / Armor / Weapon Objekte
+        self.quest_steps = [" "]
+        self.quest_active_step = 0 # +1 f√ºr jedes self.quest_goals, dazu ein Step als Text
 
     def show_quest(self):
         if self.quest_solved:
             print(self.quest_name + self.tag[1])
+            print("Return with your quest to get your reward.")
         else:
             print(self.quest_name + self.tag[0])
-        
+            print(self.quest_steps[self.quest_active_step])
+            
     def achieve_goal(self):
         self.quest_goals -= 1
+        self.quest_active_step += 1
         if self.quest_goals <= 0:
             self.quest_solved = True
     
@@ -28,7 +33,7 @@ class Quest():
             print("You were rewarded with " + str(self.quest_gold_reward)+" Gold.")
         if self.quest_ep_reward > 0:
             player.get_ep(self.quest_ep_reward)
-        if self.quest_potion_reward > 0: #setup f¸r max 1 potoin als reward
+        if self.quest_potion_reward > 0:
             if self.quest_potion_reward == 1:
                 print("You got a potion.")
             else:

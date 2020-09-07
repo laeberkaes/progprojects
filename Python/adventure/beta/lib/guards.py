@@ -1,4 +1,5 @@
 import random
+import time
 
 from lib.fight import fight_setup
 from lib.static import speech_manipulation
@@ -93,6 +94,8 @@ class BridgeGuard:
 
         answ = input("> ")
         if answ.lower() != riddle[1]:
+            speech_manipulation("Maybe you're better with your sword than with your mind.", 0.05)
+            time.sleep(.5)
             fight_setup(player, [1, 0, 0])
         else:
             speech_manipulation("I knew you are clever. So have a good day on your journey.", 0.05)

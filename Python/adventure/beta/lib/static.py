@@ -26,3 +26,10 @@ def speech_manipulation(text, speed):
         time.sleep(speed)
 def confirmation():
     input("Press ENTER to continue.")
+
+def title(name: str):
+    clear()
+    print("#" * screen_width)
+    print("#" + " " * int((screen_width - len(name)) / 2 - 1) + name + " " * int(
+        (screen_width - len(name)) / 2 - 1) + "#")
+    print("#" * screen_width+ "\n")

@@ -2,7 +2,7 @@ import random
 import time
 
 from lib import game_object, npc
-from lib.static import screen_width, clear, speech_manipulation
+from lib.static import screen_width, clear, speech_manipulation, title, confirmation
 from lib import room1
 
 
@@ -19,7 +19,8 @@ class Player:
         self.ep = 0
         self.level = 1
         self.status_effects = []
-        self.location = "b1"
+        self.location = "a2"
+        self.direction = ""
         self.game_over = False
         self.weapon = game_object.Weapon(self.level)
         self.weapon.equipped = True
@@ -33,6 +34,7 @@ class Player:
         self.leg = "empty"
         self.armor = 0
         self.pos = (0.95, 0.05, 0)
+        self.quests = []
 
     # HUD-Optionen --------------------------------------------------------
     def health_mana(self):
@@ -104,16 +106,22 @@ class Player:
         input()
         clear()
 
+    def show_quests(self):
+        """
+        This function shows the active quests of the player.
+        """
+        title("Quests")
+        for quest in self.quests:
+            if not quest.sovled:
+                print(" " * 6 + quest.name)
+        confirmation()
+
     def write_notebook(self):
         """
         This function gives the possibility to write into the notebook.
         """
-        clear()
-        print("#" * screen_width)
-        print("#" + " " * int((screen_width - len("NOTEBOOK")) / 2 - 1) + "NOTEBOOK" + " " * int(
-            (screen_width - len("NOTEBOOK")) / 2 - 1) + "#")
-        print("#" * screen_width)
-        print("\nYou can escape the notebook with writing 'END' in the last line.")
+        title("NOTEBOOK")
+        print("You can escape the notebook with writing 'END' in the last line.")
         print("\nOlder Entries:\n")
         with open("../notebook.txt", "r") as notebook:
             for line in notebook.readlines():

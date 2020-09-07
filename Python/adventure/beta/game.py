@@ -333,7 +333,7 @@ def prompt():
     acceptable_locations = ["move", "go", "travel", "walk", "quit", "examine", "inspect", "interact", "look", "hunting",
                             "hunt", "fishing", "fish", "corn", "get corn", "harvest", "heal", "healing", "potion",
                             "use potion", "show inventory", "inventory", "show stats", "stats", "buy", "sell", "repair",
-                            "blacksmith", "knock", "magic", "learn", "spell", "rest", "play", "talk"]
+                            "blacksmith", "knock", "magic", "learn", "spell", "rest", "play", "talk", "quests", "quest"]
 
     while action.lower() not in acceptable_locations:
         print("Unknown action. Try again. (move, examine, quit)")
@@ -367,6 +367,8 @@ def prompt():
         myPlayer.play_game()
     elif action.lower() == "talk":
         myPlayer.escape_room()
+    elif action.lower() in ["quests", "quest"]:
+        myPlayer.show_quests()
 
 def player_move():
     dest = input("Where do you like to move to? ('up', 'down', 'left', 'right')\n> ")
@@ -378,30 +380,48 @@ def player_move():
     if dest.lower() == "up":
         if zonemap[myPlayer.location]["UP"] != "":
             destination = zonemap[myPlayer.location]["UP"]
+            myPlayer.direction = dest.lower()
             movement(destination)
         else:
             stay(dest)
     elif dest.lower() == "down":
         if zonemap[myPlayer.location]["DOWN"] != "":
             destination = zonemap[myPlayer.location]["DOWN"]
+            myPlayer.direction = dest.lower()
             movement(destination)
         else:
             stay(dest)
     elif dest.lower() == "right":
         if zonemap[myPlayer.location]["RIGHT"] != "":
             destination = zonemap[myPlayer.location]["RIGHT"]
+            myPlayer.direction = dest.lower()
             movement(destination)
         else:
             stay(dest)
     elif dest.lower() == "left":
         if zonemap[myPlayer.location]["LEFT"] != "":
             destination = zonemap[myPlayer.location]["LEFT"]
+            myPlayer.direction = dest.lower()
             movement(destination)
         else:
             stay(dest)
 
 
 def movement(destination):
+    if myPlayer.location == "b1" and destination == "c1":
+        print("Do you want do 'swim' over the river or go over the the bridge in the west?")
+        answer = input("> ")
+        if answer == "swim":
+            if random.random() < 0.2:
+                print("Unfortunately you get attacked by a snake.")
+                print("You get " + str(random.random() * 10) + " damage.")
+                myPlayer.health_cur -= 10
+                if myPlayer.health_cur < 0:
+                    print("You died.")
+                    time.sleep(2)
+                    game_over()
+    if myPlayer == "b2" and destination == "c2":
+        pass
     myPlayer.location = destination
     print("You have moved to the " + zonemap[myPlayer.location]["ZONENAME"] + ".")
     time.sleep(2)

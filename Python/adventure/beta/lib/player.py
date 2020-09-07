@@ -2,8 +2,8 @@ import random
 import time
 
 from lib import game_object, npc
-from lib.static import screen_width, clear, speech_manipulation, title, confirmation
 from lib import room1
+from lib.static import screen_width, clear, speech_manipulation, title, confirmation
 
 
 class Player:
@@ -19,7 +19,7 @@ class Player:
         self.ep = 0
         self.level = 1
         self.status_effects = []
-        self.location = "a2"
+        self.location = "b2"
         self.direction = ""
         self.game_over = False
         self.weapon = game_object.Weapon(self.level)
@@ -35,6 +35,7 @@ class Player:
         self.armor = 0
         self.pos = (0.95, 0.05, 0)
         self.quests = []
+        self.friendly = 0.0
 
     # HUD-Optionen --------------------------------------------------------
     def health_mana(self):

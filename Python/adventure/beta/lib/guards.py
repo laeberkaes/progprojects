@@ -88,7 +88,7 @@ class BridgeGuard:
         And yet never grows?
         \n""", "mountain")]
 
-        speech_manipulation("What is this: \n")
+        speech_manipulation("What is this: \n", 0.05)
         riddle = random.choice(riddles)
         speech_manipulation(riddle[0], 0.04)
 

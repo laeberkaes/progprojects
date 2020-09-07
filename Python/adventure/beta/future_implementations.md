@@ -6,7 +6,7 @@ TODO
 - Mining in der Höhle einbinden. Nach Schätzen suchen in der Höhle einbinden.
 - NPC (außer Gegner)? (Händler, Farmer, Reisender, Waldläufer im Wald, Fischer, ... )
 - Questen hinzufügen? In dem Zug dann auch noch eine Questübersicht
-- Angriff verursacht keinen Schaden an der Rüstung.
+- Zauber wieder verkaufen (falls gleicher Zauber mit besseren Werten gefunden wird)
 
 
 DONE
@@ -26,3 +26,4 @@ DONE
 - ~~Leben im Wald regenerieren?~~
 - ~~Schmied Verkaufen Methode, Repair Methode~~
 - ~~Magie Angriffe inkl. Status Effekt~~
+- Angriff verursacht keinen Schaden an der Rüstung.

@@ -104,7 +104,11 @@ def print_market():
 
 
 def print_corn():
-    pass
+    print("""  _____
+ |/___\|
+ / : : \
+(       )
+ `-----'   """)
 
 
 def print_fish():

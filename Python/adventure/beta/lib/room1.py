@@ -105,7 +105,7 @@ class Room1:
             action = str(input("> ")).lower().split()
         if len(action) == 1 or len(action) > 2:
             if action[0] == "help":
-                print("Try one of the following actions with an object:")
+                print("Try ounfugne of the following actions with an object:")
                 s = ""
                 for act in acceptable_actions:
                     s += " " + act + " "

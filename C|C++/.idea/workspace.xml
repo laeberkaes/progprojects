@@ -30,19 +30,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b1e08c3c-8e08-4e3b-8e22-57b26de0fdf1" name="Default Changelist" comment="c uebungen">
-      <change afterPath="$PROJECT_DIR$/uebungen_buch/Alphabet" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uebungen_buch/Alphabet.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uebungen_buch/Drehen" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uebungen_buch/Drehen.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uebungen_buch/Format" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uebungen_buch/Format.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uebungen_buch/Rechner" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uebungen_buch/Rechner.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uebungen_buch/putchar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uebungen_buch/putchar.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="b1e08c3c-8e08-4e3b-8e22-57b26de0fdf1" name="Default Changelist" comment="c uebungen" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -74,9 +62,9 @@
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RunManager" selected="CMake Application.helloworld">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
     <configuration name="cpp_linkedin" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_linkedin" TARGET_NAME="cpp_linkedin" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_linkedin" RUN_TARGET_NAME="cpp_linkedin">
@@ -114,7 +102,7 @@
       <workItem from="1599823237982" duration="455000" />
       <workItem from="1599826570398" duration="7726000" />
       <workItem from="1599901481549" duration="5350000" />
-      <workItem from="1599909558620" duration="4558000" />
+      <workItem from="1599909558620" duration="4655000" />
     </task>
     <task id="LOCAL-00001" summary="c uebungen">
       <created>1599853025935</created>
@@ -123,7 +111,14 @@
       <option name="project" value="LOCAL" />
       <updated>1599853025935</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="c uebungen">
+      <created>1599914206009</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1599914206009</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -165,10 +160,10 @@
     </state>
     <state x="873" y="133" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1599851524837" />
     <state x="898" y="151" key="SettingsEditor/44.0.1876.1080@44.0.1876.1080" timestamp="1599062159311" />
-    <state x="552" y="223" width="802" height="517" key="Vcs.Push.Dialog.v2" timestamp="1599853103478">
+    <state x="551" y="205" width="802" height="517" key="Vcs.Push.Dialog.v2" timestamp="1599914209662">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="552" y="223" width="802" height="517" key="Vcs.Push.Dialog.v2/0.0.1920.1080@0.0.1920.1080" timestamp="1599853103478" />
+    <state x="551" y="205" width="802" height="517" key="Vcs.Push.Dialog.v2/0.0.1920.1080@0.0.1920.1080" timestamp="1599914209662" />
     <state x="263" y="437" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1599851452552">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>

@@ -7,7 +7,7 @@
 
 int main(void) {
     double op1, op2, erg;
-    char operator;
+    char operatorgithub;
     printf("Geben sie den ersten Operanten an: \n");
     scanf("%lf", &op1);
     printf("Geben sie den zweiten Operanten ein: \n");

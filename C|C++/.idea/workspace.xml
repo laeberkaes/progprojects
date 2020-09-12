@@ -30,20 +30,18 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b1e08c3c-8e08-4e3b-8e22-57b26de0fdf1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uebungen_buch/Lohn" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uebungen_buch/Lohn.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uebungen_buch/Tausch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uebungen_buch/Tausch.c" afterDir="false" />
+    <list default="true" id="b1e08c3c-8e08-4e3b-8e22-57b26de0fdf1" name="Default Changelist" comment="c uebungen">
+      <change afterPath="$PROJECT_DIR$/uebungen_buch/Alphabet" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uebungen_buch/Alphabet.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uebungen_buch/Drehen" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uebungen_buch/Drehen.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uebungen_buch/Format" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uebungen_buch/Format.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uebungen_buch/Rechner" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uebungen_buch/Rechner.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uebungen_buch/putchar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/uebungen_buch/putchar.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cpp_linkedin/cmake-build-debug/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cpp_linkedin/cmake-build-debug/CMakeCache.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cpp_linkedin/cmake-build-debug/CMakeFiles/Makefile.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cpp_linkedin/cmake-build-debug/CMakeFiles/Makefile.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cpp_linkedin/cmake-build-debug/CMakeFiles/Makefile2" beforeDir="false" afterPath="$PROJECT_DIR$/cpp_linkedin/cmake-build-debug/CMakeFiles/Makefile2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cpp_linkedin/cmake-build-debug/CMakeFiles/clion-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cpp_linkedin/cmake-build-debug/CMakeFiles/clion-log.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cpp_linkedin/cmake-build-debug/CMakeFiles/cpp_linkedin.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cpp_linkedin/cmake-build-debug/CMakeFiles/cpp_linkedin.dir/build.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cpp_linkedin/cmake-build-debug/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/cpp_linkedin/cmake-build-debug/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Python/adventure/beta/lib/room1.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Python/adventure/beta/lib/room1.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,8 +112,18 @@
       <workItem from="1599052282431" duration="2329000" />
       <workItem from="1599062088417" duration="135000" />
       <workItem from="1599823237982" duration="455000" />
-      <workItem from="1599826570398" duration="7594000" />
+      <workItem from="1599826570398" duration="7726000" />
+      <workItem from="1599901481549" duration="5350000" />
+      <workItem from="1599909558620" duration="4558000" />
     </task>
+    <task id="LOCAL-00001" summary="c uebungen">
+      <created>1599853025935</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1599853025935</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -131,9 +139,12 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="c uebungen" />
+    <option name="LAST_COMMIT_MESSAGE" value="c uebungen" />
   </component>
   <component name="WindowStateProjectService">
     <state x="438" y="209" width="1084" height="734" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1599061895719">
@@ -154,6 +165,10 @@
     </state>
     <state x="873" y="133" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1599851524837" />
     <state x="898" y="151" key="SettingsEditor/44.0.1876.1080@44.0.1876.1080" timestamp="1599062159311" />
+    <state x="552" y="223" width="802" height="517" key="Vcs.Push.Dialog.v2" timestamp="1599853103478">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="552" y="223" width="802" height="517" key="Vcs.Push.Dialog.v2/0.0.1920.1080@0.0.1920.1080" timestamp="1599853103478" />
     <state x="263" y="437" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1599851452552">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>

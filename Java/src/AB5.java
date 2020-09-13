@@ -46,4 +46,18 @@ public class AB5 {
             return oldest;
         }
     }
+
+    public static class Pupil extends Person {
+        int matr;
+        String school;
+
+        public Pupil(String ln, String fn, int ag, int s, int m, String sch) {
+            super(ln, fn, ag, s);
+            matr = m;
+            school = sch;
+
+        }
+    }
+
+    Pupil pup = new Pupil("Pan","Peter",19,158,123456,"Albstadt");
 }

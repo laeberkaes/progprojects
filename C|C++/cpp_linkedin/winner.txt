@@ -1,1 +1,2 @@
 The player peter has won after 3 turns.
+The player peter has won after 4 turns.

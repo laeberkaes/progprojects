@@ -3,11 +3,18 @@
 #include <cstdlib>
 #include <fstream>
 
-using namespace std; 
+using namespace std;
+
+struct Player
+{
+	string name;
+	int winCounter = 0;
+};
  
-string FindPlayerName(string names[], bool playerTurn);
-int askMove(bool player1Turn, int chipsInPile, string names[]);
-void getUserNames (string players[]);
+string FindPlayerName(Player names[], bool playerTurn);
+int askMove(bool player1Turn, int chipsInPile, Player names[]);
+void getUserNames (Player names[]);
+void addWin (Player names[], bool player1Turn);
 
 const float MAX_TURN = .5;
 const int MAX_CHIPS = 100;
@@ -26,7 +33,7 @@ int main()
     int chipsTaken = 0; 
 
     char userChoice;
-    string playerNames[2];
+    Player playerNames[2];
   
   //seed the random number generator
     srand(time(0));
@@ -61,6 +68,7 @@ int main()
 	    cout << winner << ", congratulations you won\n";
 		outStream << "The player " << winner << " has won after " << counter << " turns.\n";
 		counter = 0;
+		cout << "The winner is " << FindPlayerName(playerNames, player1Turn) << ", he/she won " << 
 	 }
  	}
   	cout << "Do you wish to play again? (Y/N)\n";
@@ -71,26 +79,28 @@ int main()
     return 0; 
 } 
 ////////////////////////////////////////////////////////////////////////////////////
-void getUserNames (string players[])
+void getUserNames (Player names[])
 {
-cout << "Player 1, please enter your name: ";
-  cin >> players[0];
-  cout << "\nThanks and good luck!" << endl;
-  cout << "Player 2, please enter your name \n (If you wish to play against the computer, enter AI): ";
-  cin >> players[1];
-  cout << "\nThanks and good luck! \n";
+	cout << "Player 1, please enter your name: ";
+	cin >> names[0].name;
+	cout << "\nThanks and good luck!" << endl;
+	cout << "Player 2, please enter your name \n (If you wish to play against the computer, enter AI): ";
+	cin >> names[1].name;
+	cout << "\nThanks and good luck! \n";
+	names[0].winCounter = 0;
+	names[1].winCounter = 0;
 }
 ////////////////////////////////////////////////////////////////
 
-string FindPlayerName(string names[], bool playerTurn)
+string FindPlayerName(Player names[], bool playerTurn)
 {
 	if (playerTurn == true)
-		return names[0];
+		return names[0].name;
 	else
-		return names[1];
+		return names[1].name;
 }
  ///////////////////////////////////////////////////////////////////////////////////
-int askMove(bool player1Turn, int chipsInPile, string names[])
+int askMove(bool player1Turn, int chipsInPile, Player names[])
 {
 	int chipsTaken;
 	int maxPerTurn = MAX_TURN * chipsInPile;
@@ -126,3 +136,14 @@ int askMove(bool player1Turn, int chipsInPile, string names[])
      return chipsTaken;
 }
 
+void addWin(Player names[], bool player1Turn)
+{
+	if (player1Turn)
+	{
+		names[0].winCounter++;
+	}
+	else
+	{
+		names[1].winCounter++;
+	}
+}

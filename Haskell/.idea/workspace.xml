@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="2c2b12b7-c50d-48a7-a271-a6e34e82f1ac" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../C|C++/cpp_linkedin/main" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../C|C++/cpp_linkedin/stack_game.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test.hs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../C|C++/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../C|C++/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../C|C++/cpp_linkedin/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../C|C++/cpp_linkedin/main.cpp" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="JupyterTrust" id="502a9e50-11f3-4c2f-b4e0-7d695d631f1e" />
+  <component name="ProjectId" id="1hk5c3bZ8Pdu1upahQPUga3qVeC" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="2c2b12b7-c50d-48a7-a271-a6e34e82f1ac" name="Default Changelist" comment="" />
+      <created>1600542325274</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1600542325274</updated>
+      <workItem from="1600542326579" duration="69000" />
+      <workItem from="1600543464920" duration="29000" />
+      <workItem from="1600543509562" duration="34000" />
+      <workItem from="1600544864005" duration="75000" />
+      <workItem from="1600544985362" duration="173000" />
+      <workItem from="1600545181897" duration="579000" />
+      <workItem from="1600546017819" duration="1161000" />
+      <workItem from="1600550378388" duration="2179000" />
+      <workItem from="1600591121093" duration="24000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="642" y="259" width="626" height="517" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1600543520433">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="642" y="259" width="626" height="517" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1600543520433" />
+    <state x="741" y="263" width="426" height="473" key="FileChooserDialogImpl" timestamp="1600545231337">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="741" y="263" width="426" height="473" key="FileChooserDialogImpl/0.0.1920.1080@0.0.1920.1080" timestamp="1600545231337" />
+    <state x="897" y="158" key="SettingsEditor" timestamp="1600545456693">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="897" y="158" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1600545456693" />
+  </component>
+</project>

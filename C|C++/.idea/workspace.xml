@@ -20,8 +20,8 @@
   </component>
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
     <generated>
-      <config projectName="cpp_linkedin" targetName="helloworld" />
       <config projectName="cpp_linkedin" targetName="cpp_linkedin" />
+      <config projectName="cpp_linkedin" targetName="helloworld" />
     </generated>
   </component>
   <component name="CMakeSettings">
@@ -30,7 +30,9 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b1e08c3c-8e08-4e3b-8e22-57b26de0fdf1" name="Default Changelist" comment="c uebungen" />
+    <list default="true" id="b1e08c3c-8e08-4e3b-8e22-57b26de0fdf1" name="Default Changelist" comment="c uebungen">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -39,7 +41,6 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
@@ -57,16 +58,11 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="cf.first.check.clang-format" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/cpp_linkedin/CMakeLists.txt" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RunManager" selected="CMake Application.helloworld">
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="cpp_linkedin" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="cpp_linkedin" TARGET_NAME="cpp_linkedin" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="cpp_linkedin" RUN_TARGET_NAME="cpp_linkedin">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -104,6 +100,7 @@
       <workItem from="1599901481549" duration="5350000" />
       <workItem from="1599909558620" duration="4655000" />
       <workItem from="1599938642253" duration="79000" />
+      <workItem from="1600941450318" duration="37000" />
     </task>
     <task id="LOCAL-00001" summary="c uebungen">
       <created>1599853025935</created>

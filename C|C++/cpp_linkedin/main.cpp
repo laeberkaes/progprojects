@@ -8,7 +8,7 @@ using namespace std;
 struct Player
 {
 	string name;
-	int winCounter = 0;
+	int winCounter;
 };
  
 string FindPlayerName(Player names[], bool playerTurn);
@@ -26,14 +26,13 @@ int main()
 	int counter = 0;
 
     bool player1Turn = true;  
-    
     bool gameOver = false;    
-    
     int chipsInPile = 0;  
     int chipsTaken = 0; 
 
     char userChoice;
     Player playerNames[2];
+	Player winner;
   
   //seed the random number generator
     srand(time(0));
@@ -49,7 +48,7 @@ int main()
 
   	cout << "This round will start with " << chipsInPile << " chips in the pile\n";
     gameOver = false;
-    while (gameOver == false)
+    while (!gameOver)
 	{
      chipsTaken = askMove(player1Turn, chipsInPile, playerNames);
 	 chipsInPile = chipsInPile - chipsTaken;
@@ -64,17 +63,30 @@ int main()
 	 if (chipsInPile == 0)
 	 {
 	 	gameOver = true;
-		string winner = FindPlayerName(playerNames, player1Turn);
-	    cout << winner << ", congratulations you won\n";
-		outStream << "The player " << winner << " has won after " << counter << " turns.\n";
+		
+		if (playerNames[0].name == FindPlayerName(playerNames, player1Turn))
+		{
+			winner = playerNames[0];
+		}
+		else
+		{
+			winner = playerNames[1];
+		}
+		
+	    cout << winner.name << ", congratulations you won\n";
+		outStream << "The player " << winner.name << " has won after " << counter << " turns.\n";
+		addWin(playerNames, player1Turn);
 		counter = 0;
-		cout << "The winner is " << FindPlayerName(playerNames, player1Turn) << ", he/she won " << 
 	 }
  	}
+
   	cout << "Do you wish to play again? (Y/N)\n";
     cin >> userChoice;
     userChoice = toupper(userChoice);
    }while ( userChoice == 'Y');
+    cout << playerNames[0].name << " won " << playerNames[0].winCounter << " times this round.\n";
+    cout << playerNames[1].name << " won " << playerNames[0].winCounter << " times this round.\n";
+
     outStream.close();
     return 0; 
 } 
@@ -87,14 +99,12 @@ void getUserNames (Player names[])
 	cout << "Player 2, please enter your name \n (If you wish to play against the computer, enter AI): ";
 	cin >> names[1].name;
 	cout << "\nThanks and good luck! \n";
-	names[0].winCounter = 0;
-	names[1].winCounter = 0;
 }
 ////////////////////////////////////////////////////////////////
 
 string FindPlayerName(Player names[], bool playerTurn)
 {
-	if (playerTurn == true)
+	if (playerTurn)
 		return names[0].name;
 	else
 		return names[1].name;
@@ -147,3 +157,4 @@ void addWin(Player names[], bool player1Turn)
 		names[1].winCounter++;
 	}
 }
+
